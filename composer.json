@@ -25,6 +25,8 @@
     "knplabs/knp-menu-bundle": "^2.2",
     "minishlink/web-push": "^4.0",
     "php-http/httplug-pack": "^1.1",
+    "phpmob/media-bundle": "^1.2@dev",
+    "phpmob/twig-modify-bundle": "^2.0",
     "ramsey/uuid": "^3.7",
     "richardfullmer/rabbitmq-management-api": "^2.0",
     "sly/notification-pusher": "^2.3",
