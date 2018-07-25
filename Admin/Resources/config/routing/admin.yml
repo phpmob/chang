@@ -1,0 +1,53 @@
+sylius_admin_user_index:
+    path: /admin-users
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.admin_user:indexAction
+        _sylius:
+            template: '@chang/crud/index.html.twig'
+            grid: admin_user_grid
+            vars:
+                icon: fas fa-users
+                quick_search: Search for admins ...
+
+sylius_admin_user_create:
+    path: /admin-users/create
+    methods: [ GET, POST ]
+    defaults:
+        _controller: sylius.controller.admin_user:createAction
+        _sylius:
+            form: Chang\Admin\Form\Type\AdminUserType
+            template: '@chang/crud/create.html.twig'
+            vars:
+                templates:
+                    form: '@AdminUser/form.html.twig'
+
+sylius_admin_user_update:
+    path: /admin-users/{id}/update
+    methods: [ GET, PATCH, PUT ]
+    defaults:
+        _controller: sylius.controller.admin_user:updateAction
+        _sylius:
+            form: Chang\Admin\Form\Type\AdminUserType
+            template: '@chang/crud/update.html.twig'
+            vars:
+                templates:
+                    form: '@AdminUser/form.html.twig'
+
+sylius_admin_user_delete:
+    path: /admin-users/{id}/delete
+    methods: [ DELETE ]
+    defaults:
+        _controller: sylius.controller.admin_user:deleteAction
+
+sylius_admin_user_toggle:
+    path: /admin-users/{id}/toggle
+    methods: [ PATCH ]
+    defaults:
+        _controller: sylius.controller.admin_user:updateAction
+        _sylius:
+            form:
+                type: Chang\Form\Type\ToggleResourceType
+                options:
+                    data_class: '%sylius.model.admin_user.class%'
+                    toggle: { '1': true, '0': false }

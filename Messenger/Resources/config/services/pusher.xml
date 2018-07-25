@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="chang.messenger.vapid.public_key">%env(CHANG_MSG_VAPID_PUBLIC_KEY)%</parameter>
+    </parameters>
+
+    <services>
+        <service id="chang.messenger.web_push_gen_key" class="Chang\Messenger\Pusher\WebPushGenerateKeysCommand">
+            <tag name="console.command"/>
+        </service>
+        <service id="chang.messenger.push_sender.default" class="Chang\Messenger\Pusher\Sender">
+            <argument type="service" id="chang.messenger.push_sender_registry"/>
+            <argument type="collection">
+                <argument key="message" type="collection">
+                    <argument key="defaultTitle">%env(CHANG_MSG_PUSHER_DEFAULT_TITLE)%</argument>
+                    <argument key="defaultMediaUrl">%env(CHANG_MSG_PUSHER_DEFAULT_MEDIA_URL)%</argument>
+                    <argument key="defaultActionUrl">%env(CHANG_MSG_PUSHER_DEFAULT_ACTION_URL)%</argument>
+                </argument>
+            </argument>
+        </service>
+        <service id="chang.messenger.push_sender_registry" class="Chang\Messenger\Pusher\SenderRegistry">
+            <call method="add">
+                <argument>web</argument>
+                <argument type="service">
+                    <service class="Chang\Messenger\Pusher\WebPushSender">
+                        <argument type="collection">
+                            <argument key="subject">%env(CHANG_MSG_VAPID_SUBJECT)%</argument>
+                            <argument key="publicKey">%env(CHANG_MSG_VAPID_PUBLIC_KEY)%</argument>
+                            <argument key="privateKey">%env(CHANG_MSG_VAPID_PRIVATE_KEY)%</argument>
+                        </argument>
+                    </service>
+                </argument>
+            </call>
+            <call method="add">
+                <argument>apn</argument>
+                <argument type="service">
+                    <service class="Chang\Messenger\Pusher\ApnSender">
+                        <argument>%env(resolve:CHANG_MSG_APN_CERTIFICATE_FILE)%</argument>
+                        <argument>%kernel.debug%</argument>
+                    </service>
+                </argument>
+            </call>
+            <call method="add">
+                <argument>gcm</argument>
+                <argument type="service">
+                    <service class="Chang\Messenger\Pusher\ApnSender">
+                        <argument>%env(CHANG_MSG_APN_CERTIFICATE_FILE)%</argument>
+                        <argument>%kernel.debug%</argument>
+                    </service>
+                </argument>
+            </call>
+        </service>
+    </services>
+</container>

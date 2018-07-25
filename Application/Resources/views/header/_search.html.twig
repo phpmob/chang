@@ -1,0 +1,24 @@
+{% set qs = quick_search(ctx_page.get('quick_search', [])) %}
+{% if qs.items|length %}
+    <div class="top-bar-item top-bar-item-full">
+        <form data-custom-submit class="top-bar-search" data-action="{{ qs.current.path }}" method="get">
+            <div class="input-group input-group-search">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    <small class="badge badge-primary dropdown-toggle" data-toggle="dropdown">
+                        {#<i class="{{ qs.current.icon }}"></i> #}{{ qs.current.label }}
+                    </small>
+                    <div class="dropdown-menu">
+                        {% for r in qs.items %}
+                            <button type="button" class="dropdown-item" data-search="{{ r|json_encode }}">
+                                <i class="{{ r.icon }}"></i> {{ r.label }}
+                            </button>
+                        {% endfor %}
+                    </div>
+                </div>
+                <input type="text" class="form-control" placeholder="{{ 'sylius.ui.search'|trans }}"
+                       value="{{ qs.current.value|default(ctx_page.get('page.quick_search')) }}">
+            </div>
+        </form>
+    </div>
+{% endif %}

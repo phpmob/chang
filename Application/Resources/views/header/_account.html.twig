@@ -1,0 +1,15 @@
+{% import '@chang/macro/img.html.twig' as img %}
+<button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown">
+    {% if app.user.picture %}
+        <span class="user-avatar">
+            <img src="{{- img.picture(app.user.picture, '32x32', true) -}}" alt="{{ app.user.displayName }}">
+        </span>
+    {% else %}
+        <i class="fas fa-user-circle fa-2x"></i>
+    {% endif %}
+    <span class="account-summary pr-lg-4 d-none d-lg-block">
+      <span class="account-name">{{ app.user.displayName }}</span>
+      <span class="account-description">{{ app.user.username }}</span>
+  </span>
+</button>
+<div class="dropdown-arrow dropdown-arrow-left"></div>

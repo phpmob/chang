@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="chang.messenger.worker_controller" class="Chang\Messenger\Worker\WorkerController" public="true">
+            <argument type="service" id="chang.messenger.worker_hash_handler"/>
+            <argument type="service" id="messenger.transport.decoder"/>
+        </service>
+        <service id="chang.messenger.worker_hash_handler" class="Chang\Messenger\Worker\HashHandler">
+            <argument type="service" id="chang.manager.hash_storage"/>
+            <argument type="service" id="chang.repository.hash_storage"/>
+            <argument>%env(SECRET)%</argument>
+        </service>
+    </services>
+</container>

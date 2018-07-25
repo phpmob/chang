@@ -1,0 +1,10 @@
+.input-group {
+  .custom-select {
+    border-top: none;
+    border-bottom: none;
+
+    &-sm {
+      background: none;
+    }
+  }
+}

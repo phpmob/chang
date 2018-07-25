@@ -1,0 +1,42 @@
+{% extends '@chang/crud/base.html.twig' %}
+{% import '@chang/macro/paginate.html.twig' as paginate %}
+
+{% do ctx_page.set('page.entry', ctx_page.get('page.entry', 'index')) %}
+{% do ctx_page.set('page.icon', ctx_page.get('page.icon', 'fas fa-file')) %}
+
+{% block page_title_bar %}{% endblock %}
+
+{% block content %}
+    <div class="card card-fluid x-grid">
+        <header class="card-header">
+            <div class="d-flex align-items-center">
+                <h5 class="card-title m-0">
+                    {% if icon %}
+                        <span class="card-header-icon"><i class="{{ icon }}"></i></span>
+                    {% endif %}
+                    {{ headline|trans|raw }}
+                </h5>
+                <div class="ml-auto">
+                    {% if resources.definition.enabledFilters|length > 0 %}
+                        <button type="button" class="btn btn-sm btn-outline-primary mr-1"
+                                data-toggle-display="[data-form-filter]">
+                            <i class="fas fa-filter"></i> {{ 'chang.ui.filter'|trans }}
+                        </button>
+                    {% endif %}
+                    {% if resources.definition.actionGroups.main is defined %}
+                        {% for action in resources.definition.getEnabledActions('main') %}
+                            {{ sylius_grid_render_action(resources, action, null) }}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+        {{ include('@chang/grid/filters.html.twig') }}
+        <div class="table-responsive">
+            {% include '@chang/grid/render.html.twig' %}
+        </div>
+        <div class="card-footer card-footer--paging">
+            {{ paginate.basic(resources.data) }}
+        </div>
+    </div>
+{% endblock %}

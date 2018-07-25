@@ -1,0 +1,12 @@
+chang:
+    form:
+        user:
+            username: Username
+            email: Email
+            password_first: Password
+            password_second: Confirm password
+        login:
+            username: Username
+            password: Password
+            remember_me: Remember?
+            submit: Sign In

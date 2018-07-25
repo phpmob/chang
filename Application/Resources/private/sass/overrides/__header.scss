@@ -1,0 +1,74 @@
+.top-bar-item {
+  .input-group-search {
+    background-color: rgba(#000, .2);
+
+    &:focus,
+    &.focus {
+      background-color: rgba(#000, .3);
+
+      .btn-outline-secondary,
+      .input-group-text,
+      .form-control {
+        color: $app-header-color;
+      }
+    }
+
+    &:not(.focus) {
+      .input-group-text,
+      .form-control,
+      .form-control::placeholder {
+        color: rgba($app-header-color, .5);
+      }
+    }
+
+    .input-group-text,
+    .form-control {
+      font-size: 1rem !important;
+    }
+
+    // dropdown
+    .btn-outline-secondary:not(:disabled):not(.disabled).active,
+    .btn-outline-secondary:not(:disabled):not(.disabled):active,
+    .show > .btn-outline-secondary.dropdown-toggle {
+      color: rgba($app-header-color, .7);
+    }
+    .btn-outline-secondary:not(:disabled):not(.disabled):active:focus,
+    .btn-outline-secondary:not(:disabled):not(.disabled).active:focus,
+    .show > .btn-outline-secondary.dropdown-toggle:focus {
+      box-shadow: none;
+    }
+    .btn-outline-secondary {
+      color: rgba($app-header-color, .5);
+      background: none;
+      border: none;
+      &:hover {
+        color: rgba($app-header-color, .7);
+        border: none;
+        background: none;
+      }
+    }
+    .input-group-append .badge,
+    .input-group-prepend .badge {
+      background: theme-color('primary');
+      color: #fff;
+      font-size: $badge-font-size;
+      cursor: default;
+    }
+  }
+}
+
+.top-bar-brand {
+  .aside-header & {
+    justify-content: center;
+
+    > a {
+      color: white;
+      font-size: x-large;
+      font-weight: bold;
+    }
+  }
+
+  .app.has-fullwidth & {
+    background-color: $app-header-bg;
+  }
+}

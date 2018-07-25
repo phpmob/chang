@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass name="Chang\Web\Model\Viewer" table="chang_web_msg_viewer">
+        <unique-constraints>
+            <unique-constraint columns="user_id,message_id"/>
+        </unique-constraints>
+        <many-to-one field="user" target-entity="Sylius\Component\User\Model\UserInterface">
+            <join-column on-delete="CASCADE"/>
+        </many-to-one>
+        <many-to-one field="message" target-entity="Chang\Web\Model\MessageInterface" inversed-by="viewers">
+            <join-column on-delete="CASCADE"/>
+        </many-to-one>
+    </mapped-superclass>
+</doctrine-mapping>

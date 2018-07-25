@@ -1,0 +1,9 @@
+.card {
+  &-footer {
+    &--paging {
+      padding: .8rem 1rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}

@@ -1,0 +1,53 @@
+sylius_web_user_index:
+    path: /web-users
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.web_user:indexAction
+        _sylius:
+            template: '@chang/crud/index.html.twig'
+            grid: web_user_grid
+            vars:
+                icon: fas fa-users
+                quick_search: Search for web users ...
+
+sylius_web_user_create:
+    path: /web-users/create
+    methods: [ GET, POST ]
+    defaults:
+        _controller: sylius.controller.web_user:createAction
+        _sylius:
+            form: Chang\Web\Form\Type\WebUserType
+            template: '@chang/crud/create.html.twig'
+            vars:
+                templates:
+                    form: '@WebUser/form.html.twig'
+
+sylius_web_user_update:
+    path: /web-users/{id}/update
+    methods: [ GET, PATCH, PUT ]
+    defaults:
+        _controller: sylius.controller.web_user:updateAction
+        _sylius:
+            form: Chang\Web\Form\Type\WebUserType
+            template: '@chang/crud/update.html.twig'
+            vars:
+                templates:
+                    form: '@WebUser/form.html.twig'
+
+sylius_web_user_delete:
+    path: /web-users/{id}/delete
+    methods: [ DELETE ]
+    defaults:
+        _controller: sylius.controller.web_user:deleteAction
+
+sylius_web_user_toggle:
+    path: /web-users/{id}/toggle
+    methods: [ PATCH ]
+    defaults:
+        _controller: sylius.controller.web_user:updateAction
+        _sylius:
+            form:
+                type: Chang\Admin\Form\Type\ToggleResourceType
+                options:
+                    data_class: '%sylius.model.web_user.class%'
+                    toggle: { '1': true, '0': false }

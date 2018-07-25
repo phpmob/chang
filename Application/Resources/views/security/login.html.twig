@@ -1,0 +1,25 @@
+{% form_theme form '@chang/form/theme.html.twig' %}
+<main class="auth">
+    {# logo here #}
+    <form class="auth-form" method="post" action="{{ path(login_check_route) }}">
+        {% if last_error %}
+            <div class="alert alert-danger">
+                {{ last_error.messageKey|trans(last_error.messageData, 'security') }}
+            </div>
+        {% endif %}
+
+        {{ form_row(form._username) }}
+        {{ form_row(form._password) }}
+        {{ form_row(form._remember_me) }}
+
+        <div class="form-group">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">
+                {{ 'chang.form.login.submit'|trans }}
+            </button>
+        </div>
+
+        {{ form_row(form._remember_me) }}
+        <input type="hidden" name="{{ csrf_parameter }}" value="{{ csrf_token(csrf_token_id) }}">
+    </form>
+    <footer class="auth-footer"> © 2018 All Rights Reserved.</footer>
+</main>

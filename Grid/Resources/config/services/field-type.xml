@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="chang.grid.field_type.badge_field_type" class="Chang\Grid\FieldType\BadgeFieldType">
+            <tag name="sylius.grid_field" type="badge"/>
+            <argument type="service" id="sylius.grid.data_extractor"/>
+            <argument type="service" id="twig"/>
+            <argument type="string">@chang/grid/field/badge.html.twig</argument>
+        </service>
+        <service id="chang.grid.field_type.localized_date_field_type" class="Chang\Grid\FieldType\LocalizedDateFieldType">
+            <tag name="sylius.grid_field" type="localizeddate"/>
+            <argument type="service" id="sylius.grid.data_extractor"/>
+            <argument type="service" id="router"/>
+            <argument type="service" id="twig"/>
+        </service>
+        <service id="chang.grid.field_type.number_field_type" class="Chang\Grid\FieldType\NumberFieldType">
+            <tag name="sylius.grid_field" type="number"/>
+            <argument type="service" id="sylius.grid.data_extractor"/>
+            <argument type="service" id="router"/>
+            <argument type="service" id="twig"/>
+        </service>
+        <service id="chang.grid.field_type.state_machine_field_type" class="Chang\Grid\FieldType\StateMachineFieldType">
+            <tag name="sylius.grid_field" type="state_machine"/>
+            <argument type="service" id="sylius.grid.data_extractor"/>
+            <argument type="service" id="twig"/>
+            <argument type="string">@chang/grid/field/sm.html.twig</argument>
+        </service>
+        <service id="chang.grid.field_type.text_field_type" class="Chang\Grid\FieldType\TextFieldType">
+            <tag name="sylius.grid_field" type="text"/>
+            <argument type="service" id="sylius.grid.data_extractor"/>
+            <argument type="service" id="router"/>
+        </service>
+        <service id="chang.grid.field_type.toggle_field_type" class="Chang\Grid\FieldType\ToggleFieldType">
+            <tag name="sylius.grid_field" type="toggle"/>
+            <argument type="service" id="sylius.grid.data_extractor"/>
+            <argument type="service" id="twig"/>
+            <argument type="string">@chang/grid/field/toggle.html.twig</argument>
+        </service>
+        <service id="chang.grid.field_type.tpl_field_type" class="Chang\Grid\FieldType\TplFieldType">
+            <tag name="sylius.grid_field" type="tpl"/>
+            <argument type="service" id="sylius.grid.data_extractor"/>
+            <argument type="service" id="twig"/>
+        </service>
+        <service id="chang.grid.field_type.count_field_type" class="Chang\Grid\FieldType\CountFieldType">
+            <tag name="sylius.grid_field" type="count"/>
+            <argument type="service" id="sylius.grid.data_extractor"/>
+        </service>
+    </services>
+</container>

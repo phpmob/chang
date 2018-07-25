@@ -1,0 +1,18 @@
+chang:
+    form:
+        admin_user:
+            first_name: First Name
+            last_name: Last Name
+            locale_code: Locale
+            picture: Profile Picture
+
+    admin_message:
+        headline:
+            index: Messages
+
+sylius:
+    admin_user:
+        headline:
+            index: Admins
+            create: Create new admin
+            update: Update admin

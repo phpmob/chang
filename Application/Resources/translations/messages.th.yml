@@ -1,0 +1,61 @@
+sylius:
+    resource:
+        can_not_delete_default_locale: Can't delete default locale.
+    ui:
+        code: Code
+        contains: Contains
+        not_contains: Not contains
+        equal: Equal
+        not_equal: Not equal
+        empty: empty
+        not_empty: not empty
+        starts_with: Starts with
+        ends_with: Ends with
+        in: In
+        not_in: Not in
+        between: Between
+        less_than: Less than
+        less_than_or_equal: Less than or equal
+        greater_than: Greater than
+        greater_than_or_equal: Greater than or equal
+        all: All
+        yes_label: Yes
+        no_label: No
+        search: Search
+        from: From
+        to: To
+
+chang:
+    ui:
+        created_at: Created At
+        updated_at: Updated At
+        created_by: Created By
+        updated_by: Updated By
+        active: Active
+        inactive: Inactive
+        numeric: ตัวเลข
+        error: Error
+        filter: Filter
+        success: Success
+        save: Save
+        save_changes: Save Changes
+        cancel: Cancel
+        back: Back
+        no_results: No results
+        confirmation: 'Confirm'
+        are_you_sure_to_delete: 'Are you sure to delete?'
+        are_you_sure_to_do: 'Are you sure to <b>%do%</b> this item?'
+        disabled: Disabled
+        enabled: Enabled
+        edit: Edit
+        update: Update
+        show: show
+        view: view
+        status: Status
+        yes: Yes
+        no: No
+        on: On
+        off: Off
+        ok: OK
+        detail: Detail
+        user: User

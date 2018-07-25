@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="chang.messenger.transport_factory.amqps"
+                 parent="messenger.transport.amqp.factory"
+                 class="Chang\Messenger\Transport\AmqpSpoolTransportFactory">
+            <tag name="messenger.transport_factory"/>
+        </service>
+        <service id="chang.messenger.transport.amqp_spool_subscriber"
+                 class="Chang\Messenger\Transport\AmqpSpoolSubscriber">
+            <tag name="kernel.event_subscriber"/>
+            <argument type="service" id="chang.messenger.transport_factory.amqps"/>
+        </service>
+    </services>
+</container>

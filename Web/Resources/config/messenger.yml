@@ -1,0 +1,101 @@
+sylius_resource:
+    resources:
+        chang.web_device:
+            classes:
+                model: Chang\Web\Model\Device
+                interface: Chang\Web\Model\DeviceInterface
+                repository: Chang\Messenger\Doctrine\ORM\DeviceRepository
+                factory: Chang\Messenger\Factory\DeviceFactory
+        chang.web_inbox:
+            classes:
+                model: Chang\Web\Model\Inbox
+                interface: Chang\Web\Model\InboxInterface
+        chang.web_message:
+            classes:
+                model: Chang\Web\Model\Message
+                interface: Chang\Web\Model\MessageInterface
+                repository: Chang\Messenger\Doctrine\ORM\MessageRepository
+        chang.web_recipient:
+            classes:
+                model: Chang\Web\Model\Recipient
+                interface: Chang\Web\Model\RecipientInterface
+        chang.web_viewer:
+            classes:
+                model: Chang\Web\Model\Viewer
+                interface: Chang\Web\Model\ViewerInterface
+
+framework:
+    messenger:
+        default_bus: messenger.bus.web # TODO: set default to ExceptionBus to prevent using default bus
+        buses:
+            messenger.bus.web:
+                middleware:
+                    - chang.messenger.expired_middleware
+                    - chang.messenger.socket_middleware
+                    - chang.messenger.web_pusher_middleware
+                    - chang.messenger.web_worker_middleware
+
+services:
+    chang.listener.web_flush_pusher:
+        class: Chang\Messenger\Pusher\FlushPusherSubscriber
+        tags: [kernel.event_subscriber]
+        arguments: [ '@chang.messenger.push_sender.web_spool' ]
+
+    chang.listener.web_queue_inbox_msg_handler:
+        class: Chang\Messenger\Queue\InboxMessageHandler
+        tags: [messenger.message_handler]
+        arguments:
+            - '@chang.messenger.web_message_manager'
+            - '@sylius.web_user_provider.email_or_name_based'
+
+    chang.messenger.web_worker_controller:
+        public: true
+        class: Chang\Messenger\Worker\WorkerController
+        arguments:
+            - '@chang.messenger.worker_hash_handler'
+            - '@messenger.transport.decoder'
+            - '@messenger.bus.web'
+
+    chang.messenger.web_inbox_manager:
+        #public: true
+        class: Chang\Messenger\Manager\InboxManager
+        arguments:
+            - '@chang.manager.web_inbox'
+            - '@chang.repository.web_inbox'
+            - '@chang.repository.web_message'
+
+    chang.messenger.web_worker_middleware:
+        class: Chang\Messenger\Worker\WorkerMiddleware
+        arguments:
+            - '@chang.messenger.worker_hash_handler'
+            - '%env(CHANG_MSG_WORKER_DSN)%/web'
+
+    chang.messenger.web_pusher_middleware:
+        class: Chang\Messenger\Pusher\PushMiddleware
+        arguments:
+            - '@chang.messenger.push_sender.web_spool'
+            - '@chang.repository.web_device'
+
+    chang.messenger.push_sender.web_spool:
+        class: Chang\Messenger\Pusher\SpoolSender
+        arguments:
+            - '@chang.manager.web_device'
+            - '@chang.messenger.push_sender.default'
+
+    chang.messenger.web_message_controller:
+        parent: chang.controller.web_message
+        decorates: chang.controller.web_message
+        class: Chang\Messenger\Controller\MessageController
+        calls: [{ method: setMessageManager, arguments: [ '@chang.messenger.web_message_manager' ] }]
+
+    chang.messenger.web_message_manager:
+        public: true
+        class: Chang\Messenger\Manager\MessageManager
+        arguments:
+            - '@messenger.bus.web'
+            - '@chang.manager.web_message'
+            - '@chang.repository.web_message'
+            - '@chang.factory.web_message'
+            - '@chang.factory.web_recipient'
+            - '@chang.factory.web_viewer'
+            - '@chang.messenger.web_inbox_manager'

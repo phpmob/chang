@@ -1,0 +1,56 @@
+sylius_grid:
+    grids:
+        web_user_grid:
+            driver:
+                options:
+                    class: "%sylius.model.web_user.class%"
+            limits: [10]
+            sorting:
+                username: asc
+            fields:
+                username:
+                    type: media
+                    label: User
+                    sortable: ~
+                    path: .
+                    options:
+                        property: picture
+                        heading: fullName
+                        text: [ username, email ]
+                        route: sylius_web_user_update
+                        parameters: { id: 'resource.id' }
+                enabled:
+                    type: toggle
+                    label: chang.ui.enabled
+                    sortable: ~
+                    options:
+                        route: sylius_web_user_toggle
+                        parameters: { id: 'resource.id' }
+                        on_label: 'chang.ui.enabled'
+                        off_label: 'chang.ui.disabled'
+            filters:
+                search:
+                    type: string
+                    label: Search
+                    options:
+                        default: true
+                        fields: [email, username]
+                enabled:
+                    type: boolean
+                    label: Enabled
+                firstName:
+                    type: string
+                    label: FirstName
+                lastName:
+                    type: string
+                    label: LastName
+            actions:
+                main:
+                    create:
+                        icon: fas fa-plus
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete

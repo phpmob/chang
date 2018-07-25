@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="chang.form.web_user_type" class="Chang\Web\Form\Type\WebUserType">
+            <tag name="form.type"/>
+            <argument>%sylius.model.web_user.class%</argument>
+            <argument type="collection">
+                <argument>sylius</argument>
+                <argument>chang</argument>
+                <argument>chang.web</argument>
+            </argument>
+        </service>
+
+        <service id="chang.form.web_user_picture_type" class="Chang\Web\Form\Type\WebUserPictureType">
+            <argument>%chang.model.web_user_picture.class%</argument>
+            <argument type="collection">
+                <argument>chang</argument>
+                <argument>chang.web</argument>
+            </argument>
+            <tag name="form.type"/>
+        </service>
+    </services>
+</container>

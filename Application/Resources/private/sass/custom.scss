@@ -1,0 +1,12 @@
+// Include parts of Bootstrap
+//
+// Required
+
+@import "bootstrap/variable-overrides";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "components/variables";
+
+
+/* put your own styles to customize and override the theme */

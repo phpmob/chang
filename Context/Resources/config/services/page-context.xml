@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="chang.context.page" class="Chang\Context\Page\PageContext" public="true">
+            <argument type="service" id="parameter_bag"/>
+            <argument type="service" id="phpmob.settings.manager"/>
+            <argument type="service" id="security.token_storage"/>
+            <argument type="service" id="request_stack"/>
+        </service>
+
+        <service id="chang.request_configuration_factory"
+                 decorates="sylius.resource_controller.request_configuration_factory"
+                 class="Chang\Context\Page\RequestConfigurationFactory">
+            <argument type="service" id="chang.request_configuration_factory.inner"/>
+            <argument type="service" id="chang.context.page"/>
+        </service>
+    </services>
+</container>

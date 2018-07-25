@@ -1,0 +1,51 @@
+sylius_grid:
+    templates:
+        action:
+            read_action: "@AdminUser/readAction.html.twig"
+            unread_action: "@AdminUser/unreadAction.html.twig"
+    grids:
+        admin_message_grid:
+            driver:
+                options:
+                    class: "%chang.model.admin_message.class%"
+                    repository:
+                        method: createUserQueryBuilder
+                        arguments:
+                            - 'expr:service("chang.context.page").getUser()'
+            limits: [10]
+            sorting:
+                createdAt: desc
+            fields:
+                title:
+                    type: text
+                    label: Title
+                createdAt:
+                    type: localizeddate
+                    label: chang.ui.created_at
+                    sortable: ~
+            actions:
+                main:
+                    markAllAsRead:
+                        icon: far fa-bookmark
+                        type: confirm
+                        label: Mark all as read
+                        options:
+                            confirm_label: Are you sure to do?
+                            route: chang_admin_message_mark_as_allread
+                item:
+                    markAsRead:
+                        icon: far fa-bookmark
+                        type: read_action
+                        label: Mark as read
+                        options:
+                            route: chang_admin_message_mark_as_read
+                            parameters: { id: resource.id }
+                    markAsUnread:
+                        icon: fas fa-bookmark
+                        type: unread_action
+                        label: Mark as unread
+                        options:
+                            route: chang_admin_message_mark_as_unread
+                            parameters: { id: resource.id }
+                    delete:
+                        type: delete

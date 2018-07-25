@@ -1,0 +1,14 @@
+<div id="dropdown-aside" class="dropdown-aside collapse">
+    <div class="pb-3">
+        {% for child in item %}
+            {% if loop.last is same as(false) and child.extras.divider|default %}
+                <div class="dropdown-divider"></div>
+            {% else %}
+                <a class="dropdown-item" href="{{ child.uri }}">
+                    {% if child.extras.icon|default %}<i class="dropdown-icon {{ child.extras.icon }}"></i>{% endif %}
+                    {{ child.label|trans|raw }}
+                </a>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

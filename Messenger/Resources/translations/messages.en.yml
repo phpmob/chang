@@ -1,0 +1,6 @@
+chang:
+    messenger:
+        form:
+            token: Token
+            platform: Platform
+            metas: Meta

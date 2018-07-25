@@ -1,0 +1,14 @@
+services:
+    chang.menu.builder:
+        class: Chang\Menu\ArrayBuilder
+        arguments:
+            - '@knp_menu.factory'
+            - '@security.authorization_checker'
+            - '@event_dispatcher'
+
+    chang.menu.provider:
+        class: Chang\Menu\MenuProvider
+        arguments:
+            - '@chang.menu.builder'
+        tags:
+          - { name: knp_menu.provider }

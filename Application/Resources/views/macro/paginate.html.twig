@@ -1,0 +1,46 @@
+{% macro basic(pager, options = {}) %}
+    {% import _self as self %}
+    {% set start = pager.currentPageOffsetStart %}
+    {% set to = pager.currentPageOffsetEnd %}
+    {% set of = pager.nbResults %}
+    <div class="pagination d-flex justify-content-end align-items-center">
+        <small class="pagination-text text-muted mr-2" style="white-space: nowrap">
+            <strong>{{ start }}-{{ to }}</strong> {{ "of" }} <strong>{{ of }}</strong>
+        </small>
+
+        <div class="input-group input-group-sm m-0">
+            <div class="input-group-prepend">
+                {% if pager.hasPreviousPage %}
+                    <a class="btn btn-outline-secondary" href="{{- self._href(pager.previousPage) -}}">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                {% else %}
+                    <button class="btn btn-outline-secondary" disabled>
+                        <i class="fas fa-angle-left"></i>
+                    </button>
+                {% endif %}
+            </div>
+
+            {{ pagerfanta(pager, 'select', options) }}
+
+            <div class="input-group-append">
+                {% if pager.hasNextPage %}
+                    <a class="btn btn-outline-secondary" href="{{- self._href(pager.nextPage) -}}">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                {% else %}
+                    <button class="btn btn-outline-secondary" disabled>
+                        <i class="fas fa-angle-right"></i>
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{%- macro _href(number) -%}
+    {{- path(
+        app.request.attributes.get('_route'),
+        app.request.attributes.get('_route_params')|merge(app.request.query.all)|merge({'page': number})
+    ) -}}
+{%- endmacro -%}

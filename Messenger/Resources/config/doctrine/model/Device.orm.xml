@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass name="Chang\Messenger\Model\Device" table="chang_messenger_device">
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="token" type="string" nullable="true"/>
+        <field name="platform" type="string" length="20" nullable="true"/>
+        <field name="clientIp" type="string" length="11" nullable="true"/>
+        <field name="enabled" type="boolean" nullable="true"/>
+        <field name="metas" type="json" nullable="true"/>
+
+        <field name="createdAt" type="datetime">
+            <gedmo:timestampable on="create"/>
+        </field>
+
+        <field name="updatedAt" type="datetime" nullable="true">
+            <gedmo:timestampable on="update"/>
+        </field>
+
+        <!--<many-to-one field="user" target-entity="Sylius\Component\User\Model\UserInterface">
+            <join-column nullable="true" on-delete="CASCADE"/>
+        </many-to-one>-->
+    </mapped-superclass>
+</doctrine-mapping>

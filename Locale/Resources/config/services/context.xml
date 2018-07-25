@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="chang.context.locale" alias="sylius.context.locale"/>
+
+        <service id="chang.context.locale.user_based" class="Chang\Locale\Context\UserBasedLocaleContext">
+            <tag name="sylius.context.locale" priority="2"/>
+            <argument type="service" id="security.token_storage"/>
+        </service>
+
+        <service id="chang.context.locale.request_based"
+                 class="Sylius\Bundle\LocaleBundle\Context\RequestBasedLocaleContext">
+            <argument type="service" id="request_stack"/>
+            <argument type="service" id="sylius.locale_provider"/>
+            <tag name="sylius.context.locale" priority="64"/>
+        </service>
+
+        <service id="chang.context.locale.provider_based"
+                 class="Sylius\Component\Locale\Context\ProviderBasedLocaleContext">
+            <argument type="service" id="sylius.locale_provider"/>
+            <tag name="sylius.context.locale" priority="-128"/>
+        </service>
+
+        <service id="chang.context.locale.immutable" class="Sylius\Component\Locale\Context\ImmutableLocaleContext">
+            <argument>%sylius_locale.locale%</argument>
+            <tag name="sylius.context.locale" priority="-256"/>
+        </service>
+
+        <service id="chang.context.localed_page"
+                 decorates="chang.context.page"
+                 class="Chang\Locale\Context\LocaledPageContext">
+            <argument type="service" id="chang.context.localed_page.inner"/>
+            <argument type="service" id="sylius.context.locale"/>
+        </service>
+    </services>
+</container>

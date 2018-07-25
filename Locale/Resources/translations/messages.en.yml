@@ -1,0 +1,6 @@
+sylius:
+    locale:
+        headline:
+            index: Locales
+            create: Create new locale
+            update: Update locale

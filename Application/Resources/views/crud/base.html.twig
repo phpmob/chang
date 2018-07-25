@@ -1,0 +1,48 @@
+{% extends ctx_page.get('layout', 'base') %}
+
+{% if configuration is defined %}
+    {% set backUrl = smart_referer(
+        path(configuration.vars.route.name|default(configuration.getRouteName('index')), configuration.vars.route.parameters|default({}))
+        ) %}
+    {% set headline = metadata.applicationName~'.'~metadata.name %}
+    {% if configuration.section %}
+        {% set headline = headline~'.'~configuration.section %}
+    {% endif %}
+    {% set headline = ctx_page.get('page.headline', headline ~'.headline.'~ ctx_page.get('page.entry', 'entry'))|trans %}
+{% else %}
+    {% set headline = ctx_page.get('page.headline')|trans %}
+{% endif %}
+
+{% set icon = ctx_page.get('page.icon') %}
+
+{% do ctx_page.set({
+    'site.url': ctx_page.get('site.url', '/'),
+    'seo.title': headline,
+}) %}
+
+{% block page_title %}
+    <header class="page-title-bar">
+        {% block breadcrumb %}{{ include('@chang/crud/_breadcrumb.html.twig') }}{% endblock %}
+        {% block page_title_bar %}
+            <div class="card">
+                <div class="card-body">
+                    <div class="media align-items-center">
+                        {% block paage_icon %}
+                            <div class="tile tile-circle tile-lg mr-3">
+                                <i class="{{ icon|default('fas fa-file') }}"></i>
+                            </div>
+                        {% endblock %}
+                        <div class="media-body">
+                            {% block page_header %}
+                                <h5 class="text-truncate mb-0">
+                                    {{ headline|raw }}
+                                </h5>
+                            {% endblock %}
+                        </div>
+                        <div class="ml-auto">{% block page_toolbar %}{% endblock %}</div>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+    </header>
+{% endblock %}

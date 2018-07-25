@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="chang.messenger.rabbit_mq.api_manager" class="Chang\Messenger\RabbitMQ\ApiManager">
+            <argument>%env(CHANG_MSG_RABBIT_API_DSN)%</argument>
+        </service>
+        <service id="chang.messenger.rabbit_mq.vhost_command" class="Chang\Messenger\RabbitMQ\RabbitVhostCommand">
+            <tag name="console.command"/>
+            <argument type="service" id="chang.messenger.rabbit_mq.api_manager"/>
+        </service>
+    </services>
+</container>

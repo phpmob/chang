@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-12 col-md-6">
+        <div class="card">
+            <h6 class="card-header">{{ 'Security' }}</h6>
+            <div class="card-body">
+                {{ form_row(form.username) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.plainPassword) }}
+            </div>
+            <footer class="card-footer">
+                <div class="card-footer-content">
+                    {{ form_row(form.enabled, { switch: 'success' }) }}
+                </div>
+            </footer>
+        </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <div class="card">
+            <h6 class="card-header">{{ 'Info' }}</h6>
+            <div class="card-body">
+                {{ form_row(form.picture, { label: false, caption: false }) }}
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.firstName) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.lastName) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.localeCode) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.gender) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

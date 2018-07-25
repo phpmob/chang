@@ -1,0 +1,35 @@
+.x-form-filter {
+  padding: $card-spacer-x;
+  background-color: rgba($gray-100, .4);
+  background-clip: border-box;
+  border-bottom: $card-border-width solid $card-border-color;
+
+  .form-group {
+    margin: 0;
+  }
+
+  .input-group {
+    align-items: center;
+    width: auto;
+    min-width: 350px;
+
+    select.form-control {
+      flex: 1;
+    }
+    input.form-control {
+      flex: 2;
+    }
+  }
+
+  &__row {
+    display: flex;
+    align-content: flex-start;
+    flex-direction: row;
+    margin-bottom: .5rem;
+  }
+
+  &__action {
+    display: flex;
+    padding-top: .5rem;
+  }
+}

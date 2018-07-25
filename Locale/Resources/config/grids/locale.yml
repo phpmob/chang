@@ -1,0 +1,62 @@
+sylius_grid:
+    grids:
+        admin_locale_grid:
+            driver:
+                name: doctrine/orm
+                options:
+                    class: "%sylius.model.locale.class%"
+            limits: [20]
+            sorting:
+                code: asc
+            fields:
+#                flag:
+#                    type: tpl
+#                    label: Country
+#                    sortable: false
+#                    path: code
+#                    options:
+#                        align: center
+#                        width: 80px
+#                        template: "@PhpMobCms/Locale/Grid/Field/flag.html.twig"
+#                        vars:
+#                            locale: "%locale%"
+                code:
+                    type: text
+                    label: Code
+                    sortable: ~
+                    options:
+                        align: left
+                        width: 80px
+                name:
+                    type: text
+                    label: Name
+                    sortable: false
+                    options:
+                        width: auto
+                createdAt:
+                    type: localizeddate
+                    label: Created At
+                    sortable: ~
+                updatedAt:
+                    type: localizeddate
+                    label: Updated At
+                    sortable: ~
+            filters:
+                search:
+                    type: string
+                    label: Search
+                    options:
+                        default: true
+                        fields:
+                            - code
+            actions:
+                main:
+                    create:
+                        icon: fa fa-plus
+                        label: Create Locale
+                        type: create
+                item:
+                    update:
+                        type: update
+                    delete:
+                        type: delete

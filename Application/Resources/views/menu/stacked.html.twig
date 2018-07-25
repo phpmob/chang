@@ -1,0 +1,43 @@
+{% extends '@chang/menu/base.html.twig' %}
+
+{% block root %}
+    {% import 'knp_menu.html.twig' as knp_menu %}
+    {% do item.setChildrenAttributes({ 'class': 'menu' }) %}
+    {% do item.setAttributes({
+        id: options.attr.id|default(options.id|default('stacked-menu')),
+        class: ('stacked-menu '~options.attr.class|default)|trim
+    }) %}
+    {% set options = options|merge({
+        branch_class: 'has-child'
+    }) %}
+    <nav{{ knp_menu.attributes(item.attributes) }}>
+        {% set listAttributes = item.childrenAttributes %}
+        {{ block('list') -}}
+    </nav>
+{% endblock %}
+
+{% block item %}
+    {% do item.setAttributes({ class: item.extras.header|default == true ? 'menu-header' : 'menu-item' }) %}
+    {% do item.setChildrenAttributes({ class: 'menu' }) %}
+    {% do item.setLinkAttributes({ class: 'menu-link' }) %}
+    {% do item.setLabelAttributes({ class: 'menu-text' }) %}
+    {{ parent() }}
+{% endblock %}
+
+{% block linkElement %}
+    {% import 'knp_menu.html.twig' as knp_menu %}
+    <a href="{{ item.uri }}"{{ knp_menu.attributes(item.linkAttributes) }}>{{ block('spanElement') }}</a>
+{% endblock %}
+
+{% block spanElement %}
+    {% import 'knp_menu.html.twig' as knp_menu %}
+    {% set hasChildren = item.hasChildren %}
+    {% if hasChildren %}
+        <a href="#"{{ knp_menu.attributes(item.linkAttributes) }}>
+    {% endif %}
+    {% if item.extras.icon|default %}
+        <i class="menu-icon {{ item.extras.icon }}"></i>
+    {% endif %}
+    <span{{ knp_menu.attributes(item.labelAttributes) }}>{{ block('label') }}</span>
+    {% if hasChildren %}</a>{% endif %}
+{% endblock %}

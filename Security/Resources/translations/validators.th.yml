@@ -1,0 +1,15 @@
+chang:
+    user:
+        username:
+            unique: This username already in used.
+            reserved_word: 'This username `%value%` was reserved.'
+        password:
+            min: Too short password ({{ limit }} charecters in minimum).
+            max: Too long password ({{ limit }} charecters in maximum).
+            mismatch: Password mismatch.
+            english: Password MUST be only contains english letters.
+            strength_score_0: Risky password.
+            strength_score_1: Protection from throttled online attacks.
+            strength_score_2: Protection from unthrottled online attacks.
+            strength_score_3: Moderate protection from offline slow-hash scenario.
+            strength_score_4: Strong protection from offline slow-hash scenario.

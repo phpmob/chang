@@ -1,0 +1,38 @@
+{% extends '@chang/crud/base.html.twig' %}
+{% form_theme form '@chang/form/theme.html.twig' %}
+
+{% do ctx_page.set('page.entry', ctx_page.get('page.entry', 'create')) %}
+{% do ctx_page.set('page.icon', ctx_page.get('page.icon', 'fas fa-plus')) %}
+
+{% block page %}
+    <div class="page">
+        <div class="page-inner">
+            {{ form_start(form) }}
+            {% block page_title %}{{ parent() }}{% endblock %}
+            {% block page_section %}
+                <div class="page-section">
+                    {%- block flash %}{{ include('@chang/_flash.html.twig') }}{% endblock %}
+                    {{ form_errors(form) }}
+                    {% block content %}
+                        {% if configuration.vars.templates.form is defined %}
+                            {% include configuration.vars.templates.form %}
+                        {% else %}
+                            {{ form_widget(form) }}
+                        {% endif %}
+                    {% endblock %}
+                </div>
+            {% endblock %}
+            {{ form_row(form._token) }}
+            {{ form_end(form, {'render_rest': false}) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block page_toolbar %}
+        <button type="submit" class="btn btn-primary mr-1">
+            {{ 'chang.ui.save'|trans }}
+        </button>
+        <a class="btn btn-outline-warning" href="{{ backUrl }}">
+            <i class="fas fa-angle-left"></i> {{ 'chang.ui.cancel'|trans }}
+        </a>
+{% endblock %}

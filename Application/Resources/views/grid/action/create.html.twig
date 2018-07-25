@@ -1,0 +1,5 @@
+{% set path = options.link.url|default(path(options.link.route|default(grid.requestConfiguration.getRouteName('create')), options.link.parameters|default([]))) %}
+
+<a href="{{ path }}" class="{{ options.class|default('btn btn-sm btn-primary') }}">
+    <i class="{{ action.icon|default('fa fa-plus') }}"></i> <span>{{ (action.label|trans)|default('Create'|trans) }}</span>
+</a>

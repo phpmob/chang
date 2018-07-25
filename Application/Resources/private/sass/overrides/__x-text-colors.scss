@@ -1,0 +1,6 @@
+@each $color, $value in map-merge(map-merge($theme-colors, $socials), $colors) {
+  .text-color-#{$color},
+  .x-text-color-#{$color} {
+    color: $value;
+  }
+}

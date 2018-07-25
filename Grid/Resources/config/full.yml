@@ -1,0 +1,24 @@
+imports:
+    - ./services/*
+
+sylius_grid:
+    templates:
+        action:
+            apply_transition: "@chang/grid/action/applyTransition.html.twig"
+            show: "@chang/grid/action/show.html.twig"
+            create: "@chang/grid/action/create.html.twig"
+            update: "@chang/grid/action/update.html.twig"
+            delete: "@chang/grid/action/delete.html.twig"
+            link: "@chang/grid/action/link.html.twig"
+            links: "@chang/grid/action/links.html.twig"
+            confirm: "@chang/grid/action/confirm.html.twig"
+        filter:
+            string: "@chang/grid/filter/string.html.twig"
+            number: "@chang/grid/filter/number.html.twig"
+            boolean: "@chang/grid/filter/boolean.html.twig"
+            date: "@chang/grid/filter/date.html.twig"
+            xdate: "@chang/grid/filter/xdate.html.twig"
+            xdatetime: "@chang/grid/filter/xdate.html.twig"
+            entity: "@chang/grid/filter/entity.html.twig"
+            money: "@chang/grid/filter/money.html.twig"
+            exists: "@chang/grid/filter/exists.html.twig"

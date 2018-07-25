@@ -1,0 +1,12 @@
+.page-section {
+  .card {
+    @include media-breakpoint-down(xs) {
+      border-radius: 0;
+      border-width: 1px 0;
+    }
+  }
+}
+
+.page-title-bar {
+  margin-bottom: 0;
+}

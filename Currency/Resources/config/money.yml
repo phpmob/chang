@@ -1,0 +1,45 @@
+parameters:
+    chang.packages.currency.money:
+        divisor: 100
+        base_currency: THB
+        symbols: [THB]
+
+services:
+    Chang\Currency\Form\Extension\MoneyDivisorExtension:
+        tags: [{ name: form.type_extension, extended_type: Sylius\Bundle\MoneyBundle\Form\Type\MoneyType }]
+        arguments:
+            - '@chang.currency.divisor'
+    Chang\Currency\Form\Extension\MoneySymbolExtension:
+        tags: [{ name: form.type_extension, extended_type: Sylius\Bundle\MoneyBundle\Form\Type\MoneyType }]
+        arguments:
+            - '@chang.currency.symbol'
+            - '@=service("chang.option_resolver").get("currency.money.base_currency")'
+    Chang\Currency\Grid\FieldType\MoneyFieldType:
+        tags: [{ name: sylius.grid_field, type: money }]
+        arguments:
+            - '@sylius.grid.data_extractor'
+            - '@router'
+            - '@chang.currency.money_formatter'
+    Chang\Currency\Twig\MoneyFormatExtension:
+        tags: [ twig.extension ]
+        arguments:
+            - '@sylius.templating.helper.format_money'
+            - '@sylius.context.locale'
+            - '@=service("chang.option_resolver").get("currency.money.base_currency")'
+
+    chang.currency.divisor:
+        class: Chang\Currency\Divisor
+        arguments:
+            - '@=service("chang.option_resolver").get("currency.money.divisor")'
+    chang.currency.symbol:
+        class: Chang\Currency\Symbol
+        arguments:
+            - '@chang.context.locale'
+            - '@=service("chang.option_resolver").get("currency.money.symbols")'
+    chang.currency.money_formatter:
+        class: Chang\Currency\MoneyFormatter
+        decorates: sylius.money_formatter
+        arguments:
+            - '@chang.currency.symbol'
+            - '@chang.currency.divisor'
+            - '@=service("chang.option_resolver").get("currency.money.base_currency")'

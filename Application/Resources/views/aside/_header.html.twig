@@ -1,0 +1,30 @@
+{% import '@chang/macro/img.html.twig' as img %}
+<header class="aside-header">
+    <button class="hamburger hamburger-squeeze" type="button" data-toggle="aside" aria-controls="navigation">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+    {% if is_granted('ROLE_USER') %}
+        <button class="btn-account d-flex d-md-none" type="button" data-toggle="collapse" data-target="#dropdown-aside">
+            {% if app.user.picture %}
+                <span class="user-avatar user-avatar-lg">
+                <img src="{{ img.picture(app.user.picture, '48x48', true) }}" alt="{{ app.user.displayName }}">
+            </span>
+            {% else %}
+                <i class="fas fa-user-circle fa-3x"></i>
+            {% endif %}
+            <span class="account-icon">
+            <span class="fa fa-caret-down fa-lg"></span>
+        </span>
+            <span class="account-summary">
+            <span class="account-name">{{ app.user.displayName }}</span>
+            <span class="account-description">{{ app.user.username }}</span>
+        </span>
+        </button>
+        {{ knp_menu_render(ctx_page.get('menu.account', 'account'), { template: '@chang/menu/aside.html.twig' }) }}
+    {% endif %}
+    <div class="top-bar-brand">
+        <a href="{{ ctx_page.get('site.url', '/') }}">{{ ctx_page.get('site.name', 'site.name') }}</a>
+    </div>
+</header>

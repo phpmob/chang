@@ -1,0 +1,22 @@
+{
+  "name": "chang-messenger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ishmael Doss",
+  "license": "ISC",
+  "dependencies": {
+    "amqp-connection-manager": "^2.0.0",
+    "amqplib": "^0.5.2",
+    "dotenv": "^6.0.0",
+    "es6-promise": "^4.2.4",
+    "npm": "^6.1.0",
+    "request": "^2.87.0",
+    "socket.io": "^2.1.1",
+    "winston": "^3.0.0",
+    "winston-daily-rotate-file": "^3.2.3"
+  }
+}

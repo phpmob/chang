@@ -1,0 +1,5 @@
+services:
+    chang.currency.helper:
+        class: Chang\Currency\Helper
+        arguments:
+            - '@chang.currency.symbol'

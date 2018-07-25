@@ -1,0 +1,15 @@
+{% set colors = ['indigo', 'teal', 'pink', 'yellow', 'cyan'] %}
+<div class="dropdown-menu dropdown-menu-rich dropdown-menu-right">
+    <div class="dropdown-sheets">
+        {% for child in item %}
+            <div class="dropdown-sheet-item">
+                <a href="{{ child.uri }}" class="tile-wrapper">
+                    <span class="tile tile-lg bg-{{ child.extras.color|default(random(colors)) }}">
+                        {% if child.extras.icon|default %}<i class="{{ child.extras.icon }}"></i>{% endif %}
+                    </span>
+                    <span class="tile-peek">{{ child.label|trans|raw }}</span>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>

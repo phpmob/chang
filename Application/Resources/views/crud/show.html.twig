@@ -1,0 +1,20 @@
+{% extends '@chang/crud/base.html.twig' %}
+
+{% do ctx_page.set('page.entry', ctx_page.get('page.entry', 'show')) %}
+{% do ctx_page.set('page.icon', ctx_page.get('page.icon', 'fas fa-file-alt')) %}
+
+{% block content %}
+    {% if configuration.vars.templates.show is defined %}
+        {% include configuration.vars.templates.show %}
+    {% else %}
+        <div class="alert alert-warning">
+            Not found the show page.
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block page_toolbar %}
+    <a class="btn btn-outline-warning" href="{{ backUrl }}">
+        <i class="fas fa-angle-left"></i> {{ 'chang.ui.back'|trans }}
+    </a>
+{% endblock %}

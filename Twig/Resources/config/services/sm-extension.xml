@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="chang.twig.state_machine_extension" class="Chang\Twig\StateMachineExtension">
+            <tag name="twig.extension"/>
+            <argument type="service" id="translator" />
+            <argument type="service" id="sm.factory" />
+            <!--<argument>%chang.sm.config%</argument>-->
+            <!--<argument>%sm.configs%</argument>-->
+        </service>
+    </services>
+</container>

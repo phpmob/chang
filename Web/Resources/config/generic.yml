@@ -1,0 +1,39 @@
+imports:
+    - { resource: ./services/** }
+    - { resource: ./grids/admin_user.yml }
+
+sylius_user:
+    resources:
+        web:
+            user:
+                classes:
+                    model: Chang\Web\Model\WebUser
+                    interface: Sylius\Component\User\Model\UserInterface
+                    repository: Sylius\Bundle\UserBundle\Doctrine\ORM\UserRepository
+sylius_resource:
+    resources:
+        chang.web_user_picture:
+            classes:
+                model: Chang\Web\Model\WebUserPicture
+                interface: Chang\Web\Model\WebUserPictureInterface
+doctrine:
+    orm:
+        mappings:
+            ChangWebUser:
+                type: xml
+                is_bundle: false
+                prefix: Chang\Web\Model
+                dir: '%chang.dir%/Web/Resources/config/doctrine/model'
+framework:
+    translator:
+        paths:
+            - '%chang.dir%/Web/Resources/translations'
+twig:
+    paths:
+        #'%kernel.project_dir%/templates/WebUser': WebUser # override, folder exists needed!
+        '%chang.dir%/Web/Resources/views': WebUser
+
+phpmob_media:
+    filters:
+        web_user_picture:
+            - { code: profile, label: Profile, filter: ~ }

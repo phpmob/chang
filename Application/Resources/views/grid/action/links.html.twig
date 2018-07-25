@@ -1,0 +1,26 @@
+{% set visible = options.visible is defined ? options.visible : true %}
+
+{% if visible %}
+    <div class="dropdown">
+        <button class="btn btn-lg btn-default btn-icon dropdown-toggle" type="button" data-toggle="dropdown">
+            {% if options.icon is defined %}<i class="{{ options.icon }}"></i>{% endif %} <span>{{ action.label|trans }}</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right">
+            {% if options.header is defined %}
+                <li class="dropdown-header">
+                    {% if options.header.icon is defined %}<i class="{{ options.header.icon }}"></i>{% endif %}
+                    {{ options.header.label|trans }}
+                </li>
+                <li class="dropdown-divider"></li>
+            {% endif %}
+            {% for link in options.links %}
+                {% set path = link.url is defined ? link.url : path(link.route, link.parameters|default([])) %}
+                <li class="dropdown-item">
+                    <a href="{{ path }}">
+                        {% if link.icon is defined %}<i class="{{ link.icon }}"></i> {% endif %}{{ link.label|trans }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

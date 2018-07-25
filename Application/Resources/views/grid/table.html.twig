@@ -1,0 +1,37 @@
+{% macro headers(grid, definition, requestAttributes) %}
+    {% import '@chang/grid/sorting.html.twig' as sorting %}
+
+    {% for field in definition.fields|sort_by('position') %}
+        {% if field.enabled %}
+            {% if field.isSortable %}
+                {{ sorting.tableHeader(grid, field, requestAttributes) }}
+            {% else %}
+                {% set align = field.options.align|default('left') %}
+                {% set width = field.options.width|default('auto') %}
+                <th class="x-grid-table-column-{{ field.name }} text-{{ align }}" style="width: {{ width }};">
+                    {{ field.label|trans }}
+                </th>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    {% if definition.actionGroups.item is defined and definition.getActions('item')|length > 0 %}
+        <th class="x-grid-table-column-actions" style="width: 60px">{{ '' }}</th>
+    {% endif %}
+{% endmacro %}
+
+{% macro row(grid, definition, row) %}
+    <tr class="item">
+        {% for field in definition.enabledFields|sort_by('position') %}
+            {# to use default options render before write #}
+            {% set renderedField = sylius_grid_render_field(grid, field, row) %}
+            <td class="text-{{ field.options.align|default('left') }} {{ field.options.cls|default }}">
+                {{ renderedField|raw }}
+            </td>
+        {% endfor %}
+        {% if definition.actionGroups.item is defined and definition.getEnabledActions('item')|length > 0 %}
+            <td class="x-grid-table-column-actions">
+                {{ include('@chang/grid/action.html.twig') }}
+            </td>
+        {% endif %}
+    </tr>
+{% endmacro %}

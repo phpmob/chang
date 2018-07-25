@@ -1,0 +1,39 @@
+imports:
+    - { resource: ./services/** }
+    - { resource: ./grids/admin_user.yml }
+
+sylius_user:
+    resources:
+        admin:
+            user:
+                classes:
+                    model: Chang\Admin\Model\AdminUser
+                    interface: Chang\Admin\Model\AdminUserInterface
+                    repository: Sylius\Bundle\UserBundle\Doctrine\ORM\UserRepository
+sylius_resource:
+    resources:
+        chang.admin_user_picture:
+            classes:
+                model: Chang\Admin\Model\AdminUserPicture
+                interface: Chang\Admin\Model\AdminUserPictureInterface
+doctrine:
+    orm:
+        mappings:
+            ChangAdminUser:
+                type: xml
+                is_bundle: false
+                prefix: Chang\Admin\Model
+                dir: '%chang.dir%/Admin/Resources/config/doctrine/model'
+framework:
+    translator:
+        paths:
+            - '%chang.dir%/Admin/Resources/translations'
+twig:
+    paths:
+        #'%kernel.project_dir%/templates/AdminUser': AdminUser # override, folder exists needed!
+        '%chang.dir%/Admin/Resources/views': AdminUser
+
+phpmob_media:
+    filters:
+        admin_user_picture:
+            - { code: profile, label: Profile, filter: ~ }

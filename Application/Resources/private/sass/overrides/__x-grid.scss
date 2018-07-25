@@ -1,0 +1,70 @@
+.x-grid {
+  .card-header {
+    .card-header-tabs {
+      margin-bottom: -1.4rem;
+    }
+  }
+  &__table {
+  }
+  &-table-column-actions {
+    padding-top: $table-cell-padding-sm !important;
+    padding-bottom: $table-cell-padding-sm !important;
+    vertical-align: middle !important;
+    text-align: center;
+
+    .dropdown {
+      > .btn {
+        border-color: transparent;
+      }
+    }
+    .dropdown-item {
+      padding: 0;
+      .btn {
+        border: none;
+        border-radius: 0;
+        width: 100%;
+        text-align: left;
+      }
+    }
+    .toggle-dropdown {
+      .dropdown-item {
+        &:hover {
+          background: none;
+        }
+      }
+    }
+  }
+  &__no-results {
+    .alert {
+      margin: 0;
+      border: none;
+      box-shadow: none;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .table > thead tr:first-child > th:first-child,
+  .table > thead tr:first-child > td:first-child,
+  .table > tbody:first-child tr:first-child > th:first-child,
+  .table > tbody:first-child tr:first-child > td:first-child,
+  .table > thead tr:first-child > th:last-child,
+  .table > thead tr:first-child > td:last-child,
+  .table > tbody:first-child tr:first-child > th:last-child,
+  .table > tbody:first-child tr:first-child > td:last-child {
+    border-radius: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .table-responsive .dropdown-menu,
+  .table-responsive .dropdown-toggle {
+    position: static !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .table-responsive {
+    overflow: visible;
+  }
+}

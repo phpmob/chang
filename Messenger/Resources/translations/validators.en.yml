@@ -1,0 +1,7 @@
+chang:
+    messenger:
+        device:
+            token:
+                not_blank: Please enter device token.
+            platform:
+                not_blank: Please enter device platform.

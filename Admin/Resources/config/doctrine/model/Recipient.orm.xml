@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass name="Chang\Admin\Model\Recipient" table="chang_admin_msg_recipient">
+        <unique-constraints>
+            <unique-constraint columns="user_id,message_id"/>
+        </unique-constraints>
+        <many-to-one field="user" target-entity="Chang\Admin\Model\AdminUserInterface">
+            <join-column on-delete="CASCADE"/>
+        </many-to-one>
+        <many-to-one field="message" target-entity="Chang\Admin\Model\MessageInterface" inversed-by="recipients">
+            <join-column on-delete="CASCADE"/>
+        </many-to-one>
+    </mapped-superclass>
+</doctrine-mapping>

@@ -1,0 +1,3 @@
+services:
+    Chang\ExpressionLanguage\ExpressionLanguage:
+        decorates: sylius.expression_language

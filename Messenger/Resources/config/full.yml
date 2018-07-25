@@ -1,0 +1,54 @@
+imports:
+    - { resource: './services/**' }
+
+sylius_resource:
+    resources:
+        chang.hash_storage:
+            classes:
+                model: Chang\Messenger\Model\HashStorage
+                interface: Chang\Messenger\Model\HashStorageInterface
+
+stof_doctrine_extensions:
+    orm:
+        default:
+            softdeleteable: true
+
+doctrine:
+    orm:
+        mappings:
+            ChangMessenger:
+                type: xml
+                is_bundle: false
+                prefix: Chang\Messenger\Model
+                dir: '%chang.dir%/Messenger/Resources/config/doctrine/model'
+        filters:
+            softdeleteable:
+                class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                enabled: true
+
+framework:
+    translator:
+        paths:
+            - '%chang.dir%/Messenger/Resources/translations'
+    validation:
+        mapping:
+            paths:
+                - '%chang.dir%/Messenger/Resources/config/validation'
+    messenger:
+        transports:
+            worker: '%env(MESSENGER_TRANSPORT_DSN)%/worker'
+            socket: '%env(MESSENGER_TRANSPORT_DSN)%/socket'
+#        default_bus: messenger.bus.default
+#        buses:
+#            messenger.bus.default:
+#                middleware:
+#                    - chang.messenger.expired_middleware
+#                    - chang.messenger.socket_middleware
+#                    - chang.messenger.pusher_middleware
+#                    - chang.messenger.worker_middleware
+# Note: Multiple Bus
+# Can use separate bus tu decease complexity of middleware may also decease abstract message class.
+#            messenger.bus.worker:
+#                middleware:
+#                    - chang.messenger.expired_middleware
+#                    - chang.messenger.worker_middleware

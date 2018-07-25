@@ -1,0 +1,11 @@
+{% set route = app.request.attributes.get('_route')|replace({ '_localized_': '' }) %}
+{% set params = app.request.query|merge(app.request.attributes.get('_route_params')) %}
+<ul class="locale-switcher">
+    {% for locale in ctx_locale_provider.availableLocalesCodes %}
+        <li>
+            <a href="{{ path(route, array_set(params, '_locale', locale)) }}">
+                <i class="flag-icon flag-icon-{{ locale }}"></i> {{ locale|sylius_locale_name }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>

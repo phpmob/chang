@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass name="Chang\Messenger\Model\Viewer" table="chang_messenger_message_viewer">
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="seenAt" type="datetime" nullable="true"/>
+        <!--
+        <many-to-one field="message" target-entity="Chang\Messenger\Model\MessageInterface">
+            <join-column nullable="true" on-delete="CASCADE"/>
+        </many-to-one>
+
+        <many-to-one field="user" target-entity="Sylius\Component\User\Model\UserInterface">
+            <join-column nullable="true" on-delete="CASCADE"/>
+        </many-to-one>
+        -->
+    </mapped-superclass>
+</doctrine-mapping>

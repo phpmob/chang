@@ -1,0 +1,6 @@
+services:
+    Chang\Form\Type\ResourceType:
+        tags: [form.type]
+
+    Chang\Form\Type\ToggleResourceType:
+        tags: [form.type]

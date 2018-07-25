@@ -1,0 +1,11 @@
+{% from '@chang/macro/attrs.html.twig' import attrs %}
+{% set path = options.link.url|default(
+    path(options.link.route|default(grid.requestConfiguration.getRouteName('show')), options.link.parameters|default({'id': data.id}))
+) %}
+{% set attr = attrs({
+    href: path,
+    class: options.class|default('btn btn-outline-primary'),
+}|merge(options.attr|default({}))) %}
+<a {{ attr|raw }}>
+    <i class="{{ action.icon|default('fa fa-eye') }}"></i> <span>{{ (action.label|trans)|default('Show') }}</span>
+</a>

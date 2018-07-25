@@ -1,0 +1,19 @@
+@import "_badge";
+@import "_card";
+@import "_form";
+@import "_header";
+@import "_input-group";
+@import "_page";
+@import "_switcher";
+@import "_x-form-filter";
+@import "_x-grid";
+@import "_x-text-colors";
+
+[data-href],
+[data-ajax-href] {
+  cursor: pointer;
+}
+
+.disabled {
+  opacity: .1;
+}

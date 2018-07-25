@@ -1,0 +1,11 @@
+{% set quickMenu = knp_menu_get(ctx_page.get('menu.quick', 'quick')) %}
+{% if quickMenu|length %}
+    <li class="nav-item dropdown header-nav-dropdown">
+        <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true"
+           aria-expanded="false">
+            <i class="fas fa-th"></i>
+        </a>
+        <div class="dropdown-arrow"></div>
+        {{ knp_menu_render(quickMenu, { template: '@chang/menu/quick.html.twig' }) }}
+    </li>
+{% endif %}

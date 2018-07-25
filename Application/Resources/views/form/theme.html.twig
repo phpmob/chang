@@ -1,0 +1,207 @@
+{% extends 'bootstrap_4_layout.html.twig' %}
+
+{# https://github.com/symfony/symfony/pull/26408 #}
+{% block form_label_errors %}{% endblock form_label_errors %}
+
+{% block form_help -%}
+    {{ form_errors(form) }}
+    {{ parent() }}
+{%- endblock form_help %}
+
+{% block collection_item_widget %}
+    {% spaceless %}
+        <div data-form-collection="item" data-form-collection-index="{{ child_index }}">
+            <div data-form-collection="widget">
+                {{ form_widget(child_widget) }}
+            </div>
+            {% if allow_delete %}
+                {% block collection_item_delete_widget %}
+                    <a href="#" data-form-collection="delete" class="btn btn-outline-danger btn-sm">
+                        <i class="far fa-trash-alt"></i>
+                        {{ button_delete_label|trans }}
+                    </a>
+                {% endblock %}
+            {% endif %}
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
+{% block collection_widget -%}
+    {% set attr = attr|merge({'class': attr.class|default ~ ' controls collection-widget'}) %}
+    {% if prototype is defined and allow_add %}
+        {% set child_widget = prototype %}
+        {% set child_index = '__name__' %}
+        {% set attr = attr|merge({ 'data-prototype': block('collection_item_widget')|e }) %}
+    {%- endif -%}
+
+    {% spaceless %}
+        <div data-form-type="collection"
+             data-name="{{ form.vars.full_name }}" {{ block('widget_container_attributes') }}>
+            {{ form_errors(form) }}
+
+            {% if prototypes|default is iterable %}
+                {% for key, subPrototype in prototypes %}
+                    {% set child_widget = subPrototype %}
+                    {% set child_index = '__name__' %}
+                    <input type="hidden" data-form-prototype="{{ key }}"
+                           value="{{ block('collection_item_widget')|e }}" />
+                {% endfor %}
+            {% endif %}
+
+            {% block collection_items_widget %}
+                <div data-form-collection="list" class="collection-list">
+                    {% block collection_list_widget %}
+                        {% for child in form %}
+                            {% set child_widget = child %}
+                            {% set child_index = loop.index0 %}
+                            {{ block('collection_item_widget')|raw }}
+                        {% endfor %}
+                    {% endblock %}
+                </div>
+            {% endblock %}
+
+            {% if prototype is defined and allow_add %}
+                {% block collection_item_add_widget %}
+                    <a href="#" class="btn btn-sm btn-outline-primary" data-form-collection="add">
+                        <i class="fas fa-plus"></i> {{ button_add_label|trans }}
+                    </a>
+                {% endblock %}
+            {% endif %}
+        </div>
+    {% endspaceless %}
+{%- endblock %}
+
+{% block sylius_translations_row -%}
+    {%- set attr = attr|merge({class: ((attr.class|default) ~ ' card card-translations')|trim}) -%}
+    <div {{ block('widget_attributes') }}>
+        <div class="card-header d-flex align-items-center p-0">
+            {% if form.vars.label %}
+                <h6 class="card-title m-0">{{ form.vars.label|trans }}</h6>
+            {% endif %}
+            <nav class="nav nav-tabs ml-auto">
+                {% for translation in form %}
+                    {% set active = loop.index0 ? '' : 'active' %}
+                    <a class="nav-item nav-link {{ active }}" data-toggle="tab" href="#{{ translation.vars.id }}">
+                        {{ translation.vars.name|flag_icon }}
+                    </a>
+                {% endfor %}
+            </nav>
+        </div>
+
+        <div class="card-body tab-content">
+            {% for translation in form %}
+                {% set active = loop.index0 ? '' : 'active show' %}
+                <div class="tab-pane {{ active }}" id="{{ translation.vars.id }}">
+                    {% for field in translation %}
+                        {% if exclude is defined %}
+                            {% if field.vars.name not in exclude %}
+                                {{ form_row(field) }}
+                            {% endif %}
+                        {% else %}
+                            {{ form_row(field) }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{%- endblock sylius_translations_row %}
+
+{#{% block sylius_resource_autocomplete_choice_row %}
+    {% set chooser = {
+        maxItems: multiple ? null : 1,
+        remote: {
+            grid: true,
+            query_search_key: 'search',
+        }
+    }|merge_deep(chooser|default([])) %}
+    <div class="form-group">
+        {{- form_label(form) -}}
+        {{- form_widget(form, {
+            'attr': {
+                'placeholder': placeholder is defined ? placeholder|trans : '',
+                'data-chooser' : chooser|json_encode,
+            }
+        }) -}}
+        {{- form_errors(form) -}}
+    </div>
+{% endblock %}#}
+
+{% block checkbox_widget -%}
+    {%- set attr = attr|merge({class: (attr.class|default('') ~ ' custom-control-input')|trim}) -%}
+    {%- set widget -%}
+        <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    {%- endset -%}
+    {% if switch is defined %}
+        <span class="switch{{ switch is same as(true) ? '' : '--' ~ switch }}">
+            {{- form_label(form, null, { widget: widget }) -}}
+        </span>
+    {% else %}
+        {%- set parent_label_class = (parent_label_class|default(label_attr.class|default('')) ~ ' checkbox-custom')|trim -%}
+        <div class="custom-control custom-checkbox{{ 'checkbox-inline' in parent_label_class ? ' custom-control-inline' }}">
+            {{- form_label(form, null, { widget: widget, parent_label_class: parent_label_class }) -}}
+        </div>
+    {% endif %}
+{%- endblock checkbox_widget %}
+
+{% block date_widget -%}
+    {%- if widget != 'single_text' and not valid -%}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control is-invalid')|trim}) -%}
+        {% set valid = true %}
+    {%- endif -%}
+
+    {%- if widget == 'single_text' -%}
+        {{- block('form_widget_simple') -}}
+    {%- else -%}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-inline x-form-date')|trim}) -%}
+        {%- if datetime is not defined or not datetime -%}
+            <div {{ block('widget_container_attributes') -}}>
+        {%- endif %}
+        <div class="sr-only">
+            {{ form_label(form.year) }}
+            {{ form_label(form.month) }}
+            {{ form_label(form.day) }}
+        </div>
+        <div class="x-form-date--els">
+            {{- date_pattern|replace({
+                '{{ year }}': form_widget(form.year, { attr: { class: 'custom-select' } }),
+                '{{ month }}': form_widget(form.month, { attr: { class: 'custom-select mr-1' } }),
+                '{{ day }}': form_widget(form.day, { attr: { class: 'custom-select mr-1' } }),
+            })|raw -}}</div>
+        {%- if datetime is not defined or not datetime -%}
+            </div>
+        {%- endif -%}
+    {%- endif -%}
+{%- endblock date_widget %}
+
+{% block time_widget -%}
+    {%- if widget != 'single_text' and not valid -%}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control is-invalid')|trim}) -%}
+        {% set valid = true %}
+    {%- endif -%}
+
+    {%- if widget == 'single_text' -%}
+        {{- block('form_widget_simple') -}}
+    {%- else -%}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-inline')|trim}) -%}
+        {%- if datetime is not defined or false == datetime -%}
+            <div {{ block('widget_container_attributes') -}}>
+        {%- endif -%}
+        <div class="sr-only">{{ form_label(form.hour) }}</div>
+        {{- form_widget(form.hour, { attr: { class: 'custom-select mx-1' } }) -}}
+        {%- if with_minutes -%}:
+            <div class="sr-only">{{ form_label(form.minute) }}</div>{{ form_widget(form.minute, { attr: { class: 'custom-select mx-1' } }) }}{%- endif -%}
+        {%- if with_seconds -%}:
+            <div class="sr-only">{{ form_label(form.second) }}</div>{{ form_widget(form.second, { attr: { class: 'custom-select mx-1' } }) }}{%- endif -%}
+        {%- if datetime is not defined or false == datetime -%}
+            </div>
+        {%- endif -%}
+    {%- endif -%}
+{%- endblock time_widget %}
+
+{% block money_widget -%}
+    {%- if not valid -%}
+        {% set group_class = ' is-invalid' %}
+    {%- endif -%}
+    {{ parent() }}
+{% endblock %}

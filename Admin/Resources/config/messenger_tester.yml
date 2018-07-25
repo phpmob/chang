@@ -1,0 +1,30 @@
+framework:
+    messenger:
+        routing:
+            Chang\Messenger\Queue\InboxMessage: worker
+            Chang\Admin\Tester\TestWorkerMessage: worker
+            Chang\Admin\Tester\TestSocketMessage: socket
+
+# TEST
+services:
+    Chang\Admin\Tester\TestSocketCommand:
+        arguments: [ '@chang.messenger.admin_message_manager' ]
+        tags: [{ name: console.command }]
+
+    Chang\Admin\Tester\TestWorkerCommand:
+        arguments: [ '@chang.messenger.admin_message_manager' ]
+        tags: [{ name: console.command }]
+
+    Chang\Admin\Tester\TestMakeMessageCommand:
+        tags: [{ name: console.command }]
+
+    Chang\Admin\Tester\TestMarkAllAsReadCommand:
+        tags: [{ name: console.command }]
+
+    Chang\Admin\Tester\TestSocketHandler:
+        arguments: [ '@logger' ]
+        tags: [messenger.message_handler]
+
+    Chang\Admin\Tester\TestWorkerHandler:
+        arguments: [ '@logger' ]
+        tags: [messenger.message_handler]

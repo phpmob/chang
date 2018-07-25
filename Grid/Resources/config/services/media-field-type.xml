@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="chang.grid.field_type.media_field_type" class="Chang\Grid\FieldType\MediaFieldType">
+            <tag name="sylius.grid_field" type="media"/>
+            <argument type="service" id="sylius.grid.data_extractor"/>
+            <argument type="service" id="twig"/>
+            <argument type="string">@chang/grid/field/media.html.twig</argument>
+        </service>
+    </services>
+</container>

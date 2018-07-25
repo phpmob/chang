@@ -1,0 +1,3 @@
+services:
+    Chang\Form\Extension\ConvertRawDataFormExtension:
+        tags: [{ name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }]

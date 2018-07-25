@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="chang.option_resolver" class="Chang\Application\OptionResolver" public="true">
+            <argument type="service" id="parameter_bag"/>
+        </service>
+        <service id="chang.option_resolver_twig" class="Chang\Application\TwigExtension">
+            <tag name="twig.extension"/>
+            <argument type="service" id="chang.option_resolver"/>
+        </service>
+    </services>
+</container>

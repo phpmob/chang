@@ -1,0 +1,23 @@
+imports:
+    - { resource: './services/**' }
+    - { resource: './grids/**' }
+
+sylius_locale:
+    locale: '%locale%'
+
+sylius_resource:
+    translation:
+        locale_provider: chang.translation_locale_provider
+
+twig:
+    globals:
+        ctx_locale: "@sylius.context.locale"
+        ctx_locale_provider: "@sylius.locale_provider"
+    paths:
+        #'%kernel.project_dir%/templates/Locale': Locale # override, folder exists needed!
+        '%chang.dir%/Locale/Resources/views': Locale
+
+framework:
+    translator:
+        paths:
+            - '%chang.dir%/Locale/Resources/translations'

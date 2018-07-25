@@ -1,0 +1,136 @@
+// Tiles
+// -------------------------
+
+.tile-wrapper {
+  display: inline-block;
+  text-align: center;
+
+  .tile {
+    margin-bottom: .25rem;
+  }
+
+  .tile-peek {
+    display: block;
+    font-size: $font-size-sm;
+  }
+}
+
+a.tile-wrapper {
+  .tile-peek {
+    color: $text-muted;
+  }
+
+  @include hover-focus {
+    text-decoration: none;
+
+    .tile-peek {
+      color: $body-color;
+    }
+  }
+}
+
+
+.tile {
+  display: inline-block;
+  width: $tile-size;
+  height: $tile-size;
+  color: $gray-600;
+  font-weight: 600;
+  font-size: $font-size-base;
+  background-color: $gray-200;
+  line-height: $tile-size;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: $border-radius;
+
+  &-img {
+    position: relative;
+    background-color: transparent;
+    overflow: hidden;
+  }
+
+  &.bg-primary,
+  &.bg-info,
+  &.bg-success,
+  &.bg-warning,
+  &.bg-danger,
+  &.bg-dark {
+    color: #fff;
+  }
+
+  &-lg {
+    width: $tile-size-lg;
+    height: $tile-size-lg;
+    font-size: $font-size-lg;
+    line-height: $tile-size-lg;
+    border-radius: $border-radius-lg;
+  }
+
+  &-md {
+    width: $tile-size-md;
+    height: $tile-size-md;
+    line-height: $tile-size-md;
+  }
+
+  &-sm {
+    width: $tile-size-sm;
+    height: $tile-size-sm;
+    font-size: $font-size-xs;
+    line-height: $tile-size-sm;
+  }
+
+  &-xs {
+    width: $tile-size-xs;
+    height: $tile-size-xs;
+    font-size: $font-size-xs;
+    line-height: $tile-size-xs;
+  }
+
+  &-circle {
+    border-radius: $tile-size;
+  }
+
+  > img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%,-50%,0);
+    max-width: 200%;
+  }
+}
+
+a.tile {
+  outline: 0;
+
+  @include hover-focus {
+    color: $dark;
+    text-decoration: none;
+  }
+
+  &.bg-primary,
+  &.bg-info,
+  &.bg-success,
+  &.bg-warning,
+  &.bg-danger,
+  &.bg-dark {
+    @include hover-focus {
+      color: #fff;
+    }
+  }
+}
+
+@each $color, $value in $colors {
+  .tile {
+    &.bg-#{$color} {
+      color: color-yiq($value);
+    }
+  }
+
+  a.tile {
+    &.bg-#{$color} {
+      @include hover-focus {
+        color: color-yiq($value);
+      }
+    }
+  }
+}

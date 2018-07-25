@@ -1,0 +1,40 @@
+{% if resources.definition.enabledFilters|length > 0 %}
+    {% set filter_rows = {} %}
+    {% set criterias = app.request.query.get('criteria') %}
+    {% set path = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+
+    <form method="get" action="{{ path }}" class="x-form-filter"
+          data-form-filter{% if criterias is null %} style="display: none"{% endif %}>
+        {% for filter in resources.definition.enabledFilters|sort_by('position') if filter.enabled %}
+            {% set filter_row %}
+                <div class="x-form-filter__row" data-row="{{ filter.name }}">
+                    <button type="button" class="btn btn-sm btn-outline-secondary mr-1" data-remove>
+                        <i class="fas fa-minus-circle"></i>
+                    </button>
+                    <div class="input-group input-group-sm">
+                        {{ sylius_grid_render_filter(resources, filter) }}
+                    </div>
+                </div>
+            {% endset %}
+            {% set filter_rows = filter_rows|merge({(filter.name): filter_row}) %}
+        {% endfor %}
+        <div data-rows>
+            {% for name, row in filter_rows if name in criterias|keys or criterias is null %}
+                {{ row|raw }}
+            {% endfor %}
+        </div>
+        <div class="x-form-filter__action" data-filters="{{ filter_rows|json_encode|e }}">
+            <button type="button" class="btn btn-outline-secondary btn-sm mr-1" data-add>
+                <i class="fas fa-plus-circle"></i> {{ "เพิ่มตัวกรอง" }}
+            </button>
+            {% if criterias|length %}
+                <a class="btn btn-outline-danger btn-sm mr-1" href="{{ path }}">
+                    <i class="fas fa-times"></i> {{ "ยกเลิก" }}
+                </a>
+            {% endif %}
+            <button type="submit" class="btn btn-primary btn-sm mr-1">
+                <i class="fas fa-check"></i> {{ "Apply Filter" }}
+            </button>
+        </div>
+    </form>
+{% endif %}

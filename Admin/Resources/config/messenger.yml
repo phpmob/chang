@@ -1,0 +1,103 @@
+imports:
+    - { resource: ./grids/admin_message.yml }
+
+sylius_resource:
+    resources:
+        chang.admin_device:
+            classes:
+                model: Chang\Admin\Model\Device
+                interface: Chang\Admin\Model\DeviceInterface
+                repository: Chang\Messenger\Doctrine\ORM\DeviceRepository
+                factory: Chang\Messenger\Factory\DeviceFactory
+        chang.admin_inbox:
+            classes:
+                model: Chang\Admin\Model\Inbox
+                interface: Chang\Admin\Model\InboxInterface
+        chang.admin_message:
+            classes:
+                model: Chang\Admin\Model\Message
+                interface: Chang\Admin\Model\MessageInterface
+                repository: Chang\Messenger\Doctrine\ORM\MessageRepository
+        chang.admin_recipient:
+            classes:
+                model: Chang\Admin\Model\Recipient
+                interface: Chang\Admin\Model\RecipientInterface
+        chang.admin_viewer:
+            classes:
+                model: Chang\Admin\Model\Viewer
+                interface: Chang\Admin\Model\ViewerInterface
+
+framework:
+    messenger:
+        buses:
+            messenger.bus.admin:
+                middleware:
+                    - chang.messenger.expired_middleware
+                    - chang.messenger.socket_middleware
+                    - chang.messenger.admin_pusher_middleware
+                    - chang.messenger.admin_worker_middleware
+
+services:
+    chang.listener.admin_flush_pusher:
+        class: Chang\Messenger\Pusher\FlushPusherSubscriber
+        tags: [kernel.event_subscriber]
+        arguments: [ '@chang.messenger.push_sender.admin_spool' ]
+
+    chang.listener.admin_queue_inbox_msg_handler:
+        class: Chang\Messenger\Queue\InboxMessageHandler
+        tags: [messenger.message_handler]
+        arguments:
+            - '@chang.messenger.admin_message_manager'
+            - '@sylius.admin_user_provider.email_or_name_based'
+
+    chang.messenger.admin_worker_controller:
+        public: true
+        class: Chang\Messenger\Worker\WorkerController
+        arguments:
+            - '@chang.messenger.worker_hash_handler'
+            - '@messenger.transport.decoder'
+            - '@messenger.bus.admin'
+
+    chang.messenger.admin_inbox_manager:
+        #public: true
+        class: Chang\Messenger\Manager\InboxManager
+        arguments:
+            - '@chang.manager.admin_inbox'
+            - '@chang.repository.admin_inbox'
+            - '@chang.repository.admin_message'
+
+    chang.messenger.admin_worker_middleware:
+        class: Chang\Messenger\Worker\WorkerMiddleware
+        arguments:
+            - '@chang.messenger.worker_hash_handler'
+            - '%env(CHANG_MSG_WORKER_DSN)%/admin'
+
+    chang.messenger.admin_pusher_middleware:
+        class: Chang\Messenger\Pusher\PushMiddleware
+        arguments:
+            - '@chang.messenger.push_sender.admin_spool'
+            - '@chang.repository.admin_device'
+
+    chang.messenger.push_sender.admin_spool:
+        class: Chang\Messenger\Pusher\SpoolSender
+        arguments:
+            - '@chang.manager.admin_device'
+            - '@chang.messenger.push_sender.default'
+
+    chang.messenger.admin_message_controller:
+        parent: chang.controller.admin_message
+        decorates: chang.controller.admin_message
+        class: Chang\Messenger\Controller\MessageController
+        calls: [{ method: setMessageManager, arguments: [ '@chang.messenger.admin_message_manager' ] }]
+
+    chang.messenger.admin_message_manager:
+        public: true
+        class: Chang\Messenger\Manager\MessageManager
+        arguments:
+            - '@messenger.bus.admin'
+            - '@chang.manager.admin_message'
+            - '@chang.repository.admin_message'
+            - '@chang.factory.admin_message'
+            - '@chang.factory.admin_recipient'
+            - '@chang.factory.admin_viewer'
+            - '@chang.messenger.admin_inbox_manager'

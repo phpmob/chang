@@ -1,0 +1,8 @@
+imports:
+    - ./services/*
+
+framework:
+    validation:
+        mapping:
+            paths:
+                - '%chang.dir%/User/Resources/config/validation'

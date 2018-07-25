@@ -1,0 +1,99 @@
+{% if app.request.isXmlHttpRequest() or app.request.get('_embeded') is same as('1') %}
+    {% block raw %}{% endblock %}
+{% else %}
+    <!DOCTYPE html>
+    <html lang="{{ ctx_page.get('seo.lang')|default('th') }}">
+    {% block html %}
+        <head>
+            {%- block metadata %}{% include '@chang/_metadata.html.twig' %}{% endblock %}
+            {%- block seo %}{% include '@chang/_seo.html.twig' %}{% endblock %}
+            {%- block favicon %}{% endblock %}
+            {% modify jsmin -%}{%- block scripts %}{% endblock %}{%- endmodify %}
+            {%- block styles %}{% endblock %}
+            {%- block extra_css %}{% endblock %}
+        </head>
+        <body>
+        {% block body %}
+            <div class="app has-fullwidth">
+                {% block header %}
+                    <header class="app-header">
+                        <div class="top-bar">
+                            {% include '@chang/header/_top-bar-brand.html.twig' %}
+                            <div class="top-bar-list">
+                                {% include '@chang/header/_hamburger.html.twig' %}
+                                {% include '@chang/header/_search.html.twig' %}
+                                <div class="top-bar-item top-bar-item-right px-0 d-none d-sm-flex">
+                                    <ul class="header-nav nav">
+                                        {% block inbox %}
+                                            {% if is_granted('ROLE_USER') %}
+                                                {% include '@chang/header/_inbox.html.twig' %}
+                                            {% endif %}
+                                        {% endblock %}
+                                        {% block quick_menu %}
+                                            {% include '@chang/header/_quick-menu.html.twig' %}
+                                        {% endblock %}
+                                    </ul>
+                                    {% block header_account %}
+                                        {% if is_granted('ROLE_USER') %}
+                                            <div class="dropdown">
+                                                {% include '@chang/header/_account.html.twig' %}
+                                                {% block header_account_menu %}
+                                                    {{ knp_menu_render(ctx_page.get('menu.account', 'account'), { template: '@chang/menu/dropdown.html.twig' }) }}
+                                                {% endblock %}
+                                            </div>
+                                        {% endif %}
+                                    {% endblock %}
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                {% endblock %}
+                {% block aside %}
+                    <aside class="app-aside">
+                        <div class="aside-content">
+                            {% include '@chang/aside/_header.html.twig' %}
+                            <section class="aside-menu has-scrollable">
+                                {% block aside_main_menu %}
+                                    {{ knp_menu_render(ctx_page.get('menu.main', 'main'), { template: '@chang/menu/stacked.html.twig' }) }}
+                                {% endblock %}
+                            </section>
+                        </div>
+                    </aside>
+                {% endblock %}
+                {% block main %}
+                    <main class="app-main">
+                        <div class="wrapper">
+                            {% block page %}
+                                <div class="page">
+                                    <div class="page-inner">
+                                        {% block page_title %}
+                                            <header class="page-title-bar">
+                                                {% block breadcrumb %}{% endblock %}
+                                                <p class="lead">
+                                                    <span class="font-weight-bold">{{ ctx_page.get('page.headline') }}</span>
+                                                    <span class="d-block text-muted">{{ ctx_page.get('page.description') }}</span>
+                                                </p>
+                                            </header>
+                                        {% endblock %}
+                                        {% block page_section %}
+                                            <div class="page-section">
+                                                {%- block flash %}{{ include('@chang/_flash.html.twig') }}{% endblock %}
+                                                {% block content %}{% endblock %}
+                                            </div>
+                                        {% endblock %}
+                                    </div>
+                                </div>
+                            {% endblock %}
+                        </div>
+                    </main>
+                {% endblock %}
+            </div>
+        {% endblock %}
+        {% modify jsmin -%}
+            {% block javascripts %}{% endblock %}
+            {% block extra_scripts %}{% endblock %}
+        {%- endmodify %}
+        </body>
+    {% endblock html %}
+    </html>
+{% endif %}

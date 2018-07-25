@@ -1,0 +1,7 @@
+{%- macro picture(picture, size = '40', inset = false, default = '') -%}
+    {%- if default and not picture -%}
+        {{- default|raw -}}
+    {%- else -%}
+        {{- picture|phpmob_imagine(size~'x'~size, inset) -}}
+    {%- endif -%}
+{%- endmacro -%}

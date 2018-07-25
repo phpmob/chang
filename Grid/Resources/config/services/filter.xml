@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="chang.grid.filter.form.number_filter_type" class="Chang\Grid\Filter\Form\NumberFilterType">
+            <tag name="form.type" />
+        </service>
+        <service id="chang.grid.filter.number_filter" class="Chang\Grid\Filter\NumberFilter">
+            <tag name="sylius.grid_filter" type="number" form-type="Chang\Grid\Filter\Form\NumberFilterType" />
+        </service>
+        <service id="chang.grid_filter.xdate" class="Sylius\Component\Grid\Filter\DateFilter">
+            <tag name="sylius.grid_filter" type="xdate" form-type="Chang\Grid\Filter\Form\DateFilterType" />
+        </service>
+    </services>
+</container>

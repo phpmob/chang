@@ -1,0 +1,40 @@
+sylius_locale_index:
+    path: /locales
+    methods: [ GET ]
+    defaults:
+        _controller: sylius.controller.locale:indexAction
+        _sylius:
+            template: '@chang/crud/index.html.twig'
+            grid: admin_locale_grid
+            vars:
+                icon: fas fa-language
+
+sylius_locale_create:
+    path: /locales/create
+    methods: [ GET, POST ]
+    defaults:
+        _controller: sylius.controller.locale:createAction
+        _sylius:
+            form: Sylius\Bundle\LocaleBundle\Form\Type\LocaleType
+            template: '@chang/crud/create.html.twig'
+            vars:
+                templates:
+                    form: '@Locale/form.html.twig'
+
+sylius_locale_update:
+    path: /locales/{id}/update
+    methods: [ GET, PATCH, PUT ]
+    defaults:
+        _controller: sylius.controller.locale:updateAction
+        _sylius:
+            form: Sylius\Bundle\LocaleBundle\Form\Type\LocaleType
+            template: '@chang/crud/update.html.twig'
+            vars:
+                templates:
+                    form: '@Locale/form.html.twig'
+
+sylius_locale_delete:
+    path: /locales/{id}/delete
+    methods: [ DELETE ]
+    defaults:
+        _controller: sylius.controller.locale:deleteAction
