@@ -20,6 +20,7 @@
 
     "sylius/grid-bundle": "^1.2",
     "sylius/resource-bundle": "^1.2",
+    "sylius/user-bundle": "^1.2",
     "twig/extensions": "^1.5"
   },
   "require-dev": {
