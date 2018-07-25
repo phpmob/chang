@@ -18,6 +18,18 @@
   "require": {
     "php": "^7.2",
 
+    "adbario/php-dot-notation": "^2.0",
+    "beberlei/DoctrineExtensions": "^1.1",
+    "bjeavons/zxcvbn-php": "^0.3.0",
+    "fzaninotto/faker": "^1.7",
+    "knplabs/knp-menu-bundle": "^2.2",
+    "minishlink/web-push": "^4.0",
+    "php-http/httplug-pack": "^1.1",
+    "ramsey/uuid": "^3.7",
+    "richardfullmer/rabbitmq-management-api": "^2.0",
+    "sly/notification-pusher": "^2.3",
+    "sylius/fixtures-bundle": "^1.2",
+    "sylius/mailer-bundle": "^1.2",
     "sylius/grid-bundle": "^1.2",
     "sylius/resource-bundle": "^1.2",
     "sylius/user-bundle": "^1.2",
