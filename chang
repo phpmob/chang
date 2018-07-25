@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sf="$(which php) ./console"
+sf="$(which php) ./bin/console"
 c="$(which composer)"
 root=$PWD
 
