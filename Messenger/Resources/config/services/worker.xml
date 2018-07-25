@@ -12,7 +12,7 @@
         <service id="chang.messenger.worker_hash_handler" class="Chang\Messenger\Worker\HashHandler">
             <argument type="service" id="chang.manager.hash_storage"/>
             <argument type="service" id="chang.repository.hash_storage"/>
-            <argument>%env(SECRET)%</argument>
+            <argument>%kernel.secret%%%</argument>
         </service>
     </services>
 </container>
