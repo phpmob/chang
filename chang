@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+
+sf="$(which php) ./console"
+c="$(which composer)"
+root=$PWD
+
+function install_db()
+{
+    $sf doctrine:database:drop --connection=default --force --if-exists && \
+    $sf doctrine:database:create --connection=default && \
+    $sf doctrine:schema:update --dump-sql --force
+}
+
+function install_media()
+{
+    $sf doctrine:database:drop --connection=media --force --if-exists && \
+    $sf doctrine:database:create --connection=media && \
+    $sf doctrine:phpcr:init:dbal --force && \
+    $sf doctrine:phpcr:repository:init
+}
+
+function install_fixture()
+{
+    $sf sylius:fixtures:load dev -n && \
+    $sf cache:clear
+}
+
+function install()
+{
+    $c install
+    install_db
+    install_media
+    install_fixture
+}
+
+function update()
+{
+    $c update
+    install_db
+    install_media
+    install_fixture
+}
+
+function reset()
+{
+    install_db
+    install_media
+    install_fixture
+}
+
+function fixture()
+{
+    install_fixture
+}
+
+function usage()
+{
+    echo ""
+    echo "  -h, --help."
+    echo "  -i, --install basic new install"
+    echo "  -u, --update basic update composer and install"
+    echo "  -r, --reset reset all database"
+    echo "  -f, --fixture reset fixtures"
+    echo ""
+}
+
+while [ "$1" != "" ]; do
+    PARAM=`echo $1 | awk -F= '{print $1}'`
+    VALUE=`echo $1 | awk -F= '{print $2}'`
+    case $PARAM in
+        -h | --help)
+            usage
+            exit
+            ;;
+        -i | --install)
+            install
+            exit 1
+            ;;
+        -u | --update)
+            update
+            exit 1
+            ;;
+        -r | --reset)
+            reset
+            exit 1
+            ;;
+        -f | --fixture)
+            fixture
+            exit 1
+            ;;
+        *)
+            echo "ERROR: unknown parameter \"$PARAM\""
+            usage
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+usage

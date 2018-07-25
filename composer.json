@@ -48,6 +48,7 @@
     "sort-packages": true,
     "bin-dir": "bin"
   },
+  "bin": ["chang"],
   "extra": {
     "branch-alias": {
       "dev-master": "1.0-dev"
