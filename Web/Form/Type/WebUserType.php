@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class WebUserType extends UserType
 {
@@ -47,6 +48,7 @@ class WebUserType extends UserType
             ->add('picture', WebUserPictureType::class, [
                 'required' => false,
                 'label' => 'chang.form.web_user.picture',
+                'check_file_error' => $options['check_picture_error'],
             ])
             ->add('gender', ChoiceType::class, [
                 'required' => false,
@@ -57,5 +59,15 @@ class WebUserType extends UserType
                 ]),
             ])
         ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        parent::configureOptions($resolver);
+
+        $resolver->setDefault('check_picture_error', true);
     }
 }

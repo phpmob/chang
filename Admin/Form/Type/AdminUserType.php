@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AdminUserType extends UserType
 {
@@ -46,7 +47,18 @@ class AdminUserType extends UserType
             ->add('picture', AdminUserPictureType::class, [
                 'required' => false,
                 'label' => 'chang.form.admin_user.picture',
+                'check_file_error' => $options['check_picture_error']
             ])
         ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        parent::configureOptions($resolver);
+
+        $resolver->setDefault('check_picture_error', true);
     }
 }
