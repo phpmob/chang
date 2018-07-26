@@ -145,7 +145,7 @@ select.form-control {
   z-index: 0;
 
   &::before {
-    top: 50%;
+    /*top: 50%;
     left: 50%;
     position: absolute;
     display: inline-block;
@@ -163,7 +163,7 @@ select.form-control {
     -webkit-transform-style: preserve-3d;
     animation: loader 700ms linear infinite;
     content: "";
-    z-index: 2;
+    z-index: 2;*/
   }
   &::after {
     top: 0;
