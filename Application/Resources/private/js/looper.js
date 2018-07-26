@@ -10,452 +10,405 @@ window['PerfectScrollbar'] = require('perfect-scrollbar').default;
 const Popper = require('popper.js').default;
 
 const App = {
+    init: function init() {
 
-    init () {
+        this.bindUIActions();
 
-        this.bindUIActions()
-
-        return this
+        return this;
     },
-
-    bindUIActions () {
-        const $this = this
+    bindUIActions: function bindUIActions() {
+        var self = this;
 
         // settings
         // =============================================================
         // Turn off the transform placement on Popper
-        Popper.Defaults.modifiers.computeStyle.gpuAcceleration = false
+        Popper.Defaults.modifiers.computeStyle.gpuAcceleration = false;
 
         // event handlers
         // =============================================================
 
         $('body').on('click', '.stop-propagation', function (e) {
-            e.stopPropagation()
-        })
-            .on('click', '.prevent-default', function (e) {
-                e.preventDefault()
-            })
-
+            e.stopPropagation();
+        }).on('click', '.prevent-default', function (e) {
+            e.preventDefault();
+        });
 
         // polyfill
         // =============================================================
 
-        this.handlePlaceholderShown()
-
+        this.handlePlaceholderShown();
 
         // bootstrap components
         // =============================================================
 
-        this.initTooltips()
-        this.initPopovers()
-        this.handleInputGroup()
-        this.handleCustomFileInput()
-        this.handlePasswordVisibility()
-        this.handleIndeterminateCheckboxes()
-        this.handleFormValidation()
-        this.handleCardExpansion()
-        this.handleModalOverflow()
-
+        this.initTooltips();
+        this.initPopovers();
+        this.handleInputGroup();
+        this.handleCustomFileInput();
+        this.handlePasswordVisibility();
+        this.handleIndeterminateCheckboxes();
+        this.handleFormValidation();
+        this.handleCardExpansion();
+        this.handleModalOverflow();
 
         // theme components
         // =============================================================
 
-        this.initBackdrop()
-        this.topBarSearch()
-        this.toggleHamburgerMenu()
-        this.handleAside()
-        this.handleScrollable()
-        this.handleStackedMenu()
-        this.handleSidebar()
-        this.handlePublisher()
-        this.handleMasonryLayout()
-        this.handleSmoothScroll()
-
+        this.initBackdrop();
+        this.topBarSearch();
+        this.toggleHamburgerMenu();
+        this.handleAside();
+        this.handleScrollable();
+        this.handleStackedMenu();
+        this.handleSidebar();
+        this.handlePublisher();
+        this.handleMasonryLayout();
+        this.handleSmoothScroll();
 
         // handle window load & resize
         // =============================================================
 
         $(window).on('load', function () {
-            const $target = $('.stacked-menu .menu > li.has-active')
+            var $target = $('.stacked-menu .menu > li.has-active');
             if ($target.length) {
                 $('#aside-menu').animate({
                     scrollTop: $target.position().top
-                })
+                });
             }
-        })
-            .on('resize', function () {
-                // force close aside on toggle screen up
-                if ($this.isToggleScreenUp() && $('.app-aside').hasClass('has-open') && !$('.app').hasClass('has-fullwidth')) {
-                    $this.closeAside()
-                }
+        }).on('resize', function () {
+            // force close aside on toggle screen up
+            if (self.isToggleScreenUp() && $('.app-aside').hasClass('has-open') && !$('.app').hasClass('has-fullwidth')) {
+                self.closeAside();
+            }
 
-                // disable transition temporary
-                $('.app-aside, .page-sidebar').addClass('notransition')
-                setTimeout(function () {
-                    $('.app-aside, .page-sidebar').removeClass('notransition')
-                }, 1)
-            })
+            // disable transition temporary
+            $('.app-aside, .page-sidebar').addClass('notransition');
+            setTimeout(function () {
+                $('.app-aside, .page-sidebar').removeClass('notransition');
+            }, 1);
+        });
     },
 
 
     // Polyfill for :placeholder-shown
     // =============================================================
 
-    handlePlaceholderShown () {
+    handlePlaceholderShown: function handlePlaceholderShown() {
         $(document).on('load keyup change', '[placeholder]', function () {
-            this.classList[this.value ? 'remove' : 'add']('placeholder-shown')
-        })
+            this.classList[this.value ? 'remove' : 'add']('placeholder-shown');
+        });
     },
 
 
     // Handle Bootstrap components
     // =============================================================
 
-    initTooltips () {
-        $('[data-toggle="tooltip"]').tooltip()
+    initTooltips: function initTooltips() {
+        $('[data-toggle="tooltip"]').tooltip();
     },
-
-    initPopovers () {
-        $('[data-toggle="popover"]').popover()
+    initPopovers: function initPopovers() {
+        $('[data-toggle="popover"]').popover();
     },
+    handleInputClearable: function handleInputClearable(target) {
+        var isEmpty = !$(target).val();
+        var clearable = $(target).parent().children('.close');
 
-    handleInputClearable (target) {
-        const isEmpty = !$(target).val()
-        const clearable = $(target).parent().children('.close')
-
-        clearable.toggleClass('show', !isEmpty)
+        clearable.toggleClass('show', !isEmpty);
     },
-
-    handleInputGroup () {
-        const $this = this
+    handleInputGroup: function handleInputGroup() {
+        var self = this;
 
         // initialize events
         $('.has-clearable > .form-control').each(function () {
-            $this.handleInputClearable(this)
-        })
+            self.handleInputClearable(this);
+        });
 
         // handle input group event
         $(document).on('focus', '.input-group:not(.input-group-alt) .form-control', function () {
-            const hasInputGroup = $(this).parent().has('.input-group')
+            var hasInputGroup = $(this).parent().has('.input-group');
             if (hasInputGroup) {
-                $(this).parent().addClass('focus')
+                $(this).parent().addClass('focus');
+            }
+        }).on('blur', '.input-group:not(.input-group-alt) .form-control', function () {
+            var hasInputGroup = $(this).parent().has('.input-group');
+            if (hasInputGroup) {
+                $(this).parent().removeClass('focus');
             }
         })
-            .on('blur', '.input-group:not(.input-group-alt) .form-control', function () {
-                const hasInputGroup = $(this).parent().has('.input-group')
-                if (hasInputGroup) {
-                    $(this).parent().removeClass('focus')
-                }
-            })
-            // input has clearable
+        // input has clearable
             .on('keyup', '.has-clearable > .form-control', function () {
-                $this.handleInputClearable(this)
-            })
-            .on('click', '.has-clearable > .close', function () {
-                const input = $(this).parent().children('.form-control')
+                self.handleInputClearable(this);
+            }).on('click', '.has-clearable > .close', function () {
+            var input = $(this).parent().children('.form-control');
 
-                input.val('').focus()
-                $this.handleInputClearable(input)
-            })
-
+            input.val('').focus();
+            self.handleInputClearable(input);
+        });
     },
-
-    handleCustomFileInput () {
+    handleCustomFileInput: function handleCustomFileInput() {
         // custom file input behavior
         $('.custom-file > .custom-file-label').each(function () {
-            const label = $(this).text()
-            $(this).data('label', label)
-        })
+            var label = $(this).text();
+            $(this).data('label', label);
+        });
 
         $(document).on('change', '.custom-file > .custom-file-input', function () {
-            const files = this.files
-            const $fileLabel = $(this).next('.custom-file-label')
-            const $originLabel = $fileLabel.data('label')
+            var files = this.files;
+            var $fileLabel = $(this).next('.custom-file-label');
+            var $originLabel = $fileLabel.data('label');
 
-            $fileLabel.text(files.length + ' files selected')
+            $fileLabel.text(files.length + ' files selected');
             if (files.length <= 2) {
-                let fileNames = []
-                for (let i = 0; i < files.length; i++) {
-                    fileNames.push(files[i].name)
+                var fileNames = [];
+                for (var i = 0; i < files.length; i++) {
+                    fileNames.push(files[i].name);
                 }
-                $fileLabel.text(fileNames.join(', '))
+                $fileLabel.text(fileNames.join(', '));
             }
             if (!files.length) {
-                $fileLabel.text($originLabel)
+                $fileLabel.text($originLabel);
             }
-        })
+        });
     },
-
-    handlePasswordVisibility () {
+    handlePasswordVisibility: function handlePasswordVisibility() {
         $(document).on('click', '[data-toggle="password"]', function (e) {
-            e.preventDefault()
-            const target = $(this).attr('href')
-            const $target = $(target)
+            e.preventDefault();
+            var target = $(this).attr('href');
+            var $target = $(target);
 
-            if ($(this).has('.fa'))
-                $(this).children('.fa, .far').toggleClass('fa-eye fa-eye-slash')
+            if ($(this).has('.fa')) $(this).children('.fa, .far').toggleClass('fa-eye fa-eye-slash');
 
             if ($target.is('[type="password"]')) {
-                $target.prop('type', 'text')
-                $(this).children().last().text('Hide')
+                $target.prop('type', 'text');
+                $(this).children().last().text('Hide');
+            } else {
+                $target.prop('type', 'password');
+                $(this).children().last().text('Show');
             }
-            else {
-                $target.prop('type', 'password')
-                $(this).children().last().text('Show')
-            }
-        })
+        });
     },
-
-    handleIndeterminateCheckboxes () {
-        $('input[type="checkbox"][indeterminate]').prop('indeterminate', true)
+    handleIndeterminateCheckboxes: function handleIndeterminateCheckboxes() {
+        $('input[type="checkbox"][indeterminate]').prop('indeterminate', true);
     },
-
-    handleFormValidation () {
+    handleFormValidation: function handleFormValidation() {
         $(window).on('load', function () {
             // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = $('.needs-validation')
+            var forms = $('.needs-validation');
             // Loop over them and prevent submission
             forms.each(function (i, form) {
                 $(form).on('submit', function (e) {
                     if (form.checkValidity() === false) {
-                        e.preventDefault()
-                        e.stopPropagation()
+                        e.preventDefault();
+                        e.stopPropagation();
                     }
-                    $(form).addClass('was-validated')
-                })
-            })
-        })
+                    $(form).addClass('was-validated');
+                });
+            });
+        });
     },
-
-    handleCardExpansion () {
+    handleCardExpansion: function handleCardExpansion() {
         $(document).on('show.bs.collapse hide.bs.collapse', '.card-expansion-item > .collapse', function (e) {
-            const $item = $(this).parent()
-            const isShown = e.type === 'show'
+            var $item = $(this).parent();
+            var isShown = e.type === 'show';
 
-            $item.toggleClass('expanded', isShown)
-        })
+            $item.toggleClass('expanded', isShown);
+        });
     },
-
-    handleModalOverflow () {
+    handleModalOverflow: function handleModalOverflow() {
         $('.modal').on('shown.bs.modal', function () {
-            $(this)
-                .addClass('has-shown')
-                .find('.modal-body')
-                .trigger('scroll')
-        })
+            $(this).addClass('has-shown').find('.modal-body').trigger('scroll');
+        });
 
         $('.modal-dialog-overflow .modal-body').on('scroll', function () {
-            const $elem = $(this)
-            const elem = $elem[0]
-            const isTop = $elem.scrollTop() === 0
-            const isBottom = elem.scrollHeight - $elem.scrollTop() === $elem.outerHeight()
+            var $elem = $(this);
+            var elem = $elem[0];
+            var isTop = $elem.scrollTop() === 0;
+            var isBottom = elem.scrollHeight - $elem.scrollTop() === $elem.outerHeight();
 
-            $elem.prev().toggleClass('modal-body-scrolled', isTop)
-            $elem.next().toggleClass('modal-body-scrolled', isBottom)
-        })
+            $elem.prev().toggleClass('modal-body-scrolled', isTop);
+            $elem.next().toggleClass('modal-body-scrolled', isBottom);
+        });
     },
 
 
     // Handle Theme components
     // =============================================================
 
-    isToggleScreenUp () {
-        return window.matchMedia('(min-width: 768px)').matches
+    isToggleScreenUp: function isToggleScreenUp() {
+        return window.matchMedia('(min-width: 768px)').matches;
     },
-
-    isToggleScreenDown () {
-        return window.matchMedia('(max-width: 767.98px)').matches
+    isToggleScreenDown: function isToggleScreenDown() {
+        return window.matchMedia('(max-width: 767.98px)').matches;
     },
-
-    initBackdrop () {
-        $('.app').append('<div class="app-backdrop"/>')
+    initBackdrop: function initBackdrop() {
+        $('.app').append('<div class="app-backdrop"/>');
     },
-
-    openBackdrop () {
-        $('.app-backdrop').addClass('show')
-        return $('.app-backdrop')
+    openBackdrop: function openBackdrop() {
+        $('.app-backdrop').addClass('show');
+        return $('.app-backdrop');
     },
-
-    closeBackdrop () {
-        $('.app-backdrop').removeClass('show')
-        return $('.app-backdrop')
+    closeBackdrop: function closeBackdrop() {
+        $('.app-backdrop').removeClass('show');
+        return $('.app-backdrop');
     },
-
-    topBarSearch () {
+    topBarSearch: function topBarSearch() {
         $(document).on('blur', '.top-bar-search > .form-control', function () {
-            const $input = $(this).children('.form-control')
-            const isEmpty = $input.val().length === 0
+            var $input = $(this).children('.form-control');
+            var isEmpty = $input.val().length === 0;
 
             if (!isEmpty) {
-                $input.val('')
+                $input.val('');
             }
-        })
+        });
     },
-
-    toggleHamburgerMenu () {
+    toggleHamburgerMenu: function toggleHamburgerMenu() {
         $(document).on('click', '.js-hamburger', function () {
-            $(this).toggleClass('has-active')
-        })
+            $(this).toggleClass('has-active');
+        });
     },
+    openAside: function openAside() {
+        var self = this;
 
-    openAside () {
-        this.openBackdrop()
-        $('.app-aside').addClass('has-open')
+        var backdrop = this.openBackdrop();
+
+        $('.app-aside').addClass('has-open');
+        $('[data-toggle="aside"]').addClass('has-active');
+
+        backdrop.one('click', function () {
+            self.closeAside();
+        });
     },
-
-    closeAside () {
-        this.closeBackdrop()
-        $('.app-aside').removeClass('has-open')
-        $('[data-toggle="aside"]').removeClass('has-active')
+    closeAside: function closeAside() {
+        this.closeBackdrop();
+        $('.app-aside').removeClass('has-open');
+        $('[data-toggle="aside"]').removeClass('has-active');
     },
-
-    handleAside () {
-        const $this = this
-        const $trigger = $('[data-toggle="aside"]')
+    handleAside: function handleAside() {
+        var self = this;
+        var $trigger = $('[data-toggle="aside"]');
 
         $trigger.on('click', function () {
-            const isOpen = $('.app-aside').hasClass('has-open')
+            var isOpen = $('.app-aside').hasClass('has-open');
 
-            $trigger.toggleClass('has-active', !isOpen)
+            $trigger.toggleClass('has-active', !isOpen);
 
-            if (isOpen)
-                $this.closeAside()
-            else
-                $this.openAside()
-
-            $('.app-backdrop').one('click', function () {
-                $this.closeAside()
-            })
-        })
+            if (isOpen) self.closeAside(); else self.openAside();
+        });
     },
-
-    handleScrollable () {
+    handleScrollable: function handleScrollable() {
         if (window.PerfectScrollbar && $('.has-scrollable').length) {
             $('.has-scrollable').each(function () {
                 return new PerfectScrollbar(this, {
                     suppressScrollX: true
-                })
-            })
+                });
+            });
         }
     },
-
-    handleStackedMenu () {
+    handleStackedMenu: function handleStackedMenu() {
         if (window.StackedMenu && $('#stacked-menu').length) {
-            return new StackedMenu()
+            return new StackedMenu();
         }
     },
+    toggleSidebar: function toggleSidebar() {
+        var self = this;
+        var $page = $('.page.has-sidebar');
+        var isOpen = $page.hasClass('has-sidebar-open');
 
-    toggleSidebar () {
-        const $this = this
-        const $sidebar = $('.page-sidebar')
-        const $backdrop = $('.sidebar-backdrop')
-        const isOpen = $sidebar.hasClass('has-open')
-
-        if ($sidebar.length) {
-            $sidebar.toggleClass('has-open', !isOpen)
-            $backdrop.toggleClass('show', !isOpen)
-
-            $backdrop.one('click', function () {
-                $(this).removeClass('show')
-                $sidebar.removeClass('has-open')
-            })
+        if ($page.length) {
+            $page.toggleClass('has-sidebar-open', !isOpen);
         }
     },
-
-    handleSidebar () {
-        const $this = this
+    handleSidebar: function handleSidebar() {
+        var self = this;
 
         // add sidebar backdrop
-        $('.page').prepend('<div class="sidebar-backdrop" />')
+        if ($('.has-sidebar').length) {
+            $('.page').prepend('<div class="sidebar-backdrop" />');
+        }
 
-        $(document).on('click', '[data-toggle="sidebar"]', function (e) {
-            e.preventDefault()
-            $this.toggleSidebar()
-        })
+        $(document).on('click', '[data-toggle="sidebar"], .sidebar-backdrop', function (e) {
+            e.preventDefault();
+            self.toggleSidebar();
+        });
     },
+    handlePublisher: function handlePublisher() {
+        $(document).on('focusin', '.publisher .form-control', function () {
+            var $publisher = $(this).parents('.publisher');
 
-    handlePublisher () {
-        $(document)
-            .on('focusin', '.publisher .form-control', function () {
-                const $publisher = $(this).parents('.publisher')
+            // normalize all empty publisher
+            $('.publisher').each(function () {
+                var hasEmpty = !$(this).find('.form-control').val();
 
-                // normalize all empty publisher
-                $('.publisher').each(function () {
-                    const hasEmpty = !$(this).find('.form-control').val()
-
-                    if (hasEmpty) {
-                        $(this).removeClass('active')
-                        $(this).not('.keep-focus').removeClass('focus')
-                    }
-                })
-
-                // add state classes
-                $publisher.addClass('focus active')
-            })
-            .on('click', 'html', function () {
-                const $publisher = $('.publisher.active')
-                const isEmpty = !$publisher.find('.form-control').val()
-
-                // always remove active state
-                $publisher.removeClass('active')
-
-                // remove focus if input is empty
-                if (isEmpty) {
-                    $publisher.not('.keep-focus').removeClass('focus')
+                if (hasEmpty) {
+                    $(this).removeClass('active');
+                    $(this).not('.keep-focus').removeClass('focus');
                 }
-            })
-            .on('click', '.publisher.active', function (e) {
-                e.stopPropagation()
-            })
-    },
+            });
 
-    handleMasonryLayout () {
+            // add state classes
+            $publisher.addClass('focus active');
+        }).on('click', 'html', function () {
+            var $publisher = $('.publisher.active');
+            var isEmpty = !$publisher.find('.form-control').val();
+
+            // always remove active state
+            $publisher.removeClass('active');
+
+            // remove focus if input is empty
+            if (isEmpty) {
+                $publisher.not('.keep-focus').removeClass('focus');
+            }
+        }).on('click', '.publisher.active', function (e) {
+            e.stopPropagation();
+        });
+    },
+    handleMasonryLayout: function handleMasonryLayout() {
         $(window).on('load', function () {
             if (window.Masonry) {
                 $('.masonry-layout').masonry({
                     itemSelector: '.masonry-item',
                     columnWidth: '.masonry-item:first-child',
                     percentPosition: true
-                })
+                });
             }
-        })
+        });
     },
-
-    handleSmoothScroll () {
+    handleSmoothScroll: function handleSmoothScroll() {
         $(document).on('click', 'a.smooth-scroll[href^="#"]', function (e) {
-            const hash = $(this).attr('href')
-            const target = $(hash)
+            var hash = $(this).attr('href');
+            var target = $(hash);
             if (!target.length) {
-                return
+                return;
             }
 
-            e.preventDefault()
+            e.preventDefault();
 
-            const headerHeight = $('.app-header').height() + 20
-            const offset = target.offset().top - headerHeight
+            var headerHeight = $('.app-header').height() + 20;
+            var offset = target.offset().top - headerHeight;
 
             $('html, body').animate({
-                scrollTop: (offset < 0) ? 0 : offset
-            }, 700)
-        })
+                scrollTop: offset < 0 ? 0 : offset
+            }, 700);
+        });
     },
 
 
     // Utils
 
-    debounce (func, wait, immediate) {
-        var timeout
+    debounce: function debounce(func, wait, immediate) {
+        var timeout;
         return function () {
-            var context = this, args = arguments
-            var later = function () {
-                timeout = null
-                if (!immediate) func.apply(context, args)
-            }
-            var callNow = immediate && !timeout
-            clearTimeout(timeout)
-            timeout = setTimeout(later, wait)
-            if (callNow) func.apply(context, args)
-        }
+            var context = this,
+                args = arguments;
+            var later = function later() {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
+        };
     }
 };
 

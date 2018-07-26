@@ -31,10 +31,11 @@ label {
 @include media-breakpoint-up(md) {
   .form-control {
     font-size: $font-size-sm;
-    line-height: 1.6;
+    // line-height: 1.6;
 
     &.form-control-sm {
       font-size: 0.8125rem;
+      line-height: 1.6;
     }
     &.form-control-lg {
       font-size: 1rem;
@@ -43,7 +44,7 @@ label {
 
   .form-check {
     font-size: $font-size-sm;
-    line-height: 1.6;
+    // line-height: 1.6;
   }
 }
 
@@ -116,6 +117,24 @@ $input-floating-padding-y: .75rem !default;
 
 .form-label-group {
   position: relative;
+
+  .loader {
+    position: absolute;
+    right: 1rem;
+    top: .75rem;
+    opacity: 0;
+    transition: opacity 300ms;
+  }
+
+  .loader-sm {
+    top: 1rem;
+  }
+
+  &.has-loading {
+    .loader {
+      opacity: 1;
+    }
+  }
 }
 
 .form-label-group > input,

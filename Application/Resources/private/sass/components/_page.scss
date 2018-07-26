@@ -265,9 +265,10 @@
   @include media-breakpoint-up(xl) {
     transform: translate3d(0, 0, 0);
 
-    &.has-open {
+    .has-sidebar-open & {
       position: absolute;
       top: 0;
+      transform: translate3d(100%, 0, 0);
     }
   }
 
@@ -275,7 +276,7 @@
     max-width: 100%;
   }
 
-  &.has-open {
+  .has-sidebar-open & {
     position: fixed;
     top: $app-header-height;
     transform: translate3d(0, 0, 0);
@@ -298,7 +299,7 @@
   background-color: rgba($dark, .26);
   z-index: ($zindex-fixed - 2);
 
-  &.show {
+  .has-sidebar-open & {
     @include media-breakpoint-down(lg) {
       display: block;
       animation: fadeInBackdrop 260ms ease forwards;

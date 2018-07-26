@@ -3,7 +3,7 @@
   .custom-control-label,
   .custom-file-label,
   .custom-file-label::after {
-    line-height: 1.6;
+    // line-height: 1.6;
   }
 
   .custom-select,
@@ -11,7 +11,7 @@
   .custom-file-input,
   .custom-file-label,
   .custom-file-label::after {
-    height: $input-height-inner;
+    height: 2.188rem;
   }
 
   .custom-control-label:empty {
@@ -19,6 +19,10 @@
     &::after {
       top: .125rem;
     }
+  }
+
+  .custom-control-nolabel {
+    top: -.125rem;
   }
 }
 
@@ -47,6 +51,15 @@
 }
 
 .custom-control-label {
+  &::before,
+  &::after {
+    top: .125rem;
+
+    @include media-breakpoint-up(md) {
+      top: 0;
+    }
+  }
+
   &::before {
     background: linear-gradient(to bottom, $white, $secondary);
     border: 1px solid $input-border-color;
@@ -64,7 +77,6 @@
 }
 
 .custom-control-nolabel {
-  top: .125rem;
   margin: 0 0 0 -.125rem;
   padding-left: 0;
 
@@ -74,6 +86,7 @@
     color: transparent;
     overflow: hidden;
     white-space: nowrap;
+    user-select: none;
 
     &::before,
     &::after {
@@ -133,6 +146,7 @@
   padding: $input-padding-y-sm $input-padding-x-sm;
   height: auto;
   font-size: $font-size-sm;
+  line-height: 1.6;
 
   @include media-breakpoint-up(md) {
     font-size: .8125rem;
@@ -160,6 +174,7 @@
     padding: $input-padding-y-sm $input-padding-x-sm;
     height: auto;
     font-size: $font-size-sm;
+    line-height: 1.6;
 
     @include media-breakpoint-up(md) {
       font-size: .8125rem;

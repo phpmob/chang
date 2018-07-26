@@ -21,7 +21,7 @@
 
   @include media-breakpoint-up(md) {
     font-size: $font-size-sm;
-    line-height: 1.6;
+    // line-height: 1.6;
   }
 }
 
@@ -57,7 +57,7 @@
   overflow-y: hidden;
 
   @include media-breakpoint-up(md) {
-    height: 56px;
+    height: 55px;
   }
 
   > .nav {

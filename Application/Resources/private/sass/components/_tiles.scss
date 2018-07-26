@@ -38,7 +38,7 @@ a.tile-wrapper {
   font-weight: 600;
   font-size: $font-size-base;
   background-color: $gray-200;
-  line-height: $tile-size;
+  line-height: 2.25;
   text-align: center;
   vertical-align: middle;
   border-radius: $border-radius;
@@ -49,45 +49,59 @@ a.tile-wrapper {
     overflow: hidden;
   }
 
-  &.bg-primary,
-  &.bg-info,
-  &.bg-success,
-  &.bg-warning,
-  &.bg-danger,
-  &.bg-dark {
-    color: #fff;
+  @each $color, $value in $theme-colors {
+    &.bg-#{$color} {
+      color: color-yiq($value);
+    }
+  }
+
+  &-xxl {
+    width: $tile-size-xxl;
+    height: $tile-size-xxl;
+    line-height: 8.5rem;
+    font-size: 3rem;
+  }
+
+  &-xl {
+    width: $tile-size-xl;
+    height: $tile-size-xl;
+    line-height: 5.25rem;
+    font-size: 2rem;
   }
 
   &-lg {
     width: $tile-size-lg;
     height: $tile-size-lg;
+    line-height: 3.25rem;
     font-size: $font-size-lg;
-    line-height: $tile-size-lg;
-    border-radius: $border-radius-lg;
   }
 
   &-md {
     width: $tile-size-md;
     height: $tile-size-md;
-    line-height: $tile-size-md;
   }
 
   &-sm {
     width: $tile-size-sm;
     height: $tile-size-sm;
     font-size: $font-size-xs;
-    line-height: $tile-size-sm;
   }
 
   &-xs {
     width: $tile-size-xs;
     height: $tile-size-xs;
     font-size: $font-size-xs;
-    line-height: $tile-size-xs;
+    line-height: 1.4rem;
+  }
+
+  &-xxl,
+  &-xl,
+  &-lg {
+    border-radius: $border-radius-lg;
   }
 
   &-circle {
-    border-radius: $tile-size;
+    border-radius: ($tile-size-xxl / 2);
   }
 
   > img {
@@ -107,14 +121,11 @@ a.tile {
     text-decoration: none;
   }
 
-  &.bg-primary,
-  &.bg-info,
-  &.bg-success,
-  &.bg-warning,
-  &.bg-danger,
-  &.bg-dark {
-    @include hover-focus {
-      color: #fff;
+  @each $color, $value in $theme-colors {
+    &.bg-#{$color} {
+      @include hover-focus {
+        color: color-yiq($value);
+      }
     }
   }
 }

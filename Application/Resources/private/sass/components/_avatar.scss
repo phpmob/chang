@@ -2,47 +2,47 @@
   position: relative;
   margin-bottom: 0;
   display: inline-block;
-  width: 2rem;
-  height: 2rem;
-  font-size: 2rem;
+  width: $avatar-size;
+  height: $avatar-size;
+  font-size: $avatar-size;
   border-radius: 4rem;
   background-color: $white;
   vertical-align: middle;
 
   &-xxl {
-    width: 8rem;
-    height: 8rem;
-    font-size: 8rem;
+    width: $avatar-size-xxl;
+    height: $avatar-size-xxl;
+    font-size: $avatar-size-xxl;
   }
 
   &-xl {
-    width: 5rem;
-    height: 5rem;
-    font-size: 5rem;
+    width: $avatar-size-xl;
+    height: $avatar-size-xl;
+    font-size: $avatar-size-xl;
   }
 
   &-lg {
-    width: 3rem;
-    height: 3rem;
-    font-size: 3rem;
+    width: $avatar-size-lg;
+    height: $avatar-size-lg;
+    font-size: $avatar-size-lg;
   }
 
   &-md {
-    width: 2.25rem;
-    height: 2.25rem;
-    font-size: 2.25rem;
+    width: $avatar-size-md;
+    height: $avatar-size-md;
+    font-size: $avatar-size-md;
   }
 
   &-sm {
-    width: 1.5rem;
-    height: 1.5rem;
-    font-size: 1.5rem;
+    width: $avatar-size-sm;
+    height: $avatar-size-sm;
+    font-size: $avatar-size-sm;
   }
 
   &-xs {
-    width: 1.25rem;
-    height: 1.25rem;
-    font-size: 1.25rem;
+    width: $avatar-size-xs;
+    height: $avatar-size-xs;
+    font-size: $avatar-size-xs;
   }
 
   &.dropdown {

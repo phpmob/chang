@@ -3,10 +3,11 @@
 
   @include media-breakpoint-up(md) {
     font-size: $font-size-sm;
-    line-height: 1.6;
+    // line-height: 1.6;
 
     &.btn-sm {
       font-size: 0.8125rem;
+      line-height: 1.6;
     }
     &.btn-lg {
       font-size: 1rem;
@@ -16,6 +17,7 @@
   &-xs {
     font-size: 0.8125rem;
     padding: .125rem .5rem;
+    line-height: 1.6;
   }
 }
 
@@ -206,9 +208,14 @@
   }
 
   .account-summary {
+    margin-right: 1rem;
     margin-left: .5rem;
     display: block;
     text-align: left;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
   }
 
   .account-name,

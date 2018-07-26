@@ -7,7 +7,7 @@
 
   @include media-breakpoint-up(md) {
     font-size: $font-size-sm;
-    line-height: 1.6;
+    // line-height: 1.6;
   }
 
   &.show {
@@ -47,14 +47,7 @@
     .text,
     &.unread .text,
     .date {
-      color: $dropdown-link-hover-color;
-    }
-  }
-
-  &.unread {
-    background: rgba($yellow, .1);
-    &:hover {
-      @include gradient-bg($dropdown-link-hover-bg);
+      color: inherit;
     }
   }
 
