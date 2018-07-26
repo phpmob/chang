@@ -1,3 +1,5 @@
+const ajaxForm = require('./ajax-form');
+
 $(document).on('submit', '[data-confirmation-form]', function (e) {
     e.preventDefault();
 
@@ -26,40 +28,19 @@ $(document).on('submit', '[data-confirmation-form]', function (e) {
                 text: 'Yes, I do!',
                 btnClass: btnClass + ' focus',
                 keys: ['enter'],
-                action: function (e) {
-                    $form.addClass('disabled');
-
-                    $.ajax({
-                        url: $form.attr('action'),
-                        type: 'POST',
-                        data: $form.serialize(),
-                        cache: false,
-                        processData: true,
-                        success: function (res, status, xhr) {
-                            const callback = $form.data('submit-callback');
-                            const location = xhr.getResponseHeader('x-sylius-location') || xhr.getResponseHeader('location');
-
-                            if (callback) {
-                                return window[callback](res, status, xhr, location);
-                            }
-
-                            if (location) {
-                                return window.location.href = location;
-                            }
-
-                            window.location.reload();
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            $form.removeClass('disabled');
-
-                            alert(textStatus);
-                        }
-                    });
+                action: function () {
+                    ajaxForm.submit($form.get(0), e);
                 }
             },
             cancel: {
                 keys: ['esc'],
-                text: 'No'
+                text: 'No',
+                action: function () {
+                    $form.find('button,.btn')
+                        .removeClass('disabled')
+                        .attr('disabled', false)
+                    ;
+                }
             }
         }
     });
