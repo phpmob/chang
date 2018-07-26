@@ -59,3 +59,10 @@ chang:
         ok: OK
         detail: Detail
         user: User
+        profile: Profile
+        update_profile: Update Profile
+        login: Login
+        logout: Logout
+        sign_in: Sign In
+        sign_out: Sign Out
+        change_password: Change password
