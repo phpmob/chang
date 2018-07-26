@@ -5,7 +5,7 @@
 
 {%- block form_start -%}
     {% if ajax|default(false) %}
-        {% if ajax is same as true %}
+        {% if ajax is same as(true) %}
             {% set attr = attr|merge({ 'data-ajax-form': action }) %}
         {% else %}
             {% set attr = attr|merge({ 'data-ajax-form': ajax }) %}
