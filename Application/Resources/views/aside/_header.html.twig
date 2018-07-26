@@ -24,7 +24,4 @@
         </button>
         {{ knp_menu_render(ctx_page.get('menu.account', 'account'), { template: '@chang/menu/aside.html.twig' }) }}
     {% endif %}
-    <div class="top-bar-brand">
-        <a href="{{ ctx_page.get('site.url', '/') }}">{{ ctx_page.get('site.name', 'site.name') }}</a>
-    </div>
 </header>

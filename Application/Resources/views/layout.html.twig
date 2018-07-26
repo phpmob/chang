@@ -18,7 +18,9 @@
                 {% block header %}
                     <header class="app-header">
                         <div class="top-bar">
-                            {% include '@chang/header/_top-bar-brand.html.twig' %}
+                            <div class="top-bar-brand">
+                                {% block brand %}{% include '@chang/header/_brand.html.twig' %}{% endblock %}
+                            </div>
                             <div class="top-bar-list">
                                 {% include '@chang/header/_hamburger.html.twig' %}
                                 {% include '@chang/header/_search.html.twig' %}

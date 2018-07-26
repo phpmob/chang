@@ -1,0 +1,47 @@
+{% extends '@chang/layout.html.twig' %}
+
+{% block brand %}
+    <a href="{{ ctx_page.get('site.url') }}">
+        {% set name = ctx_page.get('site.name') %}
+        {% set logo = ctx_page.get('site.logo_square') %}
+        {% if logo %}
+            <img src="{{ logo }}" height="32" alt="{{ name }}">
+        {% endif %}
+        {{ name }}
+    </a>
+{% endblock %}
+
+{% block body %}
+    <div class="app">
+        {% block header %}{{ parent() }}{% endblock %}
+        {% block aside %}{{ parent() }}{% endblock %}
+        <main class="app-main">
+            <div class="wrapper">
+                {% block page %}
+                    <div class="page">
+                        <div class="page-inner page-inner-fill">
+                            {% block navs %}
+                                <header class="page-navs bg-white py-2 pr-2">
+                                    <div class="media align-items-center">
+                                        <div class="tile tile-circle mr-3">
+                                            <i class="{{ ctx_page.get('page.icon', 'far fa-file') }}"></i>
+                                        </div>
+                                        <div class="media-body">
+                                            <h1 class="card-title mb-0">{{ ctx_page.get('page.headline', 'page.headline') }}</h1>
+                                            <h6 class="card-subtitle text-muted mt-1">{{ ctx_page.get('page.description', 'page.description') }}</h6>
+                                        </div>
+                                        <div class="ml-auto">
+                                            {% block actions %}{% endblock %}
+                                        </div>
+                                    </div>
+                                </header>
+                            {% endblock %}
+                            {% block breadcrumbs %}{% endblock %}
+                            {% block content %}{% endblock %}
+                        </div>
+                    </div>
+                {% endblock %}
+            </div>
+        </main>
+    </div>
+{% endblock %}
