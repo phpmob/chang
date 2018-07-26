@@ -1,0 +1,71 @@
+{% extends '@chang/layout-fit.html.twig' %}
+
+{% block page %}
+    {% block cover %}
+        <header class="page-cover">
+            {% block cover_content %}
+                <div class="text-center">
+                    <a href="user-profile.html" class="user-avatar user-avatar-xl">
+                        <img src="assets/images/avatars/profile.jpg" alt="User Avatar">
+                    </a>
+                    <h2 class="h4 mt-3 mb-0"> Beni Arisandi </h2>
+                    <div class="my-1">
+                        <i class="fa fa-star text-yellow"></i>
+                        <i class="fa fa-star text-yellow"></i>
+                        <i class="fa fa-star text-yellow"></i>
+                        <i class="fa fa-star text-yellow"></i>
+                        <i class="far fa-star text-yellow"></i>
+                    </div>
+                    <p class="text-muted"> Project Manager @CreativeDivision </p>
+                    <p> Huge fan of HTML, CSS and Javascript. Web design and open source lover. </p>
+                </div>
+            {% endblock %}
+            {% block cover_controls %}
+                <div class="cover-controls cover-controls-bottom">
+                    <a href="#" class="btn btn-light">2,159 Followers</a>
+                    <a href="#" class="btn btn-light">136 Following</a>
+                </div>
+            {% endblock %}
+        </header>
+    {% endblock %}
+
+    {% block navs %}
+        <nav class="page-navs">
+            <!-- .nav-scroller -->
+            <div class="nav-scroller">
+                <!-- .nav -->
+                <div class="nav nav-center nav-tabs border-0">
+                    <a class="nav-link" href="user-activities.html">Activities
+                        <span class="badge">16</span>
+                    </a>
+                    <a class="nav-link" href="user-teams.html">Teams</a>
+                    <a class="nav-link" href="user-projects.html">Projects</a>
+                    <a class="nav-link" href="user-tasks.html">Tasks</a>
+                    <a class="nav-link active" href="user-profile-settings.html">Settings</a>
+                </div>
+                <!-- /.nav -->
+            </div>
+            <!-- /.nav-scroller -->
+        </nav>
+    {% endblock %}
+
+    <div class="page">
+        <div class="page-inner">
+            <header class="page-title-bar">
+                {% block breadcrumb %}
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active">
+                                <a href="user-profile.html">
+                                    <i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Beni Arisandi</a>
+                            </li>
+                        </ol>
+                    </nav>
+                {% endblock %}
+            </header>
+            <div class="page-section">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

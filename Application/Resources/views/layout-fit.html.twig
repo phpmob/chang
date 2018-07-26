@@ -21,7 +21,7 @@
                     <div class="page">
                         <div class="page-inner page-inner-fill">
                             {% block navs %}
-                                <header class="page-navs bg-white py-2 pr-2">
+                                <header class="page-navs bg-white py-2 pr-2 mb-2">
                                     <div class="media align-items-center">
                                         <div class="tile tile-circle mr-3">
                                             <i class="{{ ctx_page.get('page.icon', 'far fa-file') }}"></i>
@@ -36,8 +36,22 @@
                                     </div>
                                 </header>
                             {% endblock %}
-                            {% block breadcrumbs %}{% endblock %}
-                            {% block content %}{% endblock %}
+                            <header class="page-title-bar">
+                                {% block breadcrumb %}
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb px-2">
+                                            <li class="breadcrumb-item active">
+                                                <a href="user-profile.html">
+                                                    <i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Beni Arisandi
+                                                </a>
+                                            </li>
+                                        </ol>
+                                    </nav>
+                                {% endblock %}
+                            </header>
+                            <div class="page-section">
+                                {% block content %}{% endblock %}
+                            </div>
                         </div>
                     </div>
                 {% endblock %}
