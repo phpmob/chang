@@ -1,0 +1,3 @@
+services:
+    Chang\Ajax\RedirectSubscriber:
+        tags: [ kernel.event_subscriber ]

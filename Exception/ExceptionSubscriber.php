@@ -6,7 +6,6 @@ namespace Chang\Exception;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -36,13 +35,6 @@ class ExceptionSubscriber implements EventSubscriberInterface
         }
 
         $event->allowCustomResponseCode();
-
-        if ($exception->isXhr() && $event->getRequest()->isXmlHttpRequest()) {
-            $event->setResponse(Response::create(null, Response::HTTP_NO_CONTENT, ['location' => $exception->getTargetUrl()]));
-
-            return;
-        }
-
         $event->setResponse(RedirectResponse::create($exception->getTargetUrl(), $exception->getStatus()));
     }
 }

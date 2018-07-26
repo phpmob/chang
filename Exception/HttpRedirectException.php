@@ -18,11 +18,6 @@ class HttpRedirectException extends \Exception
      */
     private $status;
 
-    /**
-     * @var bool
-     */
-    private $xhr = true;
-
     public function __construct(string $message = "", int $code = 302, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
@@ -72,21 +67,5 @@ class HttpRedirectException extends \Exception
     public function setStatus(int $status): void
     {
         $this->status = $status;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isXhr(): bool
-    {
-        return $this->xhr;
-    }
-
-    /**
-     * @param bool $xhr
-     */
-    public function setXhr(bool $xhr): void
-    {
-        $this->xhr = $xhr;
     }
 }
