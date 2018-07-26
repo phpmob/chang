@@ -6,6 +6,14 @@
   width: 100%;
   margin-bottom: 1rem;
 
+  .menu-link,
+  .menu-subhead {
+    padding-right: 1.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .menu-link {
     font-size: $font-size-base;
     outline: 0;
@@ -18,12 +26,15 @@
     }
 
     > .badge {
-      margin-top: .375rem;
+      margin-top: .325rem;
     }
 
     > .menu-icon {
+      &.fa,
+      &.fab,
+      &.far,
       &.oi {
-        top: 4px;
+        top: 2px;
       }
     }
   }
@@ -51,11 +62,11 @@
 }
 
 .stacked-menu > .menu > .menu-item > .menu .menu-link {
-  padding-left: 2rem;
+  padding-left: 3.5rem;
 }
 
 .stacked-menu > .menu > .menu-item > .menu .menu .menu .menu-link {
-  padding-left: 2rem;
+  padding-left: 4.5rem;
 }
 
 .stacked-menu-has-collapsible .has-child {
@@ -694,7 +705,116 @@ $plyr-accent:       $primary !default;
 }
 
 
-// Treeview
+// jsTree
+// ==================================================
+
+.jstree {
+  // font-size: $font-size-sm;
+  .fa {
+    font-size: 1.1em;
+  }
+}
+.jstree-anchor{
+  color: inherit;
+}
+
+.jstree-default .jstree-anchor {
+  margin-top: 2px;
+}
+.jstree-default .jstree-checkbox {
+  margin-top: -2px;
+}
+
+.jstree-default .jstree-hovered {
+  background-color: $table-hover-bg;
+}
+
+.jstree-default .jstree-clicked {
+  background-color: mix($white, $primary, 76%);
+}
+
+.jstree-default .jstree-disabled {
+  color: $text-muted;
+}
+
+.jstree-default .jstree-wholerow-hovered {
+  background-color: $table-hover-bg;
+  background-image: none;
+}
+
+.jstree-default .jstree-wholerow-clicked {
+  background-color: mix($white, $primary, 76%);
+  background-image: none;
+}
+
+// open state
+.jstree-open > .jstree-anchor > .fa-folder:before {
+  content: "\f07c";
+}
+
+// jstree context
+.vakata-context,
+.vakata-context ul {
+  float: left;
+  box-shadow: 0 6px 12px rgba($dark,.175);
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  background: #fff;
+  // font-size: $font-size-sm;
+  list-style: none;
+  text-align: left;
+}
+
+// checkbox
+.jstree-default {
+  .jstree-clicked .jstree-checkbox {
+    border-color: $primary;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1rem;
+      height: 1rem;
+      background-image: $custom-checkbox-indicator-icon-checked;
+      background-repeat: no-repeat;
+      background-position: 35% 35%;
+      background-size: $custom-control-indicator-bg-size;
+    }
+  }
+
+  .jstree-checkbox {
+    position: relative;
+    background: linear-gradient(to bottom, $white, $secondary);
+    border: 1px solid $input-border-color;
+    box-shadow: $custom-control-indicator-box-shadow;
+    border-radius: $border-radius;
+
+    &:empty {
+      margin-top: 3px;
+      width: 1rem;
+      height: 1rem;
+    }
+
+    &.jstree-undetermined:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1rem;
+      height: 1rem;
+      background-image: $custom-checkbox-indicator-icon-indeterminate;
+      background-repeat: no-repeat;
+      background-position: 35% 35%;
+      background-size: $custom-control-indicator-bg-size;
+    }
+  }
+}
+
+
+
+// Treeview (Deprecated since v1.0.2 - will remove on v1.0.3)
 // ==================================================
 
 .treeview {
@@ -721,6 +841,7 @@ $plyr-accent:       $primary !default;
   }
 
   span.icon {
+    width: 12px;
     margin-right: 5px;
   }
 
@@ -764,7 +885,7 @@ $plyr-accent:       $primary !default;
 
   @include media-breakpoint-up(md) {
     font-size: $font-size-sm;
-    line-height: 1.6;
+    // line-height: 1.6;
   }
 
   &.tt-open {
@@ -839,13 +960,20 @@ $plyr-accent:       $primary !default;
   height: $input-height-inner;
   background: $custom-select-bg;
   @include transition(box-shadow 200ms ease-in-out, border-color 200ms ease-in-out);
+
+  @include media-breakpoint-up(md) {
+    height: 2.188rem;
+  }
 }
 .select2-container--default .select2-selection--single .select2-selection__rendered {
-  margin-top: -1px;
   padding-left: $input-padding-x;
   padding-right: 2rem;
   line-height: $input-height-inner;
   color: $input-color;
+
+  @include media-breakpoint-up(md) {
+    line-height: 2.188rem;
+  }
 }
 .select2-container--default .select2-selection--single .select2-selection__placeholder {
   color: $input-placeholder-color;
@@ -861,6 +989,10 @@ $plyr-accent:       $primary !default;
   width: 2.5rem;
   user-select: none;
 
+  @include media-breakpoint-up(md) {
+    height: 2.188rem;
+  }
+
   b {
     border-top-color: $gray-900;
   }
@@ -874,6 +1006,10 @@ $plyr-accent:       $primary !default;
 .select2-container .select2-selection--multiple {
   min-height: $input-height-inner;
   box-shadow: $input-box-shadow;
+
+  @include media-breakpoint-up(md) {
+    min-height: 2.188rem;
+  }
 }
 .select2-container--default .select2-selection--single,
 .select2-container--default .select2-selection--multiple {
@@ -959,7 +1095,6 @@ $plyr-accent:       $primary !default;
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
   margin: 3px 12px 3px -6px;
-  padding: 0 .5rem 1px;
   background-color: $gray-200;
   border-color: $gray-200;
 
@@ -969,17 +1104,22 @@ $plyr-accent:       $primary !default;
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
   margin-right: auto;
-  margin-left: .5rem;
+  margin-left: .25rem;
   position: relative;
   top: 4px;
   width: $font-size-sm;
   height: $font-size-sm;
-  line-height: $font-size-sm;
+  font-size: $font-size-sm;
+  line-height: 1.3;
   float: right;
   color: $white;
   background-color: $gray-500;
   text-align: center;
   border-radius: $font-size-sm;
+
+  @include media-breakpoint-up(md) {
+    top: 3px;
+  }
 
   @include hover-focus {
     color: $white;
@@ -1011,7 +1151,7 @@ $plyr-accent:       $primary !default;
 
   @include media-breakpoint-up(md) {
     font-size: $font-size-sm;
-    line-height: 1.6;
+    // line-height: 1.6;
   }
 }
 
@@ -1302,6 +1442,10 @@ span.flatpickr-weekday {
   }
 }
 
+.colorpicker-bar {
+  line-height: 1rem;
+}
+
 .colorpicker-2x {
   .colorpicker-saturation {
     width: 200px;
@@ -1396,6 +1540,16 @@ span.flatpickr-weekday {
   cursor: pointer;
   z-index: 1;
   transition: opacity 200ms;
+}
+
+
+// Bootstrap Spinner
+// ==================================================
+
+.bootstrap-touchspin .input-group-btn-vertical {
+  > .btn {
+    border: 0;
+  }
 }
 
 
@@ -1578,6 +1732,43 @@ span.flatpickr-weekday {
 .ql-snow .ql-tooltip {
   z-index: $zindex-tooltip;
 }
+
+
+// Sumernote
+// ==================================================
+
+.note-editor.note-frame {
+  border-color: $border-color;
+  box-shadow: none;
+
+  .card > & {
+    margin-bottom: 0;
+    border: 0;
+  }
+}
+
+.note-editing-area,
+.note-codable {
+  min-height: 100px;
+}
+
+.note-editor.note-frame .note-editing-area .note-editable {
+  color: $input-color;
+}
+
+.note-placeholder {
+  color: $input-placeholder-color;
+}
+
+.note-group-image-url {
+  overflow: initial !important;
+}
+
+.note-popover .popover-content .dropdown-menu.note-check a i,
+.card-header.note-toolbar .dropdown-menu.note-check a i {
+  color: $primary;
+}
+
 
 
 // Simplemde

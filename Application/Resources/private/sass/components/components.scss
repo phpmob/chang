@@ -5,7 +5,7 @@
 
 // app plugins
 
-@import "~stacked-menu/dist/scss/stacked-menu";
+@import "node_modules/stacked-menu/dist/scss/stacked-menu";
 // replace plugins
 @import "plugins";
 
@@ -15,6 +15,7 @@
 @import "header";
 @import "aside";
 @import "page";
+@import "footer";
 
 // app components
 

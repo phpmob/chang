@@ -1,11 +1,20 @@
-$pace-color: rgba($primary, .5);
+// Include parts of Bootstrap
+//
+// Required
+
+@import "bootstrap/variable-overrides";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "components/variables";
+
 
 .pace {
   pointer-events: none;
   user-select: none;
 
   .pace-progress {
-    background: $pace-color;
+    background: $teal;
     position: fixed;
     z-index: $zindex-fixed;
     top: $app-header-height;
@@ -17,10 +26,10 @@ $pace-color: rgba($primary, .5);
   .pace-progress-inner {
     display: block;
     position: absolute;
-    right: 0;
+    right: 0px;
     width: 6px;
     height: 100%;
-    //box-shadow: 0 0 10px $teal, 0 0 5px $teal;
+    box-shadow: 0 0 10px $teal, 0 0 5px $teal;
     opacity: 1;
   }
 
@@ -33,8 +42,8 @@ $pace-color: rgba($primary, .5);
     width: 1.25rem;
     height: 1.25rem;
     border: solid 3px transparent;
-    border-top-color: $pace-color;
-    border-left-color: $pace-color;
+    border-top-color: $teal;
+    border-left-color: $teal;
     border-radius: 1rem;
     animation: pace-spinner 400ms linear infinite;
   }

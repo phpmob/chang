@@ -38,7 +38,12 @@
 
   .user-avatar {
     width: $input-height-inner;
-    width: $input-height-inner;
+    height: $input-height-inner;
+
+    @include media-breakpoint-up(md) {
+      width: 2.188rem;
+      height: 2.188rem;
+    }
   }
 }
 
@@ -49,6 +54,10 @@
   .form-control {
     height: $input-height-inner;
     resize: none;
+
+    @include media-breakpoint-up(md) {
+      height: 2.188rem;
+    }
   }
 }
 
