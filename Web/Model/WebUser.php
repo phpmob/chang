@@ -154,7 +154,7 @@ class WebUser extends User implements WebUserInterface
      */
     public function getFileBasePath()
     {
-        return '/private/admins';
+        return '/private/users';
     }
 
     /**
