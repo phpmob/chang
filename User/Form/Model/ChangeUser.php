@@ -1,0 +1,103 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Chang\User\Form\Model;
+
+use Chang\Validator\Data\DataTransferObjectInterface;
+use Sylius\Component\User\Model\UserInterface;
+
+class ChangeUser implements DataTransferObjectInterface
+{
+    /**
+     * @var UserInterface
+     */
+    private $user;
+
+    /**
+     * @var string|null
+     */
+    private $email;
+
+    /**
+     * @var string|null
+     */
+    private $username;
+
+    public function __construct(UserInterface $user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param null|string $email
+     */
+    public function setEmail(?string $email): void
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param null|string $username
+     */
+    public function setUsername(?string $username): void
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEmailChanged(): bool
+    {
+        return $this->user->getEmail() !== ($this->email ?? $this->user->getEmail());
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUsernameChanged(): bool
+    {
+        return $this->user->getUsername() !== ($this->username ?? $this->user->getUsername());
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUserChanged(): bool
+    {
+        return $this->isEmailChanged() || $this->isUsernameChanged();
+    }
+
+    /**
+     * @return UserInterface
+     */
+    public function getUser(): UserInterface
+    {
+        return $this->user;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getWarpedObject()
+    {
+        return $this->user;
+    }
+}

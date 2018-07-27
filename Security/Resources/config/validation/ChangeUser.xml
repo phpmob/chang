@@ -1,0 +1,14 @@
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
+    <class name="Chang\User\Form\Model\ChangeUser">
+        <property name="username">
+            <constraint name="Chang\Security\Validator\ReservedWord\Constraint">
+                <option name="message">chang.user.username.reserved_word</option>
+                <option name="groups">
+                    <value>chang_user</value>
+                </option>
+            </constraint>
+        </property>
+    </class>
+</constraint-mapping>

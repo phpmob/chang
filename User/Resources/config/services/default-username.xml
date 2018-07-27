@@ -7,9 +7,6 @@
         <service id="chang.user.listener.default_username" class="Chang\User\EventListener\DefaultUsernameSubscriber">
             <tag name="doctrine.event_subscriber"/>
             <argument type="service" id="sylius.canonicalizer"/>
-            <argument type="expression">
-                service("chang.option_resolver").get("user.verify_email_change.enabled")
-            </argument>
         </service>
     </services>
 </container>

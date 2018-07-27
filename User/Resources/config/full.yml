@@ -10,3 +10,11 @@ framework:
         mapping:
             paths:
                 - '%chang.dir%/User/Resources/config/validation'
+    translator:
+        paths:
+            - '%chang.dir%/User/Resources/translations'
+
+## Why user change **NEED** DTO? ##
+# - https://github.com/symfony/symfony/issues/13870
+# - https://github.com/symfony/symfony/issues/12025
+##

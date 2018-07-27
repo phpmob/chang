@@ -1,0 +1,52 @@
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
+    <class name="Chang\User\Form\Model\ChangeUser">
+        <constraint name="Chang\Validator\Constraints\DataTransferObjectUniqueEntity">
+            <option name="message">chang.user.email.unique</option>
+            <option name="fields">email</option>
+            <option name="errorPath">email</option>
+            <option name="groups">
+                <value>chang_user</value>
+            </option>
+        </constraint>
+        <constraint name="Chang\Validator\Constraints\DataTransferObjectUniqueEntity">
+            <option name="message">chang.user.username.unique</option>
+            <option name="fields">username</option>
+            <option name="errorPath">username</option>
+            <option name="groups">
+                <value>chang_user</value>
+            </option>
+        </constraint>
+        <property name="username">
+            <constraint name="NotBlank">
+                <option name="message">chang.user.username.not_blank</option>
+                <option name="groups">
+                    <value>chang_user_username</value>
+                </option>
+            </constraint>
+            <constraint name="Length">
+                <option name="min">3</option>
+                <option name="minMessage">chang.user.username.min</option>
+                <option name="max">100</option>
+                <option name="maxMessage">chang.user.username.max</option>
+                <option name="groups">
+                    <value>chang_user</value>
+                </option>
+            </constraint>
+        </property>
+        <property name="email">
+            <constraint name="NotBlank">
+                <option name="message">chang.user.email.not_blank</option>
+                <option name="groups">
+                    <value>chang_user_email</value>
+                </option>
+            </constraint>
+            <constraint name="Email">
+                <option name="groups">
+                    <value>chang_user</value>
+                </option>
+            </constraint>
+        </property>
+    </class>
+</constraint-mapping>

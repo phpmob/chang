@@ -10,6 +10,7 @@ sylius_user:
                     model: Chang\Admin\Model\AdminUser
                     interface: Chang\Admin\Model\AdminUserInterface
                     repository: Sylius\Bundle\UserBundle\Doctrine\ORM\UserRepository
+                    controller: Chang\User\Controller\UserController
 sylius_resource:
     resources:
         chang.admin_user_picture:

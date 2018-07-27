@@ -16,15 +16,9 @@ final class DefaultUsernameSubscriber implements EventSubscriber
      */
     private $canonicalizer;
 
-    /**
-     * @var bool
-     */
-    private $enableReVerifyEmailChange;
-
-    public function __construct(CanonicalizerInterface $canonicalizer, bool $enableReVerifyEmailChange = false)
+    public function __construct(CanonicalizerInterface $canonicalizer)
     {
         $this->canonicalizer = $canonicalizer;
-        $this->enableReVerifyEmailChange = $enableReVerifyEmailChange;
     }
 
     /**
@@ -80,14 +74,7 @@ final class DefaultUsernameSubscriber implements EventSubscriber
             return;
         }
 
-        $emailCanonical = $this->canonicalizer->canonicalize($user->getEmail());
-        $usernameCanonical = $this->canonicalizer->canonicalize($user->getUsername());
-
-        if ($this->enableReVerifyEmailChange && $emailCanonical !== $user->getEmailCanonical()) {
-            $user->setVerifiedAt(null);
-        }
-
-        $user->setEmailCanonical($emailCanonical);
-        $user->setUsernameCanonical($usernameCanonical);
+        $user->setEmailCanonical($this->canonicalizer->canonicalize($user->getEmail()));
+        $user->setUsernameCanonical($this->canonicalizer->canonicalize($user->getUsername()));
     }
 }

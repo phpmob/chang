@@ -10,6 +10,7 @@ sylius_user:
                     model: Chang\Web\Model\WebUser
                     interface: Sylius\Component\User\Model\UserInterface
                     repository: Sylius\Bundle\UserBundle\Doctrine\ORM\UserRepository
+                    controller: Chang\User\Controller\UserController
 sylius_resource:
     resources:
         chang.web_user_picture:
