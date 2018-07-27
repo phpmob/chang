@@ -77,7 +77,7 @@ class UserController extends BaseUserController
             $dispatcher->dispatch(UserEvents::PRE_EMAIL_CHANGE, new GenericEvent($data));
             $user->setEmail($data->getEmail());
 
-            if ($this->container->get('change.option_resolver')->get('user.verify_email_change.enabled')) {
+            if ($this->container->get('chang.option_resolver')->get('user.verify_email_change.enabled')) {
                 /** @var GeneratorInterface $tokenGenerator */
                 $tokenGenerator = $this->container->get(sprintf('sylius.%s.token_generator.email_verification', $this->metadata->getName()));
                 $user->setEmailVerificationToken($tokenGenerator->generate());
