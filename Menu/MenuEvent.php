@@ -43,4 +43,35 @@ class MenuEvent extends Event
     {
         return $this->menu;
     }
+
+    /**
+     * @return array
+     */
+    public function getPaths(): array
+    {
+        $obj = $this->menu;
+        $paths = [];
+
+        do {
+            $paths[] = $obj->getName();
+        } while ($obj = $obj->getParent());
+
+        return array_reverse($paths);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPathKey(): string
+    {
+        return implode('.', $this->getPaths());
+    }
+
+    /**
+     * @return string
+     */
+    public function getChildPathKey(): string
+    {
+        return implode('.', $this->getPaths()) . ($this->menu->getParent() ? '.child' : '');
+    }
 }
