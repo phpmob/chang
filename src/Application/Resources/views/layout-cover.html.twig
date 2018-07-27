@@ -64,6 +64,7 @@
                 {% endblock %}
             </header>
             <div class="page-section">
+                {%- block flash %}{{ include('@chang/_flash.html.twig') }}{% endblock %}
                 {% block content %}{% endblock %}
             </div>
         </div>

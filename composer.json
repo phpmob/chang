@@ -12,7 +12,7 @@
     ],
   "autoload": {
     "psr-4": {
-      "Chang\\": ""
+      "Chang\\": "src"
     }
   },
   "require": {
