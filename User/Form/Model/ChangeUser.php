@@ -75,7 +75,7 @@ class ChangeUser implements DataTransferObjectInterface
      */
     public function isEmailChanged(): bool
     {
-        return $this->user->getEmail() !== ($this->email ?? $this->user->getEmail());
+        return $this->origin->getEmail() !== ($this->email ?? $this->origin->getEmail());
     }
 
     /**
@@ -83,7 +83,7 @@ class ChangeUser implements DataTransferObjectInterface
      */
     public function isUsernameChanged(): bool
     {
-        return $this->user->getUsername() !== ($this->username ?? $this->user->getUsername());
+        return $this->origin->getUsername() !== ($this->username ?? $this->origin->getUsername());
     }
 
     /**
