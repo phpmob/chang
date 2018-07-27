@@ -1,4 +1,4 @@
 services:
     Chang\Validator\Constraints\DataTransferObjectUniqueEntityValidator:
         tags: [{ name: validator.constraint_validator, alias: chang.orm.validator.dto_unique }]
-        arguments: [ '@doctrine.orm.validator.unique' ]
+        arguments: [ '@doctrine' ]
