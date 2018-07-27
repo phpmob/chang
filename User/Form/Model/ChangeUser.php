@@ -12,6 +12,11 @@ class ChangeUser implements DataTransferObjectInterface
     /**
      * @var UserInterface
      */
+    private $origin;
+
+    /**
+     * @var UserInterface
+     */
     private $user;
 
     /**
@@ -27,6 +32,7 @@ class ChangeUser implements DataTransferObjectInterface
     public function __construct(UserInterface $user)
     {
         $this->user = $user;
+        $this->origin = clone $user;
     }
 
     /**
@@ -91,6 +97,14 @@ class ChangeUser implements DataTransferObjectInterface
     public function getUser(): UserInterface
     {
         return $this->user;
+    }
+
+    /**
+     * @return UserInterface
+     */
+    public function getOrigin(): UserInterface
+    {
+        return $this->origin;
     }
 
     /**

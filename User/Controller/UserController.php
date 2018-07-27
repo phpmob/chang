@@ -69,11 +69,13 @@ class UserController extends BaseUserController
         $dispatcher = $this->container->get('event_dispatcher');
 
         if ($data->isUsernameChanged()) {
-            $dispatcher->dispatch(UserEvents::PRE_USERNAME_CHANGE, new GenericEvent($user));
+            $dispatcher->dispatch(UserEvents::PRE_USERNAME_CHANGE, new GenericEvent($data));
+            $user->setUsername($data->getUsername());
         }
 
         if ($data->isEmailChanged()) {
-            $dispatcher->dispatch(UserEvents::PRE_EMAIL_CHANGE, new GenericEvent($user));
+            $dispatcher->dispatch(UserEvents::PRE_EMAIL_CHANGE, new GenericEvent($data));
+            $user->setEmail($data->getEmail());
 
             if ($this->container->get('change.option_resolver')->get('user.verify_email_change.enabled')) {
                 /** @var GeneratorInterface $tokenGenerator */
@@ -86,11 +88,11 @@ class UserController extends BaseUserController
         $this->manager->flush();
 
         if ($data->isUsernameChanged()) {
-            $dispatcher->dispatch(UserEvents::POST_USERNAME_CHANGE, new GenericEvent($user));
+            $dispatcher->dispatch(UserEvents::POST_USERNAME_CHANGE, new GenericEvent($data));
         }
 
         if ($data->isEmailChanged()) {
-            $dispatcher->dispatch(UserEvents::POST_EMAIL_CHANGE, new GenericEvent($user));
+            $dispatcher->dispatch(UserEvents::POST_EMAIL_CHANGE, new GenericEvent($data));
 
             if ($user->getEmailVerificationToken()) {
                 $dispatcher->dispatch(UserEvents::REQUEST_VERIFICATION_TOKEN, new GenericEvent($user));
