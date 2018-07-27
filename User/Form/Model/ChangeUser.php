@@ -33,6 +33,9 @@ class ChangeUser implements DataTransferObjectInterface
     {
         $this->user = $user;
         $this->origin = clone $user;
+
+        $this->username = $user->getUsername();
+        $this->email = $user->getEmail();
     }
 
     /**

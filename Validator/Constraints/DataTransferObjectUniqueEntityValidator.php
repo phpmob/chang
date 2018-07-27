@@ -17,6 +17,15 @@ class DataTransferObjectUniqueEntityValidator extends ConstraintValidator
      */
     private $validator;
 
+    public function __construct(UniqueEntityValidator $validator)
+    {
+        $this->validator = $validator;
+    }
+
+    /**
+     * @param mixed|DataTransferObjectInterface $value
+     * @param Constraint $constraint
+     */
     public function validate($value, Constraint $constraint)
     {
         if (empty($value)) {
