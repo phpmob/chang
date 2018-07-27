@@ -34,7 +34,11 @@ class OptionResolver
     public function get(string $package, string $feature = null, string $option = null)
     {
         if (empty($feature) && empty($option)) {
-            list($package, $feature, $option) = explode('.', $package);
+            preg_match('/(\w+)\.(\w+)(\.\w+)?/', $package, $match);
+
+            $package = $match[1];
+            $feature = $match[2];
+            $option = $match[3] ?? null;
         }
 
         $parameters = [];
@@ -44,11 +48,15 @@ class OptionResolver
             $parameters = $this->cached[$parameterName];
         } else {
             if ($this->parameter->has($parameterName)) {
-                $this->cached[$parameterName] = $parameters = (array)$this->parameter->get($parameterName);
+                $this->cached[$parameterName] = $parameters = $this->parameter->get($parameterName);
             }
         }
 
-        return (new Dot($parameters))->get($option, null);
+        if (empty($option)) {
+            return $parameters;
+        }
+
+        return (new Dot((array)$parameters))->get(ltrim($option, '.'), null);
     }
 
     /**

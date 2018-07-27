@@ -1,3 +1,7 @@
+parameters:
+    chang.packages.user.verify_email_change:
+        enabled: false
+
 imports:
     - ./services/*
 

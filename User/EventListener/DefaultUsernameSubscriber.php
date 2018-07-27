@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Chang\User\EventListener;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Sylius\Component\User\Canonicalizer\CanonicalizerInterface;
 use Sylius\Component\User\Model\UserInterface;
 
-final class DefaultUsernameORMSubscriber implements EventSubscriber
+final class DefaultUsernameSubscriber implements EventSubscriber
 {
     /**
      * @var CanonicalizerInterface
@@ -17,11 +17,14 @@ final class DefaultUsernameORMSubscriber implements EventSubscriber
     private $canonicalizer;
 
     /**
-     * @param CanonicalizerInterface $canonicalizer
+     * @var bool
      */
-    public function __construct(CanonicalizerInterface $canonicalizer)
+    private $enableReVerifyEmailChange;
+
+    public function __construct(CanonicalizerInterface $canonicalizer, bool $enableReVerifyEmailChange = false)
     {
         $this->canonicalizer = $canonicalizer;
+        $this->enableReVerifyEmailChange = $enableReVerifyEmailChange;
     }
 
     /**
@@ -46,7 +49,11 @@ final class DefaultUsernameORMSubscriber implements EventSubscriber
             return;
         }
 
-        $user->setEmailCanonical($this->canonicalizer->canonicalize($user->getEmail()));
+        if (!$email = $user->getEmail()) {
+            return;
+        }
+
+        $user->setEmailCanonical($this->canonicalizer->canonicalize($email));
 
         if ($user->getUsername()) {
             $user->setUsernameCanonical($user->getUsername());
@@ -54,7 +61,7 @@ final class DefaultUsernameORMSubscriber implements EventSubscriber
             return;
         }
 
-        $user->setUsername($user->getEmail());
+        $user->setUsername($email);
         $user->setUsernameCanonical($user->getEmailCanonical());
     }
 
@@ -69,7 +76,18 @@ final class DefaultUsernameORMSubscriber implements EventSubscriber
             return;
         }
 
-        $user->setEmailCanonical($this->canonicalizer->canonicalize($user->getEmail()));
-        $user->setUsernameCanonical($this->canonicalizer->canonicalize($user->getUsername()));
+        if (!$email = $user->getEmail()) {
+            return;
+        }
+
+        $emailCanonical = $this->canonicalizer->canonicalize($user->getEmail());
+        $usernameCanonical = $this->canonicalizer->canonicalize($user->getUsername());
+
+        if ($this->enableReVerifyEmailChange && $emailCanonical !== $user->getEmailCanonical()) {
+            $user->setVerifiedAt(null);
+        }
+
+        $user->setEmailCanonical($emailCanonical);
+        $user->setUsernameCanonical($usernameCanonical);
     }
 }
