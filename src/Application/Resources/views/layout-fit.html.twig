@@ -2,7 +2,7 @@
 
 {% block brand %}
     <a href="{{ ctx_page.get('site.url') }}">
-        {% set name = ctx_page.get('site.name') %}
+        {% set name = ctx_page.get('site.name')|trans %}
         {% set logo = ctx_page.get('site.logo_square') %}
         {% if logo %}
             <img src="{{ logo }}" height="32" alt="{{ name }}">

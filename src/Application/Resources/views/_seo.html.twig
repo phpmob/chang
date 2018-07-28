@@ -1,4 +1,4 @@
-{% set site_name = ctx_page.get('site.name')|default('site.name') %}
+{% set site_name = ctx_page.get('site.name')|default('site.name')|trans %}
 {% set site_author = ctx_page.get('site.author')|default('site.author') %}
 {% set seo_title = ctx_page.get('seo.title')|default('seo.title') %}
 {% set seo_description = ctx_page.get('seo.description')|default('seo.description') %}

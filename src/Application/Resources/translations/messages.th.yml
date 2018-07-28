@@ -69,3 +69,10 @@ chang:
         sign_out: Sign Out
         change_password: Change password
         settings: Settings
+        resend: Resend
+        send: Send
+        submit: Submit
+        reset: Reset
+        email: Email
+        username: Username
+        password: Password
