@@ -32,8 +32,9 @@ class RedirectSubscriber implements EventSubscriberInterface
     {
         $response = $event->getResponse();
         $request = $event->getRequest();
+        $noFollow = !$request->get('_follow_redirect', false);
 
-        if ($request->isXmlHttpRequest() && $response instanceof RedirectResponse) {
+        if ($request->isXmlHttpRequest() && $noFollow && $response instanceof RedirectResponse) {
             $data = ['location' => $response->getTargetUrl()];
             $isJson = 'json' === $request->getRequestFormat()
                 || 'json' === $request->getFormat($request->headers->get('content-type'));
