@@ -1,8 +1,9 @@
-<button class="hamburger hamburger-squeeze mr-2" type="button" data-toggle="aside" aria-label="Menu" aria-controls="navigation">
+<button class="hamburger hamburger-squeeze mr-2" type="button" data-toggle="aside" aria-label="Menu"
+        aria-controls="navigation">
     <span class="hamburger-box">
         <span class="hamburger-inner"></span>
     </span>
 </button>
-<a href="{{ ctx_page.get('site.url') }}">
-    {{ ctx_page.get('site.name')|trans }}
+<a class="site-url" href="{{ ctx_page.get('site.url') }}">
+    <h6 class="site-name d-inline m-0">{{ ctx_page.get('site.name')|trans }}</h6>
 </a>

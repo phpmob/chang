@@ -2,7 +2,7 @@
     {% block raw %}{% endblock %}
 {% else %}
     <!DOCTYPE html>
-    <html lang="{{ ctx_page.get('seo.lang')|default('th') }}">
+    <html class="{{ ctx_page.get('css.layout')|default('layout') }}" lang="{{ ctx_page.get('seo.lang')|default('th') }}">
     {% block html %}
         <head>
             {%- block metadata %}{% include '@chang/_metadata.html.twig' %}{% endblock %}

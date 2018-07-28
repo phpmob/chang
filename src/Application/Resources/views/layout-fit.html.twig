@@ -1,13 +1,14 @@
+{% do ctx_page.set('css.layout', 'layout-fit') %}
 {% extends '@chang/layout.html.twig' %}
 
 {% block brand %}
-    <a href="{{ ctx_page.get('site.url') }}">
+    <a class="site-url" href="{{ ctx_page.get('site.url') }}">
         {% set name = ctx_page.get('site.name')|trans %}
         {% set logo = ctx_page.get('site.logo_square') %}
         {% if logo %}
-            <img src="{{ logo }}" height="32" alt="{{ name }}">
+            <img class="site-logo mr-1" src="{{ logo }}" height="28" alt="{{ name }}">
         {% endif %}
-        {{ name }}
+        <h6 class="site-name d-inline m-0">{{ name }}</h6>
     </a>
 {% endblock %}
 
