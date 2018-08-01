@@ -8,8 +8,11 @@ const Sounds = [
 ];
 
 const ChangMsg = function (opts) {
-    const $inbox = $(opts.el['inbox']);
-    const $inboxList = $(opts.el['list']);
+    if (opts.el) {
+        const $inbox = $(opts.el['inbox']);
+        const $inboxList = $(opts.el['list']);
+    }
+
     let recipientPrefix = 'message/';
 
     if (typeof opts.recipientPrefix !== 'undefined') {
@@ -49,7 +52,7 @@ const ChangMsg = function (opts) {
         });
     };
 
-    $inbox.find('[data-toggle="dropdown"]').on('click', function (e) {
+    opts.el && $inbox.find('[data-toggle="dropdown"]').on('click', function (e) {
         e.preventDefault();
 
         const $me = $(this);
@@ -79,8 +82,7 @@ const ChangMsg = function (opts) {
 };
 
 try {
-    const scriptTag = document.querySelector('script[data-inbox-client]');
-    new ChangMsg(JSON.parse(scriptTag.innerHTML));
+    ChangMsg(JSON.parse(document.querySelector('script[data-inbox-client]').innerHTML));
 } catch (e) {
 }
 
