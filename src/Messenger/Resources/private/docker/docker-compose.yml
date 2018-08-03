@@ -1,0 +1,30 @@
+version: '2'
+
+services:
+    node:
+        build: node
+        depends_on:
+            - rabbitmq
+        ports:
+            - "8800:8080"
+        links:
+            - rabbitmq
+        working_dir: /var/www/node
+        volumes:
+            - ./node/service:/var/www/node
+            - ./var/logs:/var/www/node/logs
+        environment:
+            - LOG_FILE_SIZE=1m
+            - LOG_FILE_NAME=node-%DATE%.log
+            - LOG_DIR=./logs
+            - AMPQ_QUEUES=socket,worker
+            - AMPQ_HOST=amqp://guest:guest@chang_rabbitmq:5672
+
+    rabbitmq:
+        build: rabbitmq
+        container_name: chang_rabbitmq
+        volumes:
+            - ./var/rabbitmq:/var/lib/rabbitmq
+        ports:
+            - "5672:5672"
+            - "15672:15672"

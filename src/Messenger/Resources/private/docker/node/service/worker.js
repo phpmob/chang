@@ -1,19 +1,5 @@
-require('dotenv').config();
-const Winston = require('winston');
-const DailyRotateFile = require('winston-daily-rotate-file');
 const Request = require('request');
-
-const Logger = Winston.createLogger({
-    level: 'info',
-    transports: [
-        new Winston.transports.Console(),
-        new DailyRotateFile({
-            maxSize: '1m',
-            filename: 'push-%DATE%.log',
-            dirname: './logs'
-        })
-    ]
-});
+const Logger = require('./logger');
 
 module.exports = function (channel, msg, data, extras) {
     Logger.info('Worker consume messages', data);

@@ -1,25 +1,11 @@
 require('dotenv').config();
 const Promise = require('es6-promise').Promise;
 const AmpqLib = require('amqp-connection-manager');
-const Winston = require('winston');
-const DailyRotateFile = require('winston-daily-rotate-file');
-
-const Logger = Winston.createLogger({
-    level: 'info',
-    transports: [
-        new Winston.transports.Console(),
-        new DailyRotateFile({
-            maxSize: '1m',
-            filename: 'node-%DATE%.log',
-            dirname: './logs'
-        })
-    ]
-});
-
-const Queues = process.env['QUEUES'].split(',');
+const Logger = require('./logger');
+const Queues = process.env['AMPQ_QUEUES'].split(',');
 const Services = {
-    worker: require('./service/worker'),
-    socket: require('./service/socket'),
+    worker: require('./worker'),
+    socket: require('./socket')
 };
 
 const Connection = AmpqLib.connect(process.env['AMPQ_HOST']);
@@ -29,7 +15,7 @@ Connection.on('connect', function () {
 });
 
 Connection.on('disconnect', function (params) {
-    Logger.info('AMQP Disconnected.', params.err.stack);
+    Logger.info('AMQP Disconnected.');
 });
 
 for (let i in Queues) {
