@@ -6,7 +6,7 @@ services:
         depends_on:
             - rabbitmq
         ports:
-            - "8800:8080"
+            - "EDIT_ME_SOCKET_PORT:8080"
         links:
             - rabbitmq
         working_dir: /var/www/node
@@ -18,7 +18,7 @@ services:
             - LOG_FILE_NAME=node-%DATE%.log
             - LOG_DIR=./logs
             - AMPQ_QUEUES=socket,worker
-            - AMPQ_HOST=amqp://guest:guest@chang_rabbitmq:5672
+            - AMPQ_HOST=amqp://EDIT_ME_RABBITMQ_USER:EDIT_ME_RABBITMQ_PASS@chang_rabbitmq:EDIT_ME_RABBITMQ_PORT_AMPQ
 
     rabbitmq:
         build: rabbitmq
@@ -26,5 +26,5 @@ services:
         volumes:
             - ./var/rabbitmq:/var/lib/rabbitmq
         ports:
-            - "5672:5672"
-            - "15672:15672"
+            - "EDIT_ME_RABBITMQ_PORT_AMPQ:5672"
+            - "EDIT_ME_RABBITMQ_PORT_HTTP:15672"

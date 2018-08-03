@@ -1,8 +1,8 @@
 {
   "users": [
     {
-      "name": "guest",
-      "password": "guest",
+      "name": "EDIT_ME_RABBITMQ_USER",
+      "password": "EDIT_ME_RABBITMQ_PASS",
       "tags": "administrator"
     }
   ],
@@ -13,7 +13,7 @@
   ],
   "permissions": [
     {
-      "user": "guest",
+      "user": "EDIT_ME_RABBITMQ_USER",
       "vhost": "/",
       "configure": ".*",
       "write": ".*",
