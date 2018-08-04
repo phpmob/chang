@@ -1,4 +1,5 @@
 version: '2'
+# http://goinbigdata.com/docker-run-vs-cmd-vs-entrypoint/
 
 services:
     node:
