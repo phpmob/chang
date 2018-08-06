@@ -28,3 +28,13 @@ Chang\Web\Model\AdminUser:
             groups: [Default, Detailed]
             accessor:
                 getter: getDisplayName
+    relations:
+        - rel: self
+          href:
+              route: liip_imagine_filter
+              parameters:
+                  filter: expr(object.getPicture().getType().getFilter())
+                  path: expr(object.getPicture())
+          exclusion:
+              exclude_if: expr(!object.getPicture())
+              groups: [Default, Detailed]
