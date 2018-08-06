@@ -38,3 +38,10 @@ phpmob_media:
     filters:
         web_user_picture:
             - { code: profile, label: Profile, filter: ~ }
+
+jms_serializer:
+    metadata:
+        directories:
+            chang-webuser:
+                namespace_prefix: "Chang\\Web"
+                path: "%chang.dir%/Web/Resources/config/serializer"

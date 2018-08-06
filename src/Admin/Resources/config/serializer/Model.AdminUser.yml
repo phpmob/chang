@@ -1,0 +1,30 @@
+Chang\Web\Model\AdminUser:
+    exclusion_policy: ALL
+    xml_root_name: chang_admin_user
+    properties:
+        gender:
+            expose: true
+            type: string
+            groups: [Default, Detailed]
+        localeCode:
+            expose: true
+            type: string
+            groups: [Default, Detailed]
+        firstName:
+            expose: true
+            type: string
+            groups: [Default, Detailed]
+        lastName:
+            expose: true
+            type: string
+            groups: [Detailed, Detailed]
+        recipientHash:
+            expose: true
+            type: string
+            groups: [Default, Detailed]
+        displayName:
+            expose: true
+            type: string
+            groups: [Default, Detailed]
+            accessor:
+                getter: getDisplayName
