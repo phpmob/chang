@@ -9,6 +9,7 @@
                  parent="messenger.transport.amqp.factory"
                  class="Chang\Messenger\Transport\AmqpSpoolTransportFactory">
             <tag name="messenger.transport_factory"/>
+            <argument type="service" id="logger"/>
         </service>
         <service id="chang.messenger.transport.amqp_spool_subscriber"
                  class="Chang\Messenger\Transport\AmqpSpoolSubscriber">
