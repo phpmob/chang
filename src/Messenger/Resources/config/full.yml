@@ -36,8 +36,16 @@ framework:
                 - '%chang.dir%/Messenger/Resources/config/validation'
     messenger:
         transports:
-            worker: '%env(MESSENGER_TRANSPORT_DSN)%/worker'
-            socket: '%env(MESSENGER_TRANSPORT_DSN)%/socket'
+            worker:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%/worker'
+                options:
+                    exchange:
+                        type: direct
+            socket:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%/socket'
+                options:
+                    exchange:
+                        type: direct
 #        default_bus: messenger.bus.default
 #        buses:
 #            messenger.bus.default:
