@@ -10,9 +10,11 @@ const IO = require('socket.io').listen(Server, {
 
 module.exports = function (channel, msg, data, extras) {
     Logger.info('Socket consume messages', data);
+    const recipients = data.body['recipients'];
+    delete data.body['recipients'];
 
-    data.body['recipients'].forEach(function (hash) {
-        IO.sockets.emit(extras['prefix'] + hash, data.body['message']);
+    recipients.forEach(function (hash) {
+        IO.sockets.emit(extras['prefix'] + hash, data);
         Logger.info('Emit: ' + extras['prefix'] + hash);
     });
 

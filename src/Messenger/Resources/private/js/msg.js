@@ -73,7 +73,7 @@ const ChangMsg = function (opts) {
 
         getList(function ($res) {
             if (opts.successCallback) {
-                opts.successCallback.call(this, data, opts, $inbox, $inboxList, $res, Howl, $)
+                opts.successCallback.call(this, data.body['message'], opts, $inbox, $inboxList, $res, Howl, $)
             }
         });
 
