@@ -12,5 +12,8 @@
                  class="Chang\Locale\Provider\CachedLocaleProvider">
             <argument type="service" id="chang.locale.cached_locale_provider.inner"/>
         </service>
+        <service id="chang.locale.router.locale_provider" class="Chang\Locale\Router\LocaleProvider">
+            <argument type="service" id="sylius.locale_provider"/>
+        </service>
     </services>
 </container>
