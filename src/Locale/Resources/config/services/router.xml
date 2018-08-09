@@ -7,7 +7,7 @@
         <service id="chang.locale.localized_loader" class="Chang\Locale\Router\LocalizedLoader">
             <tag name="routing.loader"/>
             <argument type="service" id="routing.loader.yml"/>
-            <argument type="service" id="sylius.locale_provider"/>
+            <argument type="service" id="chang.locale.router.locale_provider"/>
             <argument>%kernel.project_dir%/config</argument>
         </service>
         <service id="chang.locale.router"
@@ -15,7 +15,7 @@
                  decorates="router"
                  class="Chang\Locale\Router\LocalizedRouter">
             <call method="setLocaleProvider">
-                <argument type="service" id="sylius.locale_provider"/>
+                <argument type="service" id="chang.locale.router.locale_provider"/>
             </call>
         </service>
     </services>
