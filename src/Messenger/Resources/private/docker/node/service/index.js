@@ -2,13 +2,13 @@ require('dotenv').config();
 const Promise = require('es6-promise').Promise;
 const AmpqLib = require('amqp-connection-manager');
 const Logger = require('./logger');
-const Queues = process.env['AMPQ_QUEUES'].split(',');
+const Queues = process.env['AMQP_QUEUES'].split(',');
 const Services = {
     worker: require('./worker'),
     socket: require('./socket')
 };
 
-const Connection = AmpqLib.connect(process.env['AMPQ_HOST']);
+const Connection = AmpqLib.connect(process.env['AMQP_HOST']);
 
 Connection.on('connect', function () {
     Logger.info('AMQP Connected!');

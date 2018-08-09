@@ -18,8 +18,8 @@ services:
             - LOG_FILE_SIZE=1m
             - LOG_FILE_NAME=node-%DATE%.log
             - LOG_DIR=./logs
-            - AMPQ_QUEUES=socket,worker
-            - AMPQ_HOST=amqp://EDIT_ME_RABBITMQ_USER:EDIT_ME_RABBITMQ_PASS@chang_rabbitmq:EDIT_ME_RABBITMQ_PORT_AMPQ
+            - AMQP_QUEUES=socket,worker
+            - AMQP_HOST=amqp://EDIT_ME_RABBITMQ_USER:EDIT_ME_RABBITMQ_PASS@chang_rabbitmq:EDIT_ME_RABBITMQ_PORT_AMQP
 
     rabbitmq:
         build: rabbitmq
@@ -27,5 +27,5 @@ services:
         volumes:
             - ./var/rabbitmq:/var/lib/rabbitmq
         ports:
-            - "EDIT_ME_RABBITMQ_PORT_AMPQ:5672"
+            - "EDIT_ME_RABBITMQ_PORT_AMQP:5672"
             - "EDIT_ME_RABBITMQ_PORT_HTTP:15672"
