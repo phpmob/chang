@@ -12,7 +12,7 @@
                  class="Chang\Locale\Provider\CachedLocaleProvider">
             <argument type="service" id="chang.locale.cached_locale_provider.inner"/>
         </service>
-        <service id="chang.locale.router.locale_provider" class="Chang\Locale\Router\LocaleProvider">
+        <service id="chang.locale.router.locale_provider" class="Chang\Locale\Router\NoErrorLocaleProvider">
             <argument type="service" id="sylius.locale_provider"/>
             <argument>%sylius_locale.locale%</argument>
         </service>

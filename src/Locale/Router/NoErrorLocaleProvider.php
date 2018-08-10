@@ -6,7 +6,7 @@ namespace Chang\Locale\Router;
 
 use Sylius\Component\Locale\Provider\LocaleProviderInterface;
 
-class LocaleProvider implements LocaleProviderInterface
+class NoErrorLocaleProvider implements LocaleProviderInterface
 {
     /**
      * @var LocaleProviderInterface
