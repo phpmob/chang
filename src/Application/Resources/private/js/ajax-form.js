@@ -43,6 +43,8 @@ module.exports = {
             contentType: false, // Set content type to false as jQuery will tell the server its a query string request
             // all status
             complete: function (xhr, status) {
+                console.log(status);
+                console.log(xhr);
                 $form.removeClass('x-form-loading');
                 $buttons.removeClass('disabled').attr('disabled', false);
             },
