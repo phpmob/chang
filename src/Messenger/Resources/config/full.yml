@@ -41,11 +41,15 @@ framework:
                 options:
                     exchange:
                         type: direct
+                    queue:
+                        routing_key: *
             socket:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN)%/socket'
                 options:
                     exchange:
                         type: direct
+                    queue:
+                        routing_key: *
 #        default_bus: messenger.bus.default
 #        buses:
 #            messenger.bus.default:

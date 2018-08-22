@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Chang\Messenger\Transport;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Transport\AmqpExt\Connection;
 use Symfony\Component\Messenger\Transport\Serialization\DecoderInterface;
 use Symfony\Component\Messenger\Transport\Serialization\EncoderInterface;
@@ -31,11 +32,17 @@ class AmqpSpoolTransportFactory implements AmqpSpoolTransportFactoryInterface
      */
     private $transports = [];
 
-    public function __construct(EncoderInterface $encoder, DecoderInterface $decoder, bool $debug)
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    public function __construct(EncoderInterface $encoder, DecoderInterface $decoder, bool $debug, LoggerInterface $logger = null)
     {
         $this->encoder = $encoder;
         $this->decoder = $decoder;
         $this->debug = $debug;
+        $this->logger = $logger;
     }
 
     /**
@@ -44,7 +51,7 @@ class AmqpSpoolTransportFactory implements AmqpSpoolTransportFactoryInterface
     public function createTransport(string $dsn, array $options): TransportInterface
     {
         $this->transports[] = $transport = new AmqpSpoolTransport(
-            $this->encoder, $this->decoder, Connection::fromDsn($dsn, $options, $this->debug)
+            $this->encoder, $this->decoder, Connection::fromDsn($dsn, $options, $this->debug), $this->logger
         );
 
         return $transport;
