@@ -56,6 +56,7 @@ module.exports = {
                 console.log(res);
                 console.log(status);
                 console.log(xhr);
+                console.log(xhr.getAllResponseHeaders());
                 console.log(location);
 
                 if ($form.data('callback')) {
