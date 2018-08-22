@@ -1,4 +1,4 @@
-Chang\Web\Model\AdminUser:
+Chang\Admin\Model\AdminUser:
     exclusion_policy: ALL
     xml_root_name: chang_admin_user
     properties:
