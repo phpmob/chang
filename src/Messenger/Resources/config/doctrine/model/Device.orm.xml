@@ -13,7 +13,7 @@
 
         <field name="token" type="string" nullable="true"/>
         <field name="platform" type="string" length="20" nullable="true"/>
-        <field name="clientIp" type="string" length="11" nullable="true"/>
+        <field name="clientIp" type="string" length="15" nullable="true"/>
         <field name="enabled" type="boolean" nullable="true"/>
         <field name="metas" type="json" nullable="true"/>
 
