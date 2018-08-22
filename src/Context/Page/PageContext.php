@@ -127,7 +127,7 @@ class PageContext implements PageContextInterface
      */
     public function getClientIp(): ?string
     {
-        return $this->getRequest() && (trim(explode(',', strval($this->getRequest()->getClientIp()))[0]) ?: null);
+        return $this->getRequest() ? trim(explode(',', strval($this->getRequest()->getClientIp()))[0]) : null;
     }
 
     /**
