@@ -53,6 +53,11 @@ module.exports = {
                     || xhr.getResponseHeader('location')
                 ;
 
+                console.log(res);
+                console.log(status);
+                console.log(xhr);
+                console.log(location);
+
                 if ($form.data('callback')) {
                     window[$form.data('callback')].call(this, $form, res, xhr, location);
 
