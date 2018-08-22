@@ -43,8 +43,6 @@ module.exports = {
             contentType: false, // Set content type to false as jQuery will tell the server its a query string request
             // all status
             complete: function (xhr, status) {
-                console.log(status);
-                console.log(xhr);
                 $form.removeClass('x-form-loading');
                 $buttons.removeClass('disabled').attr('disabled', false);
             },
@@ -52,14 +50,8 @@ module.exports = {
             success: function (res, status, xhr) {
                 let location = $form.data('redirect')
                     || xhr.getResponseHeader('x-sylius-location')
-                    || xhr.getResponseHeader('location')
+                    || xhr.getResponseHeader('x-chang-location')
                 ;
-
-                console.log(res);
-                console.log(status);
-                console.log(xhr);
-                console.log(xhr.getAllResponseHeaders());
-                console.log(location);
 
                 if ($form.data('callback')) {
                     window[$form.data('callback')].call(this, $form, res, xhr, location);

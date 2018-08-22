@@ -35,7 +35,8 @@ class RedirectSubscriber implements EventSubscriberInterface
         $noFollow = !$request->get('_follow_redirect', false);
 
         if ($request->isXmlHttpRequest() && $noFollow && $response instanceof RedirectResponse) {
-            $data = ['location' => $response->getTargetUrl()];
+            // prefix `x-` to prevent cloudflare redirect.
+            $data = ['x-chang-location' => $response->getTargetUrl()];
             $isJson = 'json' === $request->getRequestFormat()
                 || 'json' === $request->getFormat($request->headers->get('content-type'));
 
