@@ -1,0 +1,25 @@
+parameters:
+    chang.packages.redis.session:
+        dsn: redis://127.0.0.1/0
+        options: []
+        prefix: ~
+
+services:
+    chang.redis.session_client:
+        class: Redis
+        factory: ['Chang\Redis\Factory\PhpredisClientFactory', 'create']
+        arguments:
+            - '@=service("chang.option_resolver").get("redis.session.dsn")'
+            - '@=service("chang.option_resolver").get("redis.session.options")'
+
+    chang.redis.session_handler:
+        class: Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler
+        arguments:
+            - '@chang.redis.session_client'
+            - { prefix: '@=service("chang.option_resolver").get("redis.session.prefix")' }
+
+# check to make sure
+# ./bin/console debug:config framework | grep session
+framework:
+    session:
+        handler_id: chang.redis.session_handler
