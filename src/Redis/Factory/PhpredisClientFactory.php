@@ -14,7 +14,7 @@ class PhpredisClientFactory
      * @return \Redis
      * @throws InvalidConfigurationException
      */
-    public function create(string $dsn, array $options = [])
+    public static function create(string $dsn, array $options = [])
     {
         $client = new \Redis();
         $parsedDsn = new RedisDsnParser($dsn);
@@ -53,7 +53,7 @@ class PhpredisClientFactory
         }
 
         if (isset($options['serialization'])) {
-            $client->setOption(\Redis::OPT_SERIALIZER, $this->loadSerializationType($options['serialization']));
+            $client->setOption(\Redis::OPT_SERIALIZER, self::loadSerializationType($options['serialization']));
         }
 
         return $client;
@@ -67,7 +67,7 @@ class PhpredisClientFactory
      * @return string
      * @throws InvalidConfigurationException
      */
-    private function loadSerializationType($type)
+    private static function loadSerializationType($type)
     {
         $types = array(
             'default' => \Redis::SERIALIZER_NONE,
