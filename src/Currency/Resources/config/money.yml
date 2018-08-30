@@ -2,7 +2,8 @@ parameters:
     chang.packages.currency.money:
         divisor: 100
         base_currency: THB
-        symbols: [THB]
+        symbols:
+            THB: '฿'
 
 services:
     Chang\Currency\Form\Extension\MoneyDivisorExtension:

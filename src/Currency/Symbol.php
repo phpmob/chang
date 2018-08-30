@@ -58,6 +58,6 @@ class Symbol implements SymbolInterface
     {
         $symbol = array_key_exists($currency, $this->symbols) ? $this->symbols[$currency] : null;
 
-        return $symbol ?: $this->getFormatter($currency, $locale)->getSymbol(\NumberFormatter::CURRENCY_SYMBOL);
+        return $symbol ?? $this->getFormatter($currency, $locale)->getSymbol(\NumberFormatter::CURRENCY_SYMBOL);
     }
 }
