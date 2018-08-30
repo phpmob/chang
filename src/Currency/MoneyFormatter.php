@@ -51,11 +51,12 @@ class MoneyFormatter implements MoneyFormatterInterface
         $symbol = $this->symbol->getSymbol($currency, $locale);
         $result = str_replace($currency, $symbol, $result);
 
-        preg_match('/(?![^\d,.]+)([\d,.]+)/', $result, $match);
+        preg_match('/([^\d,.]+)([\d,.]+)/', $result, $match);
 
         // no symbol, insert empty symbol
-        if (2 === count($match)) {
-            array_splice($match, 1, 0, ['']);
+        if (empty($match)) {
+            $match[1] = '';
+            $match[2] = $result;
         }
 
         // eliminate 0 tailing
