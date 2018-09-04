@@ -124,3 +124,11 @@
     {% if isFloating %}</div>{% endif %}
     </{{ element|default('div') }}>
 {%- endblock form_row %}
+
+{% block money_widget -%}
+    {% set money_pattern = money_pattern|trim %}
+    {%- if not valid -%}
+        {% set group_class = ' is-invalid' %}
+    {%- endif -%}
+    {{ parent() }}
+{% endblock %}
