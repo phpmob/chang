@@ -40,11 +40,13 @@ framework:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN)%/worker'
                 options:
                     exchange:
+                        name: amq.direct
                         type: direct
             socket:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN)%/socket'
                 options:
                     exchange:
+                        name: amq.direct
                         type: direct
 #        default_bus: messenger.bus.default
 #        buses:
