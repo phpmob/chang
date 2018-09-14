@@ -68,13 +68,15 @@
                             {% block page %}
                                 <div class="page">
                                     <div class="page-inner">
+                                        {% block breadcrumb %}{% endblock %}
                                         {% block page_title %}
                                             <header class="page-title-bar">
-                                                {% block breadcrumb %}{% endblock %}
-                                                <p class="lead">
-                                                    <span class="font-weight-bold">{{ ctx_page.get('page.headline') }}</span>
-                                                    <span class="d-block text-muted">{{ ctx_page.get('page.description') }}</span>
-                                                </p>
+                                                {% block page_title_bar %}
+                                                    <p class="lead">
+                                                        <span class="font-weight-bold">{{ ctx_page.get('page.headline') }}</span>
+                                                        <span class="d-block text-muted">{{ ctx_page.get('page.description') }}</span>
+                                                    </p>
+                                                {% endblock %}
                                             </header>
                                         {% endblock %}
                                         {% block page_section %}

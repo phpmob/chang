@@ -1,0 +1,23 @@
+.breadcrumb {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+
+  @each $breakpoint, $container-max-width in $container-max-widths {
+    @if $breakpoint != sm {
+      @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+        max-width: $container-max-width;
+      }
+    }
+  }
+}
+
+.breadcrumb {
+  margin-bottom: 1.5rem;
+  padding: 0 ($page-inner-padding/2);
+
+  @include media-breakpoint-up(sm) {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}

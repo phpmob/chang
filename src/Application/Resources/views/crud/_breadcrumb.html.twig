@@ -30,7 +30,7 @@
             {% if bc.icon %}<i class="{{ bc.icon }}"></i> {% endif %}<a href="{{ bc.link }}">{{ bc.label|trans(bc.trans)|raw }}</a>
         </span>
     {% else %}
-        {% if 'index' != ctx_page.get('page.entry') %}
+        {% if configuration is defined and 'index' != ctx_page.get('page.entry') %}
             <span class="breadcrumb-item">
                 {% set xheadline = '.headline.index' %}
                 {% if configuration.section %}

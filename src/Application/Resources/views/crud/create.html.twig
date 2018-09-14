@@ -7,8 +7,13 @@
 {% block page %}
     <div class="page">
         <div class="page-inner">
+            {% block breadcrumb %}{{ parent() }}{% endblock %}
             {{ form_start(form) }}
-            {% block page_title %}{{ parent() }}{% endblock %}
+            {% block page_title %}
+                <header class="page-title-bar">
+                    {% block page_title_bar %}{{ parent() }}{% endblock %}
+                </header>
+            {% endblock %}
             {% block page_section %}
                 <div class="page-section">
                     {%- block flash %}{{ include('@chang/_flash.html.twig') }}{% endblock %}
@@ -29,10 +34,10 @@
 {% endblock %}
 
 {% block page_toolbar %}
-        <button type="submit" class="btn btn-primary mr-1">
-            {{ 'chang.ui.save'|trans }}
-        </button>
-        <a class="btn btn-outline-warning" href="{{ backUrl }}">
-            <i class="fas fa-angle-left"></i> {{ 'chang.ui.cancel'|trans }}
-        </a>
+    <button type="submit" class="btn btn-primary mr-1">
+        {{ 'chang.ui.save'|trans }}
+    </button>
+    <a class="btn btn-outline-warning" href="{{ backUrl }}">
+        <i class="fas fa-angle-left"></i> {{ 'chang.ui.cancel'|trans }}
+    </a>
 {% endblock %}

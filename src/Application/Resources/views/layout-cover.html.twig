@@ -52,18 +52,21 @@
 
     <div class="page">
         <div class="page-inner">
-            <header class="page-title-bar">
-                {% block breadcrumb %}
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item active">
-                                <a href="user-profile.html">
-                                    <i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Beni Arisandi</a>
-                            </li>
-                        </ol>
-                    </nav>
-                {% endblock %}
-            </header>
+            {% block breadcrumb %}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active">
+                            <a href="user-profile.html">
+                                <i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Beni Arisandi</a>
+                        </li>
+                    </ol>
+                </nav>
+            {% endblock %}
+            {% block page_title %}
+                <header class="page-title-bar">
+                    {% block page_title_bar %}{% endblock %}
+                </header>
+            {% endblock %}
             <div class="page-section">
                 {% block flash %}{{ include('@chang/_flash.html.twig') }}{% endblock %}
                 {% block alert %}{% endblock %}

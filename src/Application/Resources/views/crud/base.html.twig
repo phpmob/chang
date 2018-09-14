@@ -20,29 +20,26 @@
     'seo.title': headline,
 }) %}
 
-{% block page_title %}
-    <header class="page-title-bar">
-        {% block breadcrumb %}{{ include('@chang/crud/_breadcrumb.html.twig') }}{% endblock %}
-        {% block page_title_bar %}
-            <div class="card">
-                <div class="card-body">
-                    <div class="media align-items-center">
-                        {% block paage_icon %}
-                            <div class="tile tile-circle tile-lg mr-3">
-                                <i class="{{ icon|default('fas fa-file') }}"></i>
-                            </div>
-                        {% endblock %}
-                        <div class="media-body">
-                            {% block page_header %}
-                                <h5 class="text-truncate mb-0">
-                                    {{ headline|raw }}
-                                </h5>
-                            {% endblock %}
-                        </div>
-                        <div class="ml-auto">{% block page_toolbar %}{% endblock %}</div>
+{% block breadcrumb %}{{ include('@chang/crud/_breadcrumb.html.twig') }}{% endblock %}
+
+{% block page_title_bar %}
+    <div class="card">
+        <div class="card-body">
+            <div class="media align-items-center">
+                {% block paage_icon %}
+                    <div class="tile tile-circle tile-lg mr-3">
+                        <i class="{{ icon|default('fas fa-file') }}"></i>
                     </div>
+                {% endblock %}
+                <div class="media-body">
+                    {% block page_header %}
+                        <h5 class="text-truncate mb-0">
+                            {{ headline|raw }}
+                        </h5>
+                    {% endblock %}
                 </div>
+                <div class="ml-auto">{% block page_toolbar %}{% endblock %}</div>
             </div>
-        {% endblock %}
-    </header>
+        </div>
+    </div>
 {% endblock %}
