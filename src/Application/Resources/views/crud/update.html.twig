@@ -7,9 +7,14 @@
 {% block page %}
     <div class="page">
         <div class="page-inner">
+            {% block breadcrumb %}{{ parent() }}{% endblock %}
             {{ form_start(form, { attr: { novalidate: true}}) }}
             <input type="hidden" name="_method" value="{{ configuration.vars.method|default('PUT') }}" />
-            {% block page_title %}{{ parent() }}{% endblock %}
+            {% block page_title %}
+                <header class="page-title-bar">
+                    {% block page_title_bar %}{{ parent() }}{% endblock %}
+                </header>
+            {% endblock %}
             {% block page_section %}
                 <div class="page-section">
                     {%- block flash %}{{ include('@chang/_flash.html.twig') }}{% endblock %}
