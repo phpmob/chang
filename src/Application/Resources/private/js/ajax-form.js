@@ -69,7 +69,7 @@ module.exports = {
                     return;
                 }
 
-                var $res = $(res);
+                var $res = $($.parseHTML(res));
 
                 // valid form
                 if (!$res.find('.is-invalid').length) {
