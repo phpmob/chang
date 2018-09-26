@@ -83,14 +83,14 @@ class PageContext implements PageContextInterface
     {
         $this->context = $context;
 
-        if (!array_key_exists($this->context, $this->parameters)) {
+        if (!\array_key_exists($this->context, $this->parameters)) {
             $this->parameters[$this->context] = [];
         }
 
         $contextParameterKey = 'chang_page_context_' . $this->context;
 
         if ($this->parameterBag->has($contextParameterKey)) {
-            $this->parameters[$this->context] = array_replace_recursive(
+            $this->parameters[$this->context] = \array_replace_recursive(
                 $this->parameters[$this->context], (array)$this->parameterBag->get($contextParameterKey)
             );
         }
@@ -127,7 +127,7 @@ class PageContext implements PageContextInterface
      */
     public function getClientIp(): ?string
     {
-        return $this->getRequest() ? trim(explode(',', strval($this->getRequest()->getClientIp()))[0]) : null;
+        return $this->getRequest() ? \trim(\explode(',', \strval($this->getRequest()->getClientIp()))[0]) : null;
     }
 
     /**
@@ -138,7 +138,7 @@ class PageContext implements PageContextInterface
         $this->setContext($this->getFirewallName($configuration->getRequest()));
 
         $parameters['page'] = $configuration->getParameters()->get('vars', []);
-        $this->parameters[$this->context] = array_replace_recursive($this->parameters[$this->context], $parameters);
+        $this->parameters[$this->context] = \array_replace_recursive($this->parameters[$this->context], $parameters);
     }
 
     /**
@@ -148,9 +148,9 @@ class PageContext implements PageContextInterface
      */
     private function getFirewallName(Request $request): string
     {
-        $paths = explode('.', $request->attributes->get('_firewall_context', $this->context));
+        $paths = \explode('.', $request->attributes->get('_firewall_context', $this->context));
 
-        return $paths[count($paths) - 1];
+        return $paths[\count($paths) - 1];
     }
 
     /**
@@ -158,10 +158,9 @@ class PageContext implements PageContextInterface
      */
     public function get(string $key, $default = null)
     {
-
-        if (false !== strpos($key, '.')) {
+        if (\preg_match('/^\:/')) {
             try {
-                if (null !== $value = $this->settings->get($this->context . '_' . $key)) {
+                if (null !== $value = $this->settings->get($this->context . '_' . \str_replace(':', '', $key))) {
                     return $value;
                 }
             } catch (\LogicException $e) {
@@ -169,7 +168,7 @@ class PageContext implements PageContextInterface
             }
         }
 
-        if (!array_key_exists($this->context, $this->parameters)) {
+        if (!\array_key_exists($this->context, $this->parameters)) {
             return $default;
         }
 
@@ -181,7 +180,7 @@ class PageContext implements PageContextInterface
      */
     public function set(string $key, $value): void
     {
-        if (!array_key_exists($this->context, $this->parameters)) {
+        if (!\array_key_exists($this->context, $this->parameters)) {
             $this->parameters[$this->context] = [];
         }
 
@@ -199,12 +198,12 @@ class PageContext implements PageContextInterface
         $accessor = PropertyAccess::createPropertyAccessor();
 
         foreach ($parameters as $key => $value) {
-            if (is_array($value)) {
+            if (\is_array($value)) {
                 $parameters[$key] = $this->parse($value, $resource);
             }
 
-            if (is_string($value) && 0 === strpos($value, 'resource.')) {
-                $parameters[$key] = $accessor->getValue($resource, substr($value, 9));
+            if (\is_string($value) && 0 === \strpos($value, 'resource.')) {
+                $parameters[$key] = $accessor->getValue($resource, \substr($value, 9));
             }
         }
 
