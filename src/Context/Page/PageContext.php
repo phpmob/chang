@@ -158,7 +158,7 @@ class PageContext implements PageContextInterface
      */
     public function get(string $key, $default = null)
     {
-        if (\preg_match('/^\:/')) {
+        if (\preg_match('/^\:/', $key)) {
             try {
                 if (null !== $value = $this->settings->get($this->context . '_' . \str_replace(':', '', $key))) {
                     return $value;
