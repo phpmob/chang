@@ -65,7 +65,7 @@ class WebPageContext implements PageContextInterface
     /**
      * {@inheritdoc}
      */
-    public function set(string $key, $value): void
+    public function set($key, $value = null): void
     {
         $this->decoratedContext->set($key, $value);
     }

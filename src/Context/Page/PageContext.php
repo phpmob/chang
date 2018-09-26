@@ -178,8 +178,16 @@ class PageContext implements PageContextInterface
     /**
      * {@inheritdoc}
      */
-    public function set(string $key, $value): void
+    public function set($key, $value = null): void
     {
+        if (\is_array($key)) {
+            foreach ($key as $item => $val) {
+                $this->set($item, $val);
+            }
+
+            return;
+        }
+
         if (!\array_key_exists($this->context, $this->parameters)) {
             $this->parameters[$this->context] = [];
         }

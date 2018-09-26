@@ -35,10 +35,10 @@ interface PageContextInterface
     public function get(string $key, $default = null);
 
     /**
-     * @param string $key
-     * @param $value
+     * @param string|array $key
+     * @param mixed $value
      */
-    public function set(string $key, $value): void;
+    public function set($key, $value = null): void;
 
     /**
      * @return null|UserInterface
