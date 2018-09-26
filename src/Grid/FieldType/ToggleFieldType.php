@@ -74,7 +74,7 @@ class ToggleFieldType implements FieldTypeInterface
             'property' => 'enabled',
             'method' => 'PATCH',
             'form' => 'toggle_resource',
-            'btn_css' => 'btn btn-sm btn-outline-secondary',
+            'btn_css' => 'btn btn-outline-secondary',
             'on_color' => 'success',
             'off_color' => 'danger',
             'on_label' => 'chang.ui.on',
