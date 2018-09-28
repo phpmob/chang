@@ -23,6 +23,7 @@ $(document).on('click', '[data-confirmation],[data-confirm]', function (e) {
     }
 
     const isForm = $el.is('form');
+    const isAjaxForm = isForm && this.hasAttribute('data-ajax-form');
 
     if (isForm) {
         $el.find('button,.btn')
@@ -44,16 +45,20 @@ $(document).on('click', '[data-confirmation],[data-confirm]', function (e) {
                 action: function (e) {
                     $el.addClass('disabled');
 
-                    if (isForm) {
+                    if (isForm && isAjaxForm) {
                         ajaxForm.submit($el.get(0), e);
+
+                        return;
+                    }
+
+                    if (isForm) {
+                        $el.closest('form').submit();
 
                         return;
                     }
 
                     if ($el.is('a')) {
                         window.location.href = $el.attr('href');
-                    } else {
-                        $el.closest('form').submit();
                     }
                 }
             },
