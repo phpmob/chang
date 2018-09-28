@@ -1,27 +1,41 @@
-$(document).on('click', '[data-confirmation]', function (e) {
+const ajaxForm = require('./ajax-form');
+
+$(document).on('click', '[data-confirmation],[data-confirm]', function (e) {
     e.preventDefault();
 
-    var $el = $(this);
+    const $el = $(this);
+    const getData = (key) => {
+        return $el.data(`confirmation-${key}`) || $el.data(`confirm-${key}`);
+    };
 
-    let btnClass = 'btn-info';
+    let btnClass = 'btn-green';
     let icon = 'far fa-question-circle';
 
-    switch ($el.data('confirmation-type')) {
+    switch (getData('type')) {
         case 'danger':
-            btnClass = 'btn-danger';
+            btnClass = 'btn-red';
             icon = 'fas fa-exclamation-triangle';
             break;
         case 'warning':
-            btnClass = 'btn-warning';
+            btnClass = 'btn-orange';
             icon = 'fas fa-exclamation-triangle';
             break;
     }
 
+    const isForm = $el.is('form');
+
+    if (isForm) {
+        $el.find('button,.btn')
+            .addClass('disabled')
+            .attr('disabled', true)
+        ;
+    }
+
     $.confirm({
-        theme: 'modern',
-        title: $el.data('confirmation-title') || 'Confirmation',
-        icon: icon,
-        content: $el.data('confirmation') || 'Do you want to continue?',
+        icon: getData('icon') || icon,
+        theme: getData('theme') || 'modern',
+        title: getData('title') || 'Confirmation',
+        content: $el.data('confirmation') || $el.data('confirm') || 'Do you want to continue?',
         buttons: {
             confirm: {
                 text: 'Yes, I do!',
@@ -29,6 +43,12 @@ $(document).on('click', '[data-confirmation]', function (e) {
                 keys: ['enter'],
                 action: function (e) {
                     $el.addClass('disabled');
+
+                    if (isForm) {
+                        ajaxForm.submit($el.get(0), e);
+
+                        return;
+                    }
 
                     if ($el.is('a')) {
                         window.location.href = $el.attr('href');
@@ -39,7 +59,15 @@ $(document).on('click', '[data-confirmation]', function (e) {
             },
             cancel: {
                 keys: ['esc'],
-                text: 'No'
+                text: 'No',
+                action: function () {
+                    if (isForm) {
+                        $el.find('button,.btn')
+                            .removeClass('disabled')
+                            .attr('disabled', false)
+                        ;
+                    }
+                }
             }
         }
     });

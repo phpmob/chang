@@ -36,6 +36,8 @@ chang:
         numeric: ตัวเลข
         error: Error
         filter: Filter
+        add_filter: Add filter
+        apply_filter: Apply filter
         success: Success
         save: Save
         save_changes: Save Changes
