@@ -22,7 +22,12 @@ $(document).on('click', '[data-confirmation],[data-confirm]', function (e) {
             break;
     }
 
-    const $form = $el.is('form') ? $el : ($el.closest('form').length ? $el.closest('form') : null);
+    // is be a form itself
+    const $form = $el.is('form') ? $el : (
+        // is be submit button inside form
+        $el.is('button') && $el.attr('type').toLowerCase() === 'submit' && $el.closest('form').length
+        ? $el.closest('form') : null
+    );
     const isForm = $form ? true : false;
     const isAjaxForm = isForm && $form.get(0).hasAttribute('data-ajax-form');
 
