@@ -22,11 +22,12 @@ $(document).on('click', '[data-confirmation],[data-confirm]', function (e) {
             break;
     }
 
-    const isForm = $el.is('form');
-    const isAjaxForm = isForm && this.hasAttribute('data-ajax-form');
+    const $form = $el.is('form') ? $el : ($el.closest('form').length ? $el.closest('form') : null);
+    const isForm = $form ? true : false;
+    const isAjaxForm = isForm && $form.get(0).hasAttribute('data-ajax-form');
 
     if (isForm) {
-        $el.find('button,.btn')
+        $form.find('button,.btn')
             .addClass('disabled')
             .attr('disabled', true)
         ;
@@ -52,7 +53,7 @@ $(document).on('click', '[data-confirmation],[data-confirm]', function (e) {
                     }
 
                     if (isForm) {
-                        $el.closest('form').submit();
+                        $form.submit();
 
                         return;
                     }
@@ -67,7 +68,7 @@ $(document).on('click', '[data-confirmation],[data-confirm]', function (e) {
                 text: 'No',
                 action: function () {
                     if (isForm) {
-                        $el.find('button,.btn')
+                        $form.find('button,.btn')
                             .removeClass('disabled')
                             .attr('disabled', false)
                         ;
