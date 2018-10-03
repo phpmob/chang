@@ -30,7 +30,7 @@ class MoneyFieldType extends AbstractLinkableFieldType
      */
     public function render(Field $field, $data, array $options)
     {
-        $value = $this->dataExtractor->get($field, $data);
+        $value = intval($this->dataExtractor->get($field, $data));
         $field->setOptions($options);
 
         $formatted = $this->formatter->format($value, $options['currency']);

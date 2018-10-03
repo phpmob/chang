@@ -57,6 +57,22 @@ final class ExtraDriver implements DriverInterface
             $queryBuilder->addGroupBy($groupBy);
         }
 
+        foreach ((array)($configuration['joins'] ?? []) as $join) {
+            $self = $join['from'] ?? $this->tableAlias;
+
+            switch ($join['type'] ?? null) {
+                case 'left':
+                    $queryBuilder->leftJoin($self, $join['table'], $join['alias'], $join['condition'] ?? null);
+                    break;
+                case 'right':
+                    $queryBuilder->rightJoin($self, $join['table'], $join['alias'], $join['condition'] ?? null);
+                    break;
+                default:
+                    $queryBuilder->join($self, $join['table'], $join['alias'], $join['condition'] ?? null);
+                    break;
+            }
+        }
+
         return new DataSource($queryBuilder, $this->tableAlias);
     }
 }
