@@ -3,10 +3,9 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="chang.grid_driver.doctrine.orm"
-                 parent="sylius.grid_driver.doctrine.orm"
-                 decorates="sylius.grid_driver.doctrine.orm"
-                 class="Chang\Grid\Driver\Doctrine\ORM\Driver">
+        <service id="chang.grid_driver.doctrine.dbal_extra" class="Chang\Grid\Driver\Doctrine\DBAL\ExtraDriver">
+            <argument type="service" id="doctrine.dbal.default_connection" />
+            <tag name="sylius.grid_driver" alias="doctrine/dbal-extra" />
         </service>
     </services>
 </container>

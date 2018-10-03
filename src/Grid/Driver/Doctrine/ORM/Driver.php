@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Chang\Grid\Doctrine\ORM;
+namespace Chang\Grid\Driver\Doctrine\ORM;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Sylius\Component\Grid\Data\DataSourceInterface;

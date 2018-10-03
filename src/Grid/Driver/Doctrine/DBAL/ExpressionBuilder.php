@@ -1,20 +1,10 @@
 <?php
 
-/*
- * This file is part of the Sylius package.
- *
- * (c) Paweł Jędrzejewski
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 declare(strict_types=1);
 
-namespace Chang\Grid\Doctrine\ORM;
+namespace Chang\Grid\Driver\Doctrine\DBAL;
 
-use Doctrine\ORM\Query\Expr\Comparison;
-use Doctrine\ORM\QueryBuilder;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Sylius\Component\Grid\Data\ExpressionBuilderInterface;
 
 final class ExpressionBuilder implements ExpressionBuilderInterface
@@ -25,11 +15,14 @@ final class ExpressionBuilder implements ExpressionBuilderInterface
     private $queryBuilder;
 
     /**
-     * @param QueryBuilder $queryBuilder
+     * @var string
      */
-    public function __construct(QueryBuilder $queryBuilder)
+    private $tableAlias;
+
+    public function __construct(QueryBuilder $queryBuilder, string $tableAlias)
     {
         $this->queryBuilder = $queryBuilder;
+        $this->tableAlias = $tableAlias;
     }
 
     /**
@@ -53,7 +46,7 @@ final class ExpressionBuilder implements ExpressionBuilderInterface
      */
     public function comparison(string $field, string $operator, $value)
     {
-        return new Comparison($field, $operator, $value);
+        return $this->queryBuilder->expr()->comparison($this->getFieldName($field), $operator, $value);
     }
 
     /**
@@ -84,9 +77,9 @@ final class ExpressionBuilder implements ExpressionBuilderInterface
     public function lessThan(string $field, $value)
     {
         $parameterName = $this->getParameterName($field);
-        $this->queryBuilder->setParameter($parameterName, $value);
 
-        $this->queryBuilder->andWhere($this->getFieldName($field) . ' < :' . $parameterName);
+        $this->queryBuilder->andWhere($this->getFieldName($field) . ' < :' . $parameterName)
+            ->setParameter($parameterName, $value);
     }
 
     /**
@@ -95,9 +88,10 @@ final class ExpressionBuilder implements ExpressionBuilderInterface
     public function lessThanOrEqual(string $field, $value)
     {
         $parameterName = $this->getParameterName($field);
-        $this->queryBuilder->setParameter($parameterName, $value);
 
-        $this->queryBuilder->andWhere($this->getFieldName($field) . ' <= :' . $parameterName);
+        $this->queryBuilder
+            ->andWhere($this->getFieldName($field) . ' =< :' . $parameterName)
+            ->setParameter($parameterName, $value);
     }
 
     /**
@@ -106,9 +100,10 @@ final class ExpressionBuilder implements ExpressionBuilderInterface
     public function greaterThan(string $field, $value)
     {
         $parameterName = $this->getParameterName($field);
-        $this->queryBuilder->setParameter($parameterName, $value);
 
-        $this->queryBuilder->andWhere($this->getFieldName($field) . ' > :' . $parameterName);
+        $this->queryBuilder
+            ->andWhere($this->getFieldName($field) . ' > :' . $parameterName)
+            ->setParameter($parameterName, $value);
     }
 
     /**
@@ -117,9 +112,9 @@ final class ExpressionBuilder implements ExpressionBuilderInterface
     public function greaterThanOrEqual(string $field, $value)
     {
         $parameterName = $this->getParameterName($field);
-        $this->queryBuilder->setParameter($parameterName, $value);
 
-        $this->queryBuilder->andWhere($this->getFieldName($field) . ' >= :' . $parameterName);
+        $this->queryBuilder->andWhere($this->getFieldName($field) . ' => :%s' . $parameterName)
+            ->setParameter($parameterName, $value);
     }
 
     /**
@@ -193,12 +188,8 @@ final class ExpressionBuilder implements ExpressionBuilderInterface
      */
     private function getFieldName(string $field): string
     {
-        if (preg_match('/^:/', $field)) {
-            return str_replace(':', '', $field);
-        }
-
         if (false === strpos($field, '.')) {
-            return $this->queryBuilder->getRootAlias().'.'.$field;
+            return $this->tableAlias . '.' . $field;
         }
 
         return $field;

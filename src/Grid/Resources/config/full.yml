@@ -1,6 +1,7 @@
 imports:
     - ./services/*
 
+# TODO Move to UI
 sylius_grid:
     templates:
         action:

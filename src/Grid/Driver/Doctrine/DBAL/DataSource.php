@@ -1,20 +1,10 @@
 <?php
 
-/*
- * This file is part of the Sylius package.
- *
- * (c) Paweł Jędrzejewski
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 declare(strict_types=1);
 
-namespace Chang\Grid\Doctrine\ORM;
+namespace Chang\Grid\Driver\Doctrine\DBAL;
 
-use Doctrine\ORM\QueryBuilder;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Pagerfanta\Pagerfanta;
 use Sylius\Component\Grid\Data\DataSourceInterface;
 use Sylius\Component\Grid\Data\ExpressionBuilderInterface;
@@ -33,12 +23,15 @@ final class DataSource implements DataSourceInterface
     private $expressionBuilder;
 
     /**
-     * @param QueryBuilder $queryBuilder
+     * @var string
      */
-    public function __construct(QueryBuilder $queryBuilder)
+    private $tableAlias;
+
+    public function __construct(QueryBuilder $queryBuilder, string $tableAlias)
     {
         $this->queryBuilder = $queryBuilder;
-        $this->expressionBuilder = new ExpressionBuilder($queryBuilder);
+        $this->tableAlias = $tableAlias;
+        $this->expressionBuilder = new ExpressionBuilder($queryBuilder, $tableAlias);
     }
 
     /**
@@ -71,8 +64,19 @@ final class DataSource implements DataSourceInterface
      */
     public function getData(Parameters $parameters)
     {
-        // Use output walkers option in DoctrineORMAdapter should be false as it affects performance greatly. (see #3775)
-        $paginator = new Pagerfanta(new DoctrineORMAdapter($this->queryBuilder, false, false));
+        $countQueryBuilderModifier = function (QueryBuilder $queryBuilder) {
+
+            $sql = $queryBuilder->getSQL();
+
+            $queryBuilder
+                ->resetQueryParts(array_keys($queryBuilder->getQueryParts()))
+                ->select(sprintf('COUNT(DISTINCT %s.id) AS total_results', $this->tableAlias))
+                ->from(sprintf('(%s)', $sql), $this->tableAlias)
+                ->setMaxResults(1)
+            ;
+        };
+
+        $paginator = new Pagerfanta(new PagerAdapter($this->queryBuilder, $countQueryBuilderModifier));
         $paginator->setNormalizeOutOfRangePages(true);
         $paginator->setCurrentPage($parameters->get('page', 1));
 
