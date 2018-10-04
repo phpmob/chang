@@ -3,6 +3,7 @@ parameters:
         dsn: redis://127.0.0.1/0
         options: []
         key: monolog
+        level: debug
 
 services:
     chang.redis.monolog_client:
@@ -17,6 +18,7 @@ services:
         arguments:
             - '@chang.redis.monolog_client'
             - '@=service("chang.option_resolver").get("redis.monolog.key")'
+            - '@=service("chang.option_resolver").get("redis.monolog.level")'
 
 # check to make sure
 # ./bin/console debug:config monolog
@@ -25,4 +27,3 @@ monolog:
         main:
             type: service
             id: chang.redis.monolog_handler
-            level: debug
