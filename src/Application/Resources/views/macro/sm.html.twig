@@ -17,12 +17,12 @@
                         {% if form %}
                             <form action="{{ routing }}" method="post">
                                 <input type="hidden" name="_method" value="{{ method }}">
-                                <button type="submit" data-sm-action class="btn btn-outline-primary" data-confirmation>
+                                <button type="submit" data-sm-action class="btn btn-outline-primary" data-confirm>
                                     <i class="fa fa-circle text-color-{{ ts.color }}"></i> {{ ts.label|trans|raw }}
                                 </button>
                             </form>
                         {% else %}
-                            <a href="{{ routing }}" class="btn btn-outline-primary" data-method="{{ method }}" data-sm-action data-confirmation>
+                            <a href="{{ routing }}" class="btn btn-outline-primary" data-method="{{ method }}" data-sm-action data-confirm>
                                 <i class="fa fa-circle text-color-{{ ts.color }}"></i> {{ ts.label|trans|raw }}
                             </a>
                         {% endif %}

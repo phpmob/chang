@@ -13,7 +13,7 @@
         {% if value != options.on_value %}
             <li class="dropdown-item">
                 <form action="{{ routing }}" method="post" name="{{ options.form }}"
-                      data-confirmation="{{ 'chang.ui.are_you_sure_to_do'|trans({'%do%': on_label})|raw }}">
+                      data-confirm="{{ 'chang.ui.are_you_sure_to_do'|trans({'%do%': on_label})|raw }}">
                     <input type="hidden" name="_method" value="{{ options.method|default('PATCH') }}">
                     <input type="hidden" name="{{ options.form }}[_token]" value="{{ csrf_token(options.form) }}" />
                     <input type="hidden" name="{{ options.form }}[{{ options.property }}]" value="{{ options.on_value|default(1) }}">
@@ -26,7 +26,7 @@
         {% if value != options.off_value %}
             <li class="dropdown-item">
                 <form action="{{ routing }}" method="post" name="{{ options.form }}"
-                      data-confirmation="{{ 'chang.ui.are_you_sure_to_do'|trans({'%do%': off_label})|raw }}">
+                      data-confirm="{{ 'chang.ui.are_you_sure_to_do'|trans({'%do%': off_label})|raw }}">
                     <input type="hidden" name="_method" value="{{ options.method|default('PATCH') }}">
                     <input type="hidden" name="{{ options.form }}[_token]" value="{{ csrf_token(options.form) }}" />
                     <input type="hidden" name="{{ options.form }}[{{ options.property }}]" value="{{ options.off_value|default(0) }}">
