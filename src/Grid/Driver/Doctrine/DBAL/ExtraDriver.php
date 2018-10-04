@@ -8,6 +8,7 @@ use Doctrine\DBAL\Connection;
 use Sylius\Component\Grid\Data\DataSourceInterface;
 use Sylius\Component\Grid\Data\DriverInterface;
 use Sylius\Component\Grid\Parameters;
+use Webmozart\Assert\Assert;
 
 final class ExtraDriver implements DriverInterface
 {
@@ -40,18 +41,20 @@ final class ExtraDriver implements DriverInterface
             throw new \InvalidArgumentException('"table" must be configured.');
         }
 
-        $queryBuilder = $this->connection->createQueryBuilder();
+        $factory = $this->connection;
 
         if (null !== ($configuration['query_builder'] ?? null)) {
-            $queryBuilder = $configuration['query_builder']['service'] ?? $configuration['query_builder'];
+            $factory = $configuration['query_builder']['factory'] ?? $configuration['query_builder'];
         }
 
         if (isset($configuration['query_builder']['method'])) {
-            $method = $configuration['query_builder']['method'];
-            $arguments = isset($configuration['query_builder']['arguments']) ? array_values($configuration['query_builder']['arguments']) : [];
+            Assert::implementsInterface($factory, QueryBuilderFactoryInterface::class);
 
-            $queryBuilder->$method(...$arguments);
+            $method = $configuration['query_builder']['method'] ?? 'createQueryBuilder';
+            $arguments = isset($configuration['query_builder']['arguments']) ? array_values($configuration['query_builder']['arguments']) : [];
+            $queryBuilder = $factory->$method(...$arguments);
         } else {
+            $queryBuilder = $factory->createQueryBuilder();
             $queryBuilder
                 ->select($this->tableAlias . '.*')
                 ->from($configuration['table'], $this->tableAlias);
