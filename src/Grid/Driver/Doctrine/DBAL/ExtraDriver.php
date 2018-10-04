@@ -40,10 +40,18 @@ final class ExtraDriver implements DriverInterface
             throw new \InvalidArgumentException('"table" must be configured.');
         }
 
+        $queryBuilder = $this->connection->createQueryBuilder();
+
         if (null !== ($configuration['query_builder'] ?? null)) {
-            $queryBuilder = $configuration['query_builder'];
+            $queryBuilder = $configuration['query_builder']['service'] ?? $configuration['query_builder'];
+        }
+
+        if (isset($configuration['query_builder']['method'])) {
+            $method = $configuration['query_builder']['method'];
+            $arguments = isset($configuration['query_builder']['arguments']) ? array_values($configuration['query_builder']['arguments']) : [];
+
+            $queryBuilder->$method(...$arguments);
         } else {
-            $queryBuilder = $this->connection->createQueryBuilder();
             $queryBuilder
                 ->select($this->tableAlias . '.*')
                 ->from($configuration['table'], $this->tableAlias);
