@@ -188,6 +188,10 @@ final class ExpressionBuilder implements ExpressionBuilderInterface
      */
     private function getFieldName(string $field): string
     {
+        if (preg_match('/^:/', $field)) {
+            return str_replace(':', '', $field);
+        }
+
         if (false === strpos($field, '.')) {
             return $this->tableAlias . '.' . $field;
         }
