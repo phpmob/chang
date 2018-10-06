@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Chang\Menu;
 
 use Adbar\Dot;
-use Chang\Context\Page\PageContextInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class YamlMenu implements EventSubscriberInterface
@@ -16,14 +15,14 @@ class YamlMenu implements EventSubscriberInterface
     private $builder;
 
     /**
-     * @var PageContextInterface
+     * @var YamlMenuResolverInterface
      */
-    private $context;
+    private $resolver;
 
-    public function __construct(BuilderInterface $builder, PageContextInterface $context)
+    public function __construct(BuilderInterface $builder, YamlMenuResolverInterface $resolver)
     {
         $this->builder = $builder;
-        $this->context = $context;
+        $this->resolver = $resolver;
     }
 
     /**
@@ -41,7 +40,7 @@ class YamlMenu implements EventSubscriberInterface
      */
     public function build(MenuEvent $event): void
     {
-        $menus = new Dot($this->context->get('menus', []));
+        $menus = new Dot($this->resolver->getMenus());
 
         if ($items = $menus->get($event->getChildPathKey())) {
             $this->builder->buildChild($event->getMenu(), $items);
