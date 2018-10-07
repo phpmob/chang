@@ -1,0 +1,44 @@
+{% extends '@ui/modern/crud/base.html.twig' %}
+{% form_theme form '@ui/base/form/theme.html.twig' %}
+
+{% do ctx_page.set('page.entry', ctx_page.get('page.entry', 'create')) %}
+{% do ctx_page.set('page.icon', ctx_page.get('page.icon', 'fas fa-plus')) %}
+
+{% block breadcrumb %}{{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="crud crud-{{ entry }}">
+        {{ form_start(form) }}
+        <header class="crud-header">
+            {% block crud_header %}
+                <div class="crud-title m-0">
+                    {% block crud_header_title %}{{ parent() }}{% endblock %}
+                </div>
+                <div class="ml-auto">
+                    {% block crud_header_action %}
+                        <button type="submit" class="btn btn-primary mr-1">
+                            {{ 'chang.ui.save'|trans }}
+                        </button>
+                        <a class="btn btn-outline-warning" href="{{ backUrl }}">
+                            <i class="fas fa-angle-left"></i> {{ 'chang.ui.cancel'|trans }}
+                        </a>
+                    {% endblock %}
+                </div>
+            {% endblock %}
+        </header>
+        <div class="crud-body">
+            {% block crud_body %}
+                {%- block flash %}{{ include('@ui/base/_flash.html.twig') }}{% endblock %}
+                {{ form_errors(form) }}
+                {% if configuration.vars.templates.form is defined %}
+                    {% include configuration.vars.templates.form %}
+                {% else %}
+                    {{ form_widget(form) }}
+                {% endif %}
+            {% endblock %}
+        </div>
+        {{ form_row(form._token) }}
+        {{ form_end(form, {'render_rest': false}) }}
+    </div>
+{% endblock %}
+

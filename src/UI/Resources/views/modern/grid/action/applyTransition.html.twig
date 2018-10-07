@@ -1,0 +1,8 @@
+{% if sm_can(data, options.transition, options.graph) %}
+    <form action="{{ path(options.link.route, options.link.parameters) }}" method="post" style="display: inline-block;">
+        <input type="hidden" name="_method" value="PUT">
+        <button class="{{ options.class|default('btn') }}" type="submit">
+            <i class="{{ action.icon }}"></i> <span>{{ action.label|trans }}</span>
+        </button>
+    </form>
+{% endif %}

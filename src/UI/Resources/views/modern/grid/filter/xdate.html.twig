@@ -1,0 +1,23 @@
+{% form_theme form '@ui/base/form/theme.html.twig' %}
+
+{% if form.from is defined and form.to is defined %}
+    {% include '@ui/modern/grid/filter/date.html.twig' %}
+{% else %}
+    {% if form.from is defined %}
+        <div class="input-group-prepend">
+            <span class="input-group-text">
+                {{ form.from.vars.label|trans ~' '~ filter.label|trans }} <i class="far fa-calendar-alt ml-2"></i>
+            </span>
+        </div>
+        {{- form_widget(form.from) -}}
+    {% endif %}
+
+    {% if form.to is defined %}
+        <div class="input-group-prepend">
+            <span class="input-group-text">
+                {{ form.to.vars.label|trans ~' '~ filter.label|trans }} <i class="far fa-calendar-alt ml-2"></i>
+            </span>
+        </div>
+        {{- form_widget(form.to) -}}
+    {% endif %}
+{% endif %}

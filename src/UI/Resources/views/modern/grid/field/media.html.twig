@@ -1,0 +1,23 @@
+{% set sizes = options.sizing|split('x') %}
+{% set href = null %}
+{% if options.route %}
+    {% set href = path(options.route, options.parameters) %}
+{% endif %}
+<div class="media{% if options.text is same as(null) %} align-items-center{% endif %}"{% if href %} data-href="{{ href }}"{% endif %}>
+    <img class="mr-3" width="{{ sizes[0] }}px" height="{{ sizes[1] }}px"
+         src="{{ attribute(data, options.property)|phpmob_imagine(options.sizing, true, phpmob_imagine.default_image) }}">
+    <div class="media-body">
+        <h6 class="m-0">{{ attribute(data, options.heading) }}</h6>
+        {% if options.text %}
+            <p class="text-muted mb-0 mt-1">
+                {% if is_array(options.text) %}
+                    {% for text in options.text %}
+                        {% if loop.index0 %}<br>{% endif %}{{ attribute(data, text) }}
+                    {% endfor %}
+                {% else %}
+                    {{ attribute(data, options.text) }}
+                {% endif %}
+            </p>
+        {% endif %}
+    </div>
+</div>

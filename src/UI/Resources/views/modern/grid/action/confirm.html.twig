@@ -1,0 +1,10 @@
+{% from '@ui/base/macro/attrs.html.twig' import attrs %}
+{% set path = options.url is defined ? options.url : path(options.route, options.parameters|default([])) %}
+{% set confirm_label = (options.confirm_label|default('chang.ui.are_you_sure_to_do'))|trans({'%do%': action.label|lower }) %}
+{% set attr = attrs({
+    href: path,
+    class: options.class|default('btn btn-outline-secondary'),
+}|merge(options.attr|default({}))) %}
+<a {{ attr|raw }} data-confirm="{{ confirm_label }}">
+    {% if action.icon is defined %}<i class="{{ action.icon }}"></i> {% endif %}<span>{{ action.label|trans }}</span>
+</a>

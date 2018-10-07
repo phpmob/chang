@@ -1,0 +1,40 @@
+{% set value = attribute(data, options.property) %}
+{% set off_label = options.off_label|trans %}
+{% set on_label = options.on_label|trans %}
+{% set label = value ? on_label : off_label %}
+<div class="dropdown d-inline toggle-dropdown">
+    <button type="button" data-toggle="dropdown" class="{{ options.btn_css }}">
+        <span data-toggle="tooltip" title="{{ label }}">
+            <i class="fa fa-circle x-text-color-{{ value ? options.on_color : options.off_color }}"></i> {{ options.labeled ? label : '' }}
+        </span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-right">
+        {% set routing = path(options.route, options.parameters) %}
+        {% if value != options.on_value %}
+            <li class="dropdown-item">
+                <form action="{{ routing }}" method="post" name="{{ options.form }}"
+                      data-confirm-form="{{ 'chang.ui.are_you_sure_to_do'|trans({'%do%': on_label})|raw }}">
+                    <input type="hidden" name="_method" value="{{ options.method|default('PATCH') }}">
+                    <input type="hidden" name="{{ options.form }}[_token]" value="{{ csrf_token(options.form) }}" />
+                    <input type="hidden" name="{{ options.form }}[{{ options.property }}]" value="{{ options.on_value|default(1) }}">
+                    <button type="submit" class="btn btn-outline-secondary">
+                        <i class="fas fa-circle x-text-color-{{ options.on_color }}"></i> {{ on_label }}
+                    </button>
+                </form>
+            </li>
+        {% endif %}
+        {% if value != options.off_value %}
+            <li class="dropdown-item">
+                <form action="{{ routing }}" method="post" name="{{ options.form }}"
+                      data-confirm-form="{{ 'chang.ui.are_you_sure_to_do'|trans({'%do%': off_label})|raw }}">
+                    <input type="hidden" name="_method" value="{{ options.method|default('PATCH') }}">
+                    <input type="hidden" name="{{ options.form }}[_token]" value="{{ csrf_token(options.form) }}" />
+                    <input type="hidden" name="{{ options.form }}[{{ options.property }}]" value="{{ options.off_value|default(0) }}">
+                    <button type="submit" class="btn btn-outline-secondary">
+                        <i class="fas fa-circle x-text-color-{{ options.off_color }}"></i> {{ off_label }}
+                    </button>
+                </form>
+            </li>
+        {% endif %}
+    </ul>
+</div>

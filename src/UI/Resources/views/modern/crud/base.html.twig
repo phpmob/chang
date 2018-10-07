@@ -1,0 +1,54 @@
+{% extends ctx_page.get('layout', '@ui/modern/index.html.twig') %}
+
+{% if configuration is defined %}
+    {% set backUrl = smart_referer(
+        path(configuration.vars.route.name|default(configuration.getRouteName('index')), configuration.vars.route.parameters|default({}))
+        ) %}
+    {% set headline = metadata.applicationName~'.'~metadata.name %}
+    {% set description = headline~'_description' %}
+    {% if configuration.section %}
+        {% set headline = headline~'.'~configuration.section %}
+        {% set description = headline~'_description' %}
+    {% endif %}
+    {% set headline = ctx_page.get('page.headline', headline ~'.headline.'~ ctx_page.get('page.entry', 'entry')) %}
+    {% set description = ctx_page.get('page.description', headline ~'_description') %}
+{% else %}
+    {% set headline = ctx_page.get('page.headline') %}
+    {% set description = ctx_page.get('page.description') %}
+{% endif %}
+
+{% set icon = ctx_page.get('page.icon') %}
+{% set entry = ctx_page.get('page.entry') %}
+
+{% do ctx_page.set({
+    'site.url': ctx_page.get('site.url', '/'),
+    'seo.title': headline|trans,
+}) %}
+
+{% block breadcrumb %}
+    {{ include('@ui/modern/crud/_breadcrumb.html.twig') }}
+{% endblock %}
+
+{% block content %}
+    <div class="crud crud-{{ entry }}">
+        <header class="crud-header">
+            {% block crud_header %}
+                <div class="crud-title m-0">
+                    {% block crud_header_title %}
+                        <i class="{{ icon }}"></i>
+                        <div class="crud-title--text">
+                            <h5>{{ headline|trans|raw }}</h5>
+                            <h6>{{ description|trans|raw }}</h6>
+                        </div>
+                    {% endblock %}
+                </div>
+                <div class="ml-auto">
+                    {% block crud_header_action %}{% endblock %}
+                </div>
+            {% endblock %}
+        </header>
+        <div class="crud-body">
+            {% block crud_body %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

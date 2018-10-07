@@ -1,0 +1,179 @@
+.input-group {
+  &.is-invalid {
+    border-color: $form-feedback-invalid-color;
+  }
+}
+
+.alert {
+  .form-error-icon.badge {
+    border-radius: 0;
+  }
+}
+
+.form-error-icon {
+  margin-right: 5px;
+}
+
+.form-control-label.required {
+  &:after {
+    content: " *";
+    color: theme-color('danger');
+  }
+}
+
+.form-group {
+  > label, legend {
+    &.required {
+      &:after {
+        content: " *";
+        color: theme-color('danger');
+      }
+    }
+  }
+  .card-footer-content & {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  > .phpmob-image-widget {
+    label {
+      cursor: pointer;
+      margin-bottom: 0;
+    }
+  }
+}
+
+[data-form-collection="item"] {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  margin-bottom: .5rem;
+
+  [data-form-collection="widget"] {
+    flex: 1;
+  }
+  [data-form-collection="delete"] {
+    align-self: center !important;
+    margin-left: .5rem;
+  }
+}
+
+[data-form-collection="add"] {
+}
+
+.tab-pane.active {
+  > .form-group:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.card-translations {
+  box-shadow: none;
+  margin: 0;
+  .card-header {
+    border: none;
+  }
+  .card-body {
+    border: 1px solid #f1f1f1;
+    border-radius: $border-radius;
+    background: #fdfdfd;
+  }
+  .nav-tabs {
+    border: none;
+    .nav-link {
+      padding: ($nav-link-padding-y) $nav-link-padding-x;
+      border: 1px solid #f1f1f1;
+      border-bottom: none;
+      margin-left: 5px;
+
+      &.active {
+        background: #fdfdfd;
+        margin-bottom: -1px;
+        z-index: 1;
+      }
+    }
+  }
+}
+
+.cke_reset,
+.cke_inner {
+  border-radius: $input-border-radius;
+  .cke_top {
+    border-radius: $input-border-radius $input-border-radius 0 0;
+    background: none;
+  }
+  .cke_bottom {
+    border-radius: 0 0 $input-border-radius $input-border-radius;
+    background: none;
+  }
+}
+
+.card,
+.card-body {
+  > .form-group:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.card-header {
+  .form-group {
+    margin-bottom: 0;
+  }
+}
+
+.form-group {
+  .ace_editor {
+    margin: 0;
+  }
+}
+
+select.form-control {
+  appearance: none;
+  background: url("data:image/svg+xml;charset=UTF-8,%3csvg width='14' height='14' fill='%233D464F' viewBox='0 0 1792 1792' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M1408 704q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z'/%3e%3c/svg%3e") no-repeat right .75rem center, linear-gradient(180deg, $input-bg, $input-bg);
+}
+
+.table {
+  td > .form-group {
+    margin: 0;
+  }
+}
+
+.x-form-loading {
+  position: relative;
+  z-index: 0;
+
+  &::before {
+    /*top: 50%;
+    left: 50%;
+    position: absolute;
+    display: inline-block;
+    width: 1.75rem;
+    height: 1.75rem;
+    vertical-align: middle;
+    border: solid 3px transparent;
+    border-top-color: rgba($gray-300, .5);
+    border-left-color: rgba($gray-300, .5);
+    border-radius: 2rem;
+    user-select: none;
+    pointer-events: none;
+    backface-visibility: hidden; // avoid webkit bug render
+    transform: rotate(0deg);
+    -webkit-transform-style: preserve-3d;
+    animation: loader 700ms linear infinite;
+    content: "";
+    z-index: 2;*/
+  }
+  &::after {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    content: "";
+    position: absolute;
+    background-color: rgba($white, .8);
+    @include border-radius($card-border-radius);
+  }
+}

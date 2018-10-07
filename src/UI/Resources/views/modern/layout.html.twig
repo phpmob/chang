@@ -1,0 +1,28 @@
+{% if app.request.isXmlHttpRequest() or app.request.get('_embeded') is same as('1') %}
+    {% block raw %}{% endblock %}
+{% else %}
+    <!DOCTYPE html>
+    <html lang="{{ ctx_page.get('seo.lang')|default('th') }}">
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Roboto" rel="stylesheet">
+        {%- block metadata %}{% include '@ui/base/_metadata.html.twig' %}{% endblock %}
+        {%- block seo %}{% include '@ui/base/_seo.html.twig' %}{% endblock %}
+        {%- block favicon %}{% endblock %}
+        {% modify jsmin -%}{%- block scripts %}{% endblock %}{%- endmodify %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+            <link rel="stylesheet" href="{{ asset('build/animate.css') }}">
+            <link rel="stylesheet" href="{{ asset('build/confirm.css') }}">
+            <link rel="stylesheet" href="{{ asset('build/modern/style.css') }}">
+        {% endblock %}
+        {%- block extra_css %}{% endblock %}
+    </head>
+    <body>
+    {% block body %}{% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('build/modern/app.js') }}"></script>
+    {% endblock %}
+    </body>
+    </html>
+{% endif %}

@@ -1,0 +1,11 @@
+<nav class="menu-main is-dark">
+    <ul class="menu-main-inner">
+        <li class="main-logo" title="{{ 'Home' }}">
+            <a href="/">
+                {#<img src="..." alt="">#}
+                {{ ui_mt_icon('flight_takeoff') }}
+            </a>
+        </li>
+        {{ knp_menu_render('main', { template: '@ui/modern/menu/main.html.twig' }) }}
+    </ul>
+</nav>

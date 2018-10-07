@@ -1,0 +1,21 @@
+{% set quickMenu = knp_menu_get('quick') %}
+{% if quickMenu|length %}
+    <li class="nav-item dropdown header-nav-dropdown">
+        <a class="nav-link" href="#" data-toggle="dropdown">
+            {{ ui_icon('fas fa-th') }}
+        </a>
+        <div class="dropdown-arrow"></div>
+        {{ knp_menu_render(quickMenu, { template: '@ui/modern/menu/quick.html.twig' }) }}
+    </li>
+{% endif %}
+
+{#<li class="nav-item has-notified">
+    <a class="nav-link" href="#" data-tgg="aside">
+        {{ ui_icon('far fa-envelope-open') }}
+    </a>
+</li>#}
+<li class="nav-item has-notified">
+    <a class="nav-link" href="#" data-tgg="aside">
+        {{ ui_sl_icon('user') }} <span>{{ app.user.displayName }}</span>
+    </a>
+</li>

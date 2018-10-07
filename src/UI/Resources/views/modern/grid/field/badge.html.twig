@@ -1,0 +1,12 @@
+{%- if is_array(options.type) -%}
+    {% if data is same as(true) %}
+        {% set data = 1 %}
+    {% endif %}
+    {% if data is same as(false) %}
+        {% set data = 0 %}
+    {% endif %}
+    {% set data = options.type[data] %}
+    <span class="badge badge-{{ data.type }}">{{ data.label|trans }}</span>
+{%- else -%}
+    <span class="badge badge-{{ options.type|default('info') }}">{{ data }}</span>
+{%- endif -%}

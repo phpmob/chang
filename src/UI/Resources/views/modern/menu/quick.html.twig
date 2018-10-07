@@ -1,0 +1,12 @@
+<div class="dropdown-menu dropdown-menu-rich dropdown-menu-right">
+    <div class="dropdown-sheets">
+        {% for child in item %}
+            {% set icon = child.extras.icon|default('far fa-file') %}
+            <div class="dropdown-sheet-item">
+                <a href="{{ child.uri }}">
+                    {{ ui_icon(icon) }} <span>{{ child.label|trans|raw }}</span>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>

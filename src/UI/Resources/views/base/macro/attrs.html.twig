@@ -1,0 +1,15 @@
+{% macro attrs(attrs) -%}
+    {%- for attrname, attrvalue in attrs -%}
+        {% if attrvalue ends with '|trans' %}
+            {% set attrvalue = attrvalue|replace({'|trans': ''})|trans %}
+        {% endif %}
+        {{- " " -}}
+        {%- if attrname in ['placeholder', 'title'] -%}
+            {{- attrname }}="{{ translation_domain is same as(false) ? attrvalue : attrvalue|trans }}"
+        {%- elseif attrvalue is same as(true) -%}
+            {{- attrname }}="{{ attrname }}"
+        {%- elseif attrvalue is not same as(false) -%}
+            {{- attrname }}="{{ attrvalue }}"
+        {%- endif -%}
+    {%- endfor -%}
+{%- endmacro %}

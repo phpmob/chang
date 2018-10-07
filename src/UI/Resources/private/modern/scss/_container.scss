@@ -1,0 +1,94 @@
+.container {
+  &.full-screen {
+    @extend .h-100;
+    @extend .d-flex;
+
+    &.centered {
+      @extend .justify-content-center;
+      @extend .align-items-center;
+    }
+  }
+
+  &-flash {
+    margin-left: -($grid-gutter-width / 2);
+    margin-right: -($grid-gutter-width / 2);
+
+    .alert {
+      border-radius: 0;
+      margin: 0;
+    }
+  }
+
+  &-fluid {
+    height: 100%;
+
+    .crud {
+      height: 100%;
+
+      .crud-body,
+      .crud-card,
+      > form {
+        height: 100%;
+      }
+    }
+  }
+
+  &-fluid {
+    padding-left: 0;
+    padding-right: 0;
+
+    .crud {
+      padding: 0;
+
+      .crud-header {
+        margin: 0;
+        padding: 1rem 2rem;
+
+        @include media-breakpoint-down(sm) {
+          padding: .5rem;
+        }
+      }
+
+      .crud-body {
+        background: $white;
+        border-top: 1px solid rgba($navbar-buttom-border, .7);
+
+        > .x-form-filter {
+          margin: 0;
+          border: none;
+          border-bottom: 1px solid rgba($navbar-buttom-border, .7);
+        }
+
+        > .card {
+          border-radius: 0;
+          border-top: none;
+        }
+      }
+    }
+  }
+}
+
+html, body {
+  > .container,
+  > .container-fluid {
+    margin-top: 42px;
+  }
+}
+
+body.has-stack-menu {
+  > .container {
+    padding-left: $main-menu-width + ($grid-gutter-width / 2);
+
+    @include media-breakpoint-down(sm) {
+      padding-left: ($main-menu-width + ($grid-gutter-width / 2)) - 20px;
+    }
+  }
+
+  .container-fluid {
+    padding-left: $main-menu-width;
+
+    @include media-breakpoint-down(sm) {
+      padding-left: $main-menu-width - 20px;
+    }
+  }
+}

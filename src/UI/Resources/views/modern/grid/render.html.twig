@@ -1,0 +1,29 @@
+{% import '@ui/modern/grid/table.html.twig' as table %}
+
+{% set grid = resources|default(grid|default) %}
+
+{% if grid.data|length > 0 %}
+    {% set rows %}
+        {# to use default options render before headers #}
+        {% for row in grid.data %}
+            {{ table.row(grid, grid.definition, row) }}
+        {% endfor %}
+    {% endset %}
+    <table class="table table-hover">
+        <thead>
+        <tr>{{ table.headers(grid, grid.definition, app.request.attributes) }}</tr>
+        </thead>
+        <tbody>
+        {{ rows|raw }}
+        </tbody>
+    </table>
+{% else %}
+    <div class="no-result">
+        <div class="alert alert-primary has-icon" role="alert">
+            <div class="alert-icon">
+                <i class="fas fa-info-circle"></i>
+            </div>
+            {{ 'chang.ui.no_results'|trans }}
+        </div>
+    </div>
+{% endif %}

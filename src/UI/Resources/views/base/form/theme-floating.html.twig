@@ -1,0 +1,134 @@
+{% extends 'bootstrap_4_layout.html.twig' %}
+
+{# https://github.com/symfony/symfony/pull/26408 #}
+{% block form_label_errors %}{% endblock form_label_errors %}
+
+{%- block form_start -%}
+    {% if ajax|default(false) %}
+        {% if ajax is same as(true) %}
+            {% set attr = attr|merge({ 'data-ajax-form': action }) %}
+        {% else %}
+            {% set attr = attr|merge({ 'data-ajax-form': ajax }) %}
+            {% set action = ajax %}
+        {% endif %}
+    {% endif %}
+    {{ parent() }}
+{% endblock %}
+
+{% block sylius_translations_row -%}
+    {%- set attr = attr|merge({class: ((attr.class|default) ~ ' card card-translations')|trim}) -%}
+    <div {{ block('widget_attributes') }}>
+        <div class="card-header d-flex align-items-center p-0">
+            {% if form.vars.label %}
+                <h6 class="card-title m-0">{{ form.vars.label|trans }}</h6>
+            {% endif %}
+            <nav class="nav nav-tabs ml-auto">
+                {% for translation in form %}
+                    {% set active = loop.index0 ? '' : 'active' %}
+                    <a class="nav-item nav-link {{ active }}" data-toggle="tab" href="#{{ translation.vars.id }}">
+                        {{ translation.vars.name|flag_icon }}
+                    </a>
+                {% endfor %}
+            </nav>
+        </div>
+
+        <div class="card-body tab-content">
+            {% for translation in form %}
+                {% set active = loop.index0 ? '' : 'active show' %}
+                <div class="tab-pane {{ active }}" id="{{ translation.vars.id }}">
+                    {% for field in translation %}
+                        {% if exclude is defined %}
+                            {% if field.vars.name not in exclude %}
+                                {{ form_row(field) }}
+                            {% endif %}
+                        {% else %}
+                            {{ form_row(field) }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{%- endblock sylius_translations_row %}
+
+{#{% block sylius_resource_autocomplete_choice_row %}
+    {% set chooser = {
+        maxItems: multiple ? null : 1,
+        remote: {
+            grid: true,
+            query_search_key: 'search',
+        }
+    }|merge_deep(chooser|default([])) %}
+    <div class="form-group">
+        {{- form_label(form) -}}
+        {{- form_widget(form, {
+            'attr': {
+                'placeholder': placeholder is defined ? placeholder|trans : '',
+                'data-chooser' : chooser|json_encode,
+            }
+        }) -}}
+        {{- form_errors(form) -}}
+    </div>
+{% endblock %}#}
+
+{% block checkbox_widget -%}
+    {%- set attr = attr|merge({class: (attr.class|default('') ~ ' custom-control-input')|trim}) -%}
+    {%- set widget -%}
+        <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    {%- endset -%}
+    {% if switch is defined %}
+        <span class="switch{{ switch is same as(true) ? '' : '--' ~ switch }}">
+            {{- form_label(form, null, { widget: widget }) -}}
+        </span>
+    {% else %}
+        {%- set parent_label_class = (parent_label_class|default(label_attr.class|default('')) ~ ' checkbox-custom')|trim -%}
+        <div class="custom-control custom-checkbox{{ 'checkbox-inline' in parent_label_class ? ' custom-control-inline' }}">
+            {{- form_label(form, null, { widget: widget, parent_label_class: parent_label_class }) -}}
+        </div>
+    {% endif %}
+{%- endblock checkbox_widget %}
+
+{% block ckeditor_label %}{# for floating label #}{% endblock %}
+
+{% block form_widget_simple %}
+    {# for floating label #}
+    {% set attr = attr|merge({ placeholder: attr.placeholder|default(form.vars.label) }) %}
+    {{- parent() -}}
+    {{- form_errors(form) -}}
+{% endblock %}
+
+{% block choice_widget_collapsed -%}
+    {# for floating label #}
+    {%- set attr = attr|merge({size: 'auto'}) -%}
+    {{- parent() -}}
+{%- endblock choice_widget_collapsed %}
+
+{# for floating label #}
+{% block form_row -%}
+    {%- if compound is defined and compound -%}
+        {%- set element = 'fieldset' -%}
+    {%- endif -%}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    {% set isFile = 'phpmob_image' in form.vars.block_prefixes %}
+    {% set isCheckbox = 'checkbox' in form.vars.block_prefixes %}
+    {% set isRadio = 'radio' in form.vars.block_prefixes %}
+    {% set isFloating = isCheckbox is same as(false) and isRadio is same as(false) and isFile is same as(false) and label is defined and label is not same as(false)%}
+    <{{ element|default('div') }} class="form-group">
+    {% if isFloating %}<div class="form-label-group">{% endif %}
+        {{- form_widget(form, widget_attr) -}}
+        {{- form_label(form) -}}
+        {{- form_help(form) -}}
+    {% if isFloating %}</div>{% endif %}
+    </{{ element|default('div') }}>
+{%- endblock form_row %}
+
+{% block money_widget -%}
+    {% set money_pattern = money_pattern|trim %}
+    {%- if not valid -%}
+        {% set group_class = ' is-invalid' %}
+    {%- endif -%}
+    {{ parent() }}
+{% endblock %}

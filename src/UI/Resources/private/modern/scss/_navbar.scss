@@ -1,0 +1,57 @@
+$navbar-bg: darken($body-bg, 3%);
+$navbar-buttom-border: darken($table-head-bg, 10%);
+
+.navbar {
+  margin-left: $nav-top-margin;
+  padding: 0 $navbar-padding-x 0 0;
+  border-bottom: 1px solid $navbar-buttom-border;
+  background: $navbar-bg;
+  //background: radial-gradient(ellipse at top, $navbar-bg 0%, $body-bg 100%);
+
+  &-overflow {
+    @include box-shadow(0 1px 1px 0 rgba($black, 0.1));
+  }
+
+  @include media-breakpoint-down(sm) {
+    margin-left: $nav-top-margin - 20px;
+    padding: 0;
+
+    .navbar-nav {
+      flex-direction: row;
+      margin-top: .5rem;
+    }
+  }
+
+  .nav-item {
+    &.has-notified {
+      position: relative;
+
+      &:before {
+        position: absolute;
+        top: .2rem;
+        left: 1.6rem;
+        content: "";
+        display: block;
+        width: 6px;
+        height: 6px;
+        border-radius: 3px;
+        background-color: $warning;
+        pointer-events: none;
+        user-select: none;
+      }
+    }
+
+    .nav-link {
+      color: $gray-600;
+      padding: $nav-link-padding-y $nav-link-padding-x;
+
+      &:hover {
+        background: $gray-200;
+      }
+
+      i + span {
+        padding-left: .2rem;
+      }
+    }
+  }
+}

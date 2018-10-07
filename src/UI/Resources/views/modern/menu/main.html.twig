@@ -1,0 +1,10 @@
+{% for child in item %}
+    {% set icon = child.extras.icon|default('sl-ico-folder') %}
+    <li data-menu-child="{{ child.name }}" title="{{ child.label|trans }}">
+        {% if child.uri %}
+            <a href="{{ child.uri }}">{{ ui_icon(icon) }}</a>
+        {% else %}
+            {{ ui_icon(icon) }}
+        {% endif %}
+    </li>
+{% endfor %}

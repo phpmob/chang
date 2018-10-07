@@ -1,0 +1,46 @@
+{% set breadcrumbs = [] %}
+
+{% for bcKey, bcValue in ctx_page.get('page.breadcrumbs', configuration.vars.breadcrumbs|default([])) %}
+    {% set parameters = bcValue.parameters|default([]) %}
+    {% set labelTrans = bcValue.trans|default([]) %}
+    {% if resource is defined %}
+        {% set parameters = ctx_page.parse(parameters, resource) %}
+        {% set labelTrans = ctx_page.parse(labelTrans, resource) %}
+    {% endif %}
+    {% if bcValue.route|default %}
+        {% set link = path(bcValue.route, parameters) %}
+    {% else %}
+        {% set link = path(configuration.getRouteName(bcKey), parameters) %}
+    {% endif %}
+
+    {% set breadcrumbs = breadcrumbs|merge([{
+        icon: bcValue.icon|default,
+        label: bcValue.label,
+        trans: labelTrans,
+        link: link|default(bcValue.link|default)
+    }]) %}
+{% endfor %}
+
+<nav class="breadcrumb">
+    <span class="breadcrumb-item">
+        <a href="{{ ctx_page.get('site.url') }}"><i class="sl-ico-home"></i></a>
+    </span>
+    {% for bc in breadcrumbs %}
+        <span class="breadcrumb-item">
+            {% if bc.icon %}<i class="{{ bc.icon }}"></i> {% endif %}<a href="{{ bc.link }}">{{ bc.label|trans(bc.trans)|raw }}</a>
+        </span>
+    {% else %}
+        {% if configuration is defined and 'index' != ctx_page.get('page.entry') %}
+            <span class="breadcrumb-item">
+                {% set xheadline = '.headline.index' %}
+                {% if configuration.section %}
+                    {% set xheadline = '.'~configuration.section~xheadline %}
+                {% endif %}
+                {% set link = path(configuration.getRouteName('index')) %}
+                {% set label = metadata.applicationName~'.'~metadata.name~xheadline %}
+                <a href="{{ link }}">{{ label|trans|raw }}</a>
+            </span>
+        {% endif %}
+    {% endfor %}
+    <span class="breadcrumb-item active">{{ headline|trans|raw }}</span>
+</nav>

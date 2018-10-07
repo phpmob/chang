@@ -1,0 +1,38 @@
+{% extends '@ui/modern/layout.html.twig' %}
+{% form_theme form '@ui/base/form/theme.html.twig' %}
+
+{% block body %}
+    <div class="container full-screen centered">
+        <main class="login">
+            <header>
+                <span>{{ 'Login' }}</span>
+            </header>
+            <div class="card">
+                <form class="card-body" method="post" action="{{ path('cse_admin_login_check') }}">
+                    {% if last_error %}
+                        <div class="alert alert-danger">
+                            {{ last_error.messageKey|trans(last_error.messageData, 'security') }}
+                        </div>
+                    {% endif %}
+
+                    {{ form_row(form._username) }}
+                    {{ form_row(form._password) }}
+                    {{ form_row(form._remember_me) }}
+
+                    <div class="form-group">
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">
+                            {{ 'chang.form.login.submit'|trans }}
+                        </button>
+                    </div>
+
+                    {{ form_row(form._remember_me) }}
+                    <input type="hidden" name="{{ csrf_parameter }}" value="{{ csrf_token(csrf_token_id) }}">
+                </form>
+            </div>
+            <footer class="d-flex">
+                <a href="#">{{ ui_sl_icon('user-follow') }} {{ 'Create new account' }}</a>
+                <a class="ml-auto" href="#">{{ ui_sl_icon('key') }} {{ 'Forgot password?' }}</a>
+            </footer>
+        </main>
+    </div>
+{% endblock %}

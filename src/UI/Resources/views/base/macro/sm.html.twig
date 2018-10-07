@@ -1,0 +1,46 @@
+{% macro action(object, graph, route, property = 'state', method = 'PATCH', form = true, btn_css = '') %}
+    {% do sm_graph_set(graph) %}
+    {% set state = attribute(object, property) %}
+    {% set transitions = sm_possibles(object) %}
+    {% set color = sm_state_color(state) %}
+    {% set btn_css = btn_css ? btn_css : "btn btn-outline-primary " %}
+
+    {% if transitions|length %}
+        <div class="dropdown d-inline sm-dropdown">
+            <button type="button" data-toggle="dropdown" class="dropdown-toggle sm-button {{ btn_css }}">
+                <i class="fa fa-circle text-color-{{ color }}"></i> {{ sm_state_label(state) }}
+            </button>
+            <ul class="dropdown-menu">
+                {% for ts in transitions %}
+                    {% set routing = path(route, {"id": object.id, "transition": ts.name}) %}
+                    <li class="dropdown-item sm-action sm-{{ ts.name }} text-color-{{ ts.color }}">
+                        {% if form %}
+                            <form action="{{ routing }}" method="post">
+                                <input type="hidden" name="_method" value="{{ method }}">
+                                <button type="submit" data-sm-action class="btn btn-outline-primary" data-confirm>
+                                    <i class="fa fa-circle text-color-{{ ts.color }}"></i> {{ ts.label|trans|raw }}
+                                </button>
+                            </form>
+                        {% else %}
+                            <a href="{{ routing }}" class="btn btn-outline-primary" data-method="{{ method }}" data-sm-action data-confirm>
+                                <i class="fa fa-circle text-color-{{ ts.color }}"></i> {{ ts.label|trans|raw }}
+                            </a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <span class="sm-label">
+            <i class="fa fa-circle text-color-{{ color }}"></i> {{ sm_state_label(state) }}
+        </span>
+    {% endif %}
+{% endmacro %}
+
+{%- macro label(data, graph, property = 'state') -%}
+    {% do sm_graph_set(graph) %}
+    {% set state = attribute(data, property) %}
+    {% set color = sm_state_color(state) %}
+    {% set label = sm_state_label(state) %}
+    <span class="sm-label"><i class="fa fa-circle text-color-{{ color }}"></i> {{ label }}</span>
+{%- endmacro -%}

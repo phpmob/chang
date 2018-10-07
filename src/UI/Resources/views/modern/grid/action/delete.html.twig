@@ -1,0 +1,13 @@
+{% set path = options.url|default(path(options.route|default(grid.requestConfiguration.getRouteName('delete')), options.parameters|default({'id': data.id}))) %}
+
+<form action="{{ path }}" method="post"
+      data-confirm-form="{{ 'chang.ui.are_you_sure_to_delete'|trans }}"
+      data-confirm-title="{{ 'chang.ui.confirmation'|trans }}"
+      data-confirm-type="danger">
+    <input type="hidden" name="_method" value="DELETE">
+    <button class="btn btn-outline-danger" type="submit">
+        <i class="{{ action.icon|default('fa fa-trash') }}"></i>
+        <span>{{ (action.label|trans)|default('Delete') }}</span>
+    </button>
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token(data.id) }}" />
+</form>

@@ -1,0 +1,87 @@
+.modal {
+  &-hero {
+    transition: all 0.5s;
+    transform: scale(0);
+
+    .modal-open & {
+      transform: scale(1);
+    }
+
+    .modal-close {
+      transition: all 0.4s;
+      user-select: none;
+      background-color: rgba(10, 10, 10, .2);
+      border: none;
+      border-radius: 290486px;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 1rem;
+      outline: 0;
+      transform: rotate(45deg);
+      transform-origin: center center;
+      vertical-align: top;
+      position: fixed;
+      right: 20px;
+      top: 20px;
+      height: 40px;
+      width: 40px;
+      z-index: 999;
+
+      &:hover {
+        transform: rotate(135deg);
+      }
+
+      &:before, &:after {
+        background-color: #fff;
+        content: "";
+        display: block;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+      }
+
+      &:before {
+        height: 2px;
+        width: 50%;
+      }
+      &:after {
+        height: 50%;
+        width: 2px;
+      }
+    }
+
+    .modal-background {
+      position: fixed;
+      background: linear-gradient(45deg, $secondary 0%, lighten($secondary, 20%) 100%);
+      background-color: $secondary;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+
+    .modal-content {
+      background: none;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+
+      .modal-header {
+        background: none;
+        border: none;
+        border-radius: 0;
+        color: $white;
+        justify-content: center;
+      }
+
+      .modal-body {
+        background-color: $modal-content-bg;
+        background-clip: padding-box;
+        border: $modal-content-border-width solid $modal-content-border-color;
+        @include border-radius($modal-content-border-radius);
+        @include box-shadow($modal-content-box-shadow-xs);
+      }
+    }
+  }
+}

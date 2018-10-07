@@ -1,0 +1,32 @@
+{% if app.session is not null and app.session.started %}
+    {%- set flash_msg -%}
+        {% set flashes = app.session.flashbag.all %}
+        {% if flashes|length %}
+            {% for type in ['success', 'error', 'info', 'warning'] %}
+                {% for flash in flashes[type]|default %}
+                    {% set header = 'chang.ui.'~type %}
+
+                    {% if 'error' == type %}
+                        {% set type = 'danger' %}
+                    {% endif %}
+
+                    <div class="alert alert-block alert-{{ result|default(type) }} alert-dismissible fade show"
+                         role="alert">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>{{ header|trans }}</strong>
+                        {% if flash is iterable %}
+                            {{ flash.message|trans(flash.parameters, 'flashes')|raw }}
+                        {% else %}
+                            {{ flash|trans({}, 'flashes')|raw }}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+    {%- endset -%}
+    {% if flash_msg|trim %}
+        <div class="container-flash">
+            {{ flash_msg|raw }}
+        </div>
+    {% endif %}
+{% endif %}

@@ -1,0 +1,28 @@
+.login {
+  flex-direction: column;
+  width: 100%;
+
+  @include media-breakpoint-up(md) {
+    width: 420px;;
+  }
+
+  header {
+    text-align: center;
+    span {
+      @extend .h2;
+    }
+  }
+
+  footer {
+    @extend .d-flex;
+  }
+
+  .card {
+    margin: 1rem 0;
+    @include box-shadow($box-shadow);
+
+    &-body {
+      padding-bottom: 0;
+    }
+  }
+}

@@ -1,0 +1,169 @@
+<nav class="menu-child">
+    <div class="menu-child-inner">
+        <ul>
+            <li class="child-header">
+                <div class="sidebar-title">{{ 'Navigation' }}</div>
+                <a href="#" class="menu-wrapper">
+                    <span class="icon-box-toggle">
+                        <span class="rotate">
+                            <i class="icon-line-top"></i>
+                            <i class="icon-line-center"></i>
+                            <i class="icon-line-bottom"></i>
+                        </span>
+                    </span>
+                </a>
+            </li>
+        </ul>
+        {{ knp_menu_render('main', { template: '@ui/modern/menu/child.html.twig' }) }}
+        <!-- Sidebar menu 1 -->
+        {#<ul data-menu="dashboard" class="sidebar-menu animated preFadeInRIght fadeInRight">
+            <li class="have-children"><a class="parent-link" href="#"><span class="material-icons">dashboard</span>Dashboard</a>
+                <ul>
+                    <li><a href="dashboard.html">Main layout</a></li>
+                    <li><a href="dashboard-blank.html">Blank page</a></li>
+                    <li><a href="dashboard-login.html">Login page</a></li>
+                </ul>
+            </li>
+            <li class="have-children"><a class="parent-link" href="#"><span class="material-icons">insert_chart</span>Analytics</a>
+                <ul>
+                    <li><a href="dashboard-chartjs.html">Chart js</a></li>
+                    <li><a href="dashboard-billboardjs.html">Billboard js</a></li>
+                    <li><a href="dashboard-peityjs.html">Peity js</a></li>
+                </ul>
+            </li>
+            <li class="have-children"><a class="parent-link" href="#"><span
+                            class="material-icons">developer_board</span>Widgets</a>
+                <ul>
+                    <li><a href="dashboard-widgets-data.html">Data widgets</a></li>
+                    <li><a href="dashboard-widgets-social.html">Social widgets</a></li>
+                </ul>
+            </li>
+            <li class="have-children"><a class="parent-link" href="#"><span class="material-icons">view_agenda</span>Feed</a>
+                <ul>
+                    <li><a href="dashboard-feed.html">Social feed</a></li>
+                    <li><a href="dashboard-feed-post.html">Post Item</a></li>
+                </ul>
+            </li>
+            <li class="have-children"><a class="parent-link" href="#"><span class="material-icons">invert_colors</span>Styles</a>
+                <ul>
+                    <li><a href="dashboard.html">Light sidebar</a></li>
+                    <li><a href="dashboard-dark-nav.html">Dark sidebar</a></li>
+                </ul>
+            </li>
+        </ul>
+        <!-- /Sidebar menu 1 -->
+
+        <!-- Sidebar menu 2 -->
+        <ul data-menu="documents" class="sidebar-menu animated preFadeInRIght fadeInRight">
+            <li class="have-children"><a class="parent-link" href="#"><span
+                            class="material-icons">insert_drive_file</span>Documents</a>
+                <ul>
+                    <li><a href="#">Document list <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                    <li><a href="#">Document details <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                    <li><a href="#">Invoice <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                </ul>
+            </li>
+            <li class="have-children"><a class="parent-link" href="#"><span class="material-icons">assignment</span>Projects</a>
+                <ul>
+                    <li><a href="#">Project list <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                    <li><a href="#">Project details <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                </ul>
+            </li>
+            <li class="have-children"><a class="parent-link" href="#"><span
+                            class="material-icons">assignment_turned_in</span>Tasks</a>
+                <ul>
+                    <li><a href="#">Task list <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                    <li><a href="#">Kanban board</a></li>
+                </ul>
+            </li>
+            <li class="have-children"><a class="parent-link" href="#"><span class="material-icons">library_books</span>Forms</a>
+                <ul>
+                    <li><a href="#">Step form <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                    <li><a href="#">Steps <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                </ul>
+            </li>
+        </ul>
+        <!-- /Sidebar menu 2 -->
+
+        <!-- Sidebar menu 3 -->
+        <ul data-menu="business" class="sidebar-menu animated preFadeInRIght fadeInRight">
+            <li class="have-children"><a class="parent-link" href="#"><span class="material-icons">group</span>Contacts</a>
+                <ul>
+                    <li><a href="#">Contact list <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                    <li><a href="#">Contact grid <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                    <li><a href="#">Contact details <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                </ul>
+            </li>
+            <li class="have-children"><a class="parent-link" href="#"><span class="material-icons">person_add</span>Leads</a>
+                <ul>
+                    <li><a href="#">Leads list <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                    <li><a href="#">Add lead <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                </ul>
+            </li>
+            <li class="have-children"><a class="parent-link" href="#"><span class="material-icons">attach_money</span>Deals</a>
+                <ul>
+                    <li><a href="#">Deals list <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                    <li><a href="#">Single Deal <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                </ul>
+            </li>
+        </ul>
+        <!-- /Sidebar menu 3 -->
+
+        <!-- Sidebar menu 4 -->
+        <ul data-menu="misc" class="sidebar-menu animated preFadeInRIght fadeInRight">
+            <li class="have-children"><a class="parent-link" href="#"><span class="material-icons">grid_on</span>Datatables</a>
+                <ul>
+                    <li><a href="#">Example 1 <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                    <li><a href="#">Example 2 <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                    <li><a href="#">Example 3 <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                </ul>
+            </li>
+            <li class="have-children"><a class="parent-link" href="#"><span class="material-icons">speaker_notes</span>Faq</a>
+                <ul>
+                    <li><a href="#">Faq home <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                    <li><a href="#">Faq article <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                </ul>
+            </li>
+            <li class="have-children"><a class="parent-link" href="#"><span class="material-icons">thumbs_up_down</span>Forum</a>
+                <ul>
+                    <li><a href="#">Forum home <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                    <li><a href="#">Forum thread <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                </ul>
+            </li>
+            <li class="have-children"><a class="parent-link" href="#"><span
+                            class="material-icons">email</span>Mailbox</a>
+                <ul>
+                    <li><a href="#">Inbox <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                    <li><a href="#">Compose <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                </ul>
+            </li>
+        </ul>
+        <!-- /Sidebar menu 4 -->
+
+        <!-- Sidebar menu 5 -->
+        <ul data-menu="settings" class="sidebar-menu animated preFadeInRIght fadeInRight">
+            <li class="have-children"><a class="parent-link" href="#"><span class="material-icons">settings</span>Global
+                    settings</a>
+                <ul>
+                    <li><a href="#">Preferences <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                    <li><a href="#">Change password <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                </ul>
+            </li>
+            <li class="have-children"><a class="parent-link" href="#"><span class="material-icons">account_circle</span>User
+                    settings</a>
+                <ul>
+                    <li><a href="#">User list <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                    <li><a href="#">Add user <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                    <li><a href="#">Access rights <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                </ul>
+            </li>
+            <li class="have-children"><a class="parent-link" href="#"><span class="material-icons">domain</span>Organizations</a>
+                <ul>
+                    <li><a href="#">Organizations list <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                    <li><a href="#">Add organization <span class="sl-ico-lock warning-text ml-10"></span></a></li>
+                </ul>
+            </li>
+        </ul>
+        <!-- /Sidebar menu 5 -->#}
+    </div>
+</nav>

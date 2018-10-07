@@ -1,0 +1,24 @@
+.settings {
+  list-style-type: none;
+  li {
+    margin-top: 40px;
+    .setting-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .setting-title {
+        font-weight: 500;
+        color: $gray-500;
+      }
+      .setting-control {
+        position: relative;
+        top: 4px;
+      }
+    }
+    .setting-description {
+      font-size: 85%;
+      margin-top: 15px;
+      color: $gray-500;
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{%- import "@ui/base/macro/sm.html.twig" as sm -%}
+{%- if 'action' == options.type -%}
+    {{- sm.action(data, options.graph, options.route, options.property, options.method) -}}
+{%- else -%}
+    {{- sm.label(data, options.graph, options.property) -}}
+{%- endif -%}

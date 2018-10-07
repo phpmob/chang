@@ -1,0 +1,1 @@
+require('pace-progress').start();

@@ -1,0 +1,17 @@
+framework:
+    translator:
+        paths:
+        - '%chang.dir%/UI/Resources/translations'
+twig:
+    paths:
+        #'%kernel.project_dir%/templates/UI': ui # override, folder exists needed!
+        '%chang.dir%/UI/Resources/views': ui
+
+services:
+    _defaults:
+        autowire: true
+        public: false
+
+    Chang\UI\Twig\:
+        resource: '../../Twig'
+        tags: ['twig.extension']

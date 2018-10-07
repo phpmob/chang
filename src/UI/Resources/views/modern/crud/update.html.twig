@@ -1,0 +1,18 @@
+{% extends '@ui/modern/crud/create.html.twig' %}
+
+{% do ctx_page.set('page.entry', ctx_page.get('page.entry', 'update')) %}
+{% do ctx_page.set('page.icon', ctx_page.get('page.icon', 'fas fa-pencil-alt')) %}
+
+{% block crud_body %}
+    <input type="hidden" name="_method" value="{{ configuration.vars.method|default('PUT') }}" />
+    {{ parent() }}
+{% endblock %}
+
+{% block crud_header_action %}
+    <button type="submit" class="btn btn-primary mr-1" data-form-submit="{{ form.vars.full_name }}">
+        {{ 'chang.ui.save_changes'|trans }}
+    </button>
+    <a class="btn btn-outline-warning" href="{{ backUrl }}">
+        <i class="fas fa-angle-left"></i> {{ 'chang.ui.cancel'|trans }}
+    </a>
+{% endblock %}

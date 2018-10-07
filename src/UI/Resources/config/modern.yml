@@ -1,0 +1,21 @@
+sylius_grid:
+    templates:
+        action:
+            apply_transition: "@ui/modern/grid/action/applyTransition.html.twig"
+            show: "@ui/modern/grid/action/show.html.twig"
+            create: "@ui/modern/grid/action/create.html.twig"
+            update: "@ui/modern/grid/action/update.html.twig"
+            delete: "@ui/modern/grid/action/delete.html.twig"
+            link: "@ui/modern/grid/action/link.html.twig"
+            links: "@ui/modern/grid/action/links.html.twig"
+            confirm: "@ui/modern/grid/action/confirm.html.twig"
+        filter:
+            string: "@ui/modern/grid/filter/string.html.twig"
+            number: "@ui/modern/grid/filter/number.html.twig"
+            boolean: "@ui/modern/grid/filter/boolean.html.twig"
+            date: "@ui/modern/grid/filter/date.html.twig"
+            xdate: "@ui/modern/grid/filter/xdate.html.twig"
+            xdatetime: "@ui/modern/grid/filter/xdate.html.twig"
+            entity: "@ui/modern/grid/filter/entity.html.twig"
+            money: "@ui/modern/grid/filter/money.html.twig"
+            exists: "@ui/modern/grid/filter/exists.html.twig"

@@ -1,0 +1,114 @@
+.jconfirm.jconfirm-supervan {
+  .jconfirm-bg {
+    background-color: rgba($secondary, .98);
+  }
+
+  .jconfirm-box {
+    .jconfirm-buttons {
+      button {
+        background: none;
+        border: 1px solid $white;
+        border-radius: 5px;
+        margin-right: 1rem;
+
+        &.btn-default {
+          color: $white;
+        }
+      }
+    }
+    div.jconfirm-content {
+      font-size: $font-size-base;
+    }
+    div.jconfirm-title-c {
+      .jconfirm-title {
+        display: none;
+      }
+      .jconfirm-icon-c {
+        margin: 0;
+        padding: 0;
+        i {
+          font-size: $font-size-base + 1rem;
+        }
+      }
+    }
+  }
+}
+
+.jconfirm .jconfirm-box .jconfirm-buttons button {
+  &.btn-blue {
+    border-color: $cyan;
+    background-color: $cyan;
+    color: $white;
+    text-shadow: none;
+    transition: background .2s;
+    &:hover {
+      background-color: darken($cyan, 10%);
+      color: $white;
+    }
+  }
+  &.btn-green {
+    border-color: $green;
+    background-color: $green;
+    color: $white;
+    text-shadow: none;
+    transition: background .2s;
+    &:hover {
+      background-color: darken($green, 10%);
+      color: $white;
+    }
+  }
+  &.btn-red {
+    border-color: $red;
+    background-color: $red;
+    color: $white;
+    text-shadow: none;
+    transition: background .2s;
+    &:hover {
+      background-color: darken($red, 10%);
+      color: $white;
+    }
+  }
+  &.btn-orange {
+    border-color: $orange;
+    background-color: $orange;
+    color: $white;
+    text-shadow: none;
+    transition: background .2s;
+    &:hover {
+      background-color: darken($orange, 10%);
+      color: $white;
+    }
+  }
+  &.btn-default {
+    background-color: transparent;
+    color: #000;
+    text-shadow: none;
+    transition: background .2s;
+    &:hover {
+      background-color: $gray-300;
+      color: #000;
+    }
+  }
+  &.btn-purple {
+    border-color: $purple;
+    background-color: $purple;
+    color: $white;
+    text-shadow: none;
+    transition: background .2s;
+    &:hover {
+      background-color: darken($purple, 10%);
+      color: $white;
+    }
+  }
+  &.btn-dark {
+    border-color: $gray-600;
+    background-color: $gray-600;
+    color: $white;
+    text-shadow: none;
+    transition: background .2s;
+    &:hover {
+      background-color: darken($gray-600, 10%);
+      color: $white;
+    }
+  }
+}

@@ -1,0 +1,133 @@
+.menu-child {
+  background: linear-gradient(10deg, lighten($secondary, 5%) 0%, $secondary 50%);
+  background-color: $secondary;
+
+  border-right: 1px solid $gray-700;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  transform: translateX(-251px);
+  width: 250px;
+  overflow: hidden;
+  transition: all .3s;
+  z-index: $zindex-fixed + 1;
+  left: $main-menu-width;
+  @include box-shadow(1px 0 5px 0 rgba($black, 0.15));
+
+  @include media-breakpoint-down(sm) {
+    left: $main-menu-width - 20px;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &-inner {
+    height: 100%;
+    ul li {
+      min-height: 65px;
+    }
+  }
+  .child-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-bottom: 1px solid ligthen($secondary, 15%);
+    .cross-container {
+      margin-right: 15px;
+      transform: scale(1.1);
+    }
+  }
+  .sidebar-title {
+    margin-right: auto;
+    padding-left: 20px;
+    color: $white;
+    font-size: $h5-font-size;
+  }
+  ul.sidebar-menu {
+    margin: 0;
+    padding: 7px 0;
+    max-width: 400px;
+    list-style: none;
+    display: none;
+    &.is-active {
+      display: block;
+    }
+  }
+  .sidebar-menu li a {
+    i {
+      margin-right: 20px;
+      color: $white;
+    }
+    padding: 20px 25px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-decoration: none;
+    color: $white;
+    &:hover {
+      background-color: darken($secondary, 5%);
+      padding: 20px 25px;
+      text-decoration: none;
+      color: $white;
+    }
+  }
+  li {
+    &.have-children {
+      &.active {
+        background-color: $secondary;
+      }
+      ul {
+        padding: 0;
+        background-color: darken($secondary, 15%);
+        li {
+          min-height: 10px !important;
+          a {
+            background-color: darken($secondary, 20%);
+            padding: 12px 25px 12px 62px;
+            i {
+              margin-left: auto;
+              margin-right: 10px;
+              &:after {
+                content: "";
+              }
+            }
+            &:hover {
+              color: $white;
+              background-color: darken($secondary, 25%);
+              padding: 12px 25px 12px 62px;
+            }
+          }
+          &.is-active a {
+            color: $white;
+            background-color: darken($secondary, 25%);
+            padding: 12px 25px 12px 62px;
+          }
+        }
+      }
+      position: relative;
+    }
+    position: relative;
+  }
+  // menu array
+  .have-children i::after {
+    position: absolute;
+    top: 21px;
+    right: 30px;
+    content: "\E409";
+    color: $white;
+    transition: all 0.5s;
+  }
+  li.active.have-children i::after {
+    transform: rotate(90deg);
+  }
+  .sidebar-menu .have-children > ul {
+    display: none;
+  }
+}
+
+.is-sidebar-translated {
+  transform: translateX(0);
+}

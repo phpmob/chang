@@ -1,0 +1,9 @@
+{% from '@ui/base/macro/attrs.html.twig' import attrs %}
+{% set path = options.url|default(path(options.route|default(grid.requestConfiguration.getRouteName('update')), options.parameters|default({'id': data.id}))) %}
+{% set attr = attrs({
+    href: path,
+    class: options.class|default('btn btn-outline-primary'),
+}|merge(options.attr|default({}))) %}
+<a {{ attr|raw }}>
+    <i class="{{ action.icon|default('fas fa-pencil-alt') }}"></i> <span>{{ (action.label|trans)|default('Edit') }}</span>
+</a>

@@ -1,0 +1,33 @@
+{% extends '@ui/modern/crud/base.html.twig' %}
+{% import '@ui/base/macro/paginate.html.twig' as paginate %}
+
+{% do ctx_page.set('page.entry', ctx_page.get('page.entry', 'index')) %}
+{% do ctx_page.set('page.icon', ctx_page.get('page.icon', 'far fa-file')) %}
+
+{% block crud_header_action %}
+    {% if resources.definition.enabledFilters|length > 0 %}
+        <button type="button" class="btn btn-outline-primary mr-1"
+                data-toggle-display="[data-form-filter]">
+            <i class="fas fa-filter"></i> {{ 'chang.ui.filter'|trans }}
+        </button>
+    {% endif %}
+    {% if resources.definition.actionGroups.main is defined %}
+        {% for action in resources.definition.getEnabledActions('main') %}
+            {{ sylius_grid_render_action(resources, action, null) }}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+{% block crud_body %}
+    {{ include('@ui/modern/grid/filters.html.twig') }}
+    <div class="card">
+        <div class="table-responsive">
+            {% include '@ui/modern/grid/render.html.twig' %}
+        </div>
+        <div class="card-footer">
+            <div class="ml-auto">
+                {{ paginate.basic(resources.data) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

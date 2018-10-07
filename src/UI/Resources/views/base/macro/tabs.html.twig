@@ -1,0 +1,18 @@
+{% macro filter(metadata, filters) %}
+    {% set criteria = app.request.query.get('criteria') %}
+    {% set resource_name = metadata.applicationName~'.'~metadata.name %}
+
+    <ul class="nav nav-tabs card-header-tabs">
+        {% for key, filter in filters %}
+            {% for name, fs in filter %}
+                {% set current = array_get(criteria|default([]), key ~ '.value')|default(array_get(criteria|default([]), key)) %}
+                {% set value = array_get(fs.criteria|default([]), key ~ '.value')|default(array_get(fs.criteria|default([]), key)) %}
+                {% set href = fs.criteria|default ? fs.criteria : {} %}
+                <li class="nav-item{{ print_if(' active show', current == value) }}">
+                    <a class="nav-link"
+                       href="?{{ { criteria: href }|url_encode }}">{{ (resource_name~'.filter_tab.'~name)|trans }}</a>
+                </li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+{% endmacro %}

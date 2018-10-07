@@ -1,0 +1,913 @@
+.switcher[type="checkbox"] {
+  outline: 0;
+  user-select: none;
+  display: none;
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  &[disabled] {
+    cursor: not-allowed;
+    + label {
+      opacity: 0.5;
+      &::before, &::after {
+        opactiy: 0.5;
+      }
+      &:hover, &.is-hovered {
+        cursor: not-allowed;
+      }
+    }
+  }
+  + label {
+    position: relative;
+    display: initial;
+    font-size: 1.2rem;
+    line-height: initial;
+    padding-left: 4.1rem;
+    padding-top: 0.2rem;
+    cursor: pointer;
+    &::before {
+      position: absolute;
+      display: block;
+      top: 0;
+      left: 0;
+      width: 3.6rem;
+      height: 1.8rem;
+      border: 0.1rem solid transparent;
+      border-radius: 100px;
+      background: #ededed;
+      content: "";
+    }
+    &::after {
+      display: block;
+      position: absolute;
+      top: .25rem;
+      left: .25rem;
+      width: 1.3rem;
+      height: 1.3rem;
+      transform: translate3d(0, 0, 0);
+      border-radius: 100px;
+      background: #fff;
+      transition: all 0.25s ease-out;
+      content: "";
+    }
+  }
+  &.is-rtl + label {
+    padding-left: 0;
+    padding-right: 4.1rem;
+    &::before {
+      left: auto;
+      right: 0;
+    }
+    &::after {
+      left: auto;
+      right: 0.25rem;
+    }
+  }
+  &:focus:not(:active) + label::before {
+    box-shadow: 0 0 0 0.125em rgba(237, 237, 237, 0.25);
+  }
+  &:hover + label::before {
+    background: #e7e7e7;
+  }
+  &:active + label::before {
+    background: #e0e0e0;
+  }
+  &:checked {
+    + label {
+      &::before {
+        background: #878787;
+      }
+      &::after {
+        left: 1.925rem;
+      }
+    }
+    &.is-rtl + label::after {
+      left: auto;
+      right: 1.925rem;
+    }
+    &:focus:not(:active) + label::before {
+      box-shadow: 0 0 0 0.125em rgba(135, 135, 135, 0.25);
+    }
+    &:hover + label::before {
+      background: #818181;
+    }
+    &:active + label::before {
+      background: #7a7a7a;
+    }
+  }
+  &.is-outlined {
+    + label {
+      &::before {
+        background-color: transparent;
+        border-color: #ededed;
+      }
+      &::after {
+        background: #ededed;
+      }
+    }
+    &:hover + label {
+      &::before {
+        border-color: #e7e7e7;
+      }
+      &::after {
+        background: #e7e7e7;
+      }
+    }
+    &:active + label {
+      &::before {
+        border-color: #e7e7e7;
+      }
+      &::after {
+        background: #e0e0e0;
+      }
+    }
+    &:checked {
+      + label {
+        &::before {
+          background-color: transparent;
+          border-color: #878787;
+        }
+        &::after {
+          background: #878787;
+        }
+      }
+      &:hover + label {
+        &::before {
+          border-color: #818181;
+        }
+        &::after {
+          background: #818181;
+        }
+      }
+      &:active + label {
+        &::before {
+          border-color: #818181;
+        }
+        &::after {
+          background: #7a7a7a;
+        }
+      }
+    }
+  }
+  &.is-thin + label {
+    &::before {
+      top: .6545454545rem;
+      height: 0.45rem;
+    }
+    &::after {
+      box-shadow: 0px 0px 3px #878787;
+    }
+  }
+  &.is-small {
+    + label {
+      position: relative;
+      display: initial;
+      font-size: 1rem;
+      line-height: initial;
+      padding-left: 3.5rem;
+      padding-top: 0.2rem;
+      cursor: pointer;
+      &::before {
+        position: absolute;
+        display: block;
+        top: 0;
+        left: 0;
+        width: 3rem;
+        height: 1.5rem;
+        border: 0.1rem solid transparent;
+        border-radius: 100px;
+        background: #ededed;
+        content: "";
+      }
+      &::after {
+        display: block;
+        position: absolute;
+        top: .25rem;
+        left: .25rem;
+        width: 1rem;
+        height: 1rem;
+        transform: translate3d(0, 0, 0);
+        border-radius: 100px;
+        background: #fff;
+        transition: all 0.25s ease-out;
+        content: "";
+      }
+    }
+    &.is-rtl + label {
+      padding-left: 0;
+      padding-right: 3.5rem;
+      &::before {
+        left: auto;
+        right: 0;
+      }
+      &::after {
+        left: auto;
+        right: 0.25rem;
+      }
+    }
+    &:focus:not(:active) + label::before {
+      box-shadow: 0 0 0 0.125em rgba(237, 237, 237, 0.25);
+    }
+    &:hover + label::before {
+      background: #e7e7e7;
+    }
+    &:active + label::before {
+      background: #e0e0e0;
+    }
+    &:checked {
+      + label {
+        &::before {
+          background: #878787;
+        }
+        &::after {
+          left: 1.625rem;
+        }
+      }
+      &.is-rtl + label::after {
+        left: auto;
+        right: 1.625rem;
+      }
+      &:focus:not(:active) + label::before {
+        box-shadow: 0 0 0 0.125em rgba(135, 135, 135, 0.25);
+      }
+      &:hover + label::before {
+        background: #818181;
+      }
+      &:active + label::before {
+        background: #7a7a7a;
+      }
+    }
+    &.is-outlined {
+      + label {
+        &::before {
+          background-color: transparent;
+          border-color: #ededed;
+        }
+        &::after {
+          background: #ededed;
+        }
+      }
+      &:hover + label {
+        &::before {
+          border-color: #e7e7e7;
+        }
+        &::after {
+          background: #e7e7e7;
+        }
+      }
+      &:active + label {
+        &::before {
+          border-color: #e7e7e7;
+        }
+        &::after {
+          background: #e0e0e0;
+        }
+      }
+      &:checked {
+        + label {
+          &::before {
+            background-color: transparent;
+            border-color: #878787;
+          }
+          &::after {
+            background: #878787;
+          }
+        }
+        &:hover + label {
+          &::before {
+            border-color: #818181;
+          }
+          &::after {
+            background: #818181;
+          }
+        }
+        &:active + label {
+          &::before {
+            border-color: #818181;
+          }
+          &::after {
+            background: #7a7a7a;
+          }
+        }
+      }
+    }
+    &.is-thin + label {
+      &::before {
+        top: .5454545455rem;
+        height: 0.375rem;
+      }
+      &::after {
+        box-shadow: 0px 0px 3px #878787;
+      }
+    }
+  }
+  &.is-medium {
+    + label {
+      position: relative;
+      display: initial;
+      font-size: 1.5rem;
+      line-height: initial;
+      padding-left: 5rem;
+      padding-top: 0.2rem;
+      cursor: pointer;
+      &::before {
+        position: absolute;
+        display: block;
+        top: 0;
+        left: 0;
+        width: 4.5rem;
+        height: 2.25rem;
+        border: 0.1rem solid transparent;
+        border-radius: 100px;
+        background: #ededed;
+        content: "";
+      }
+      &::after {
+        display: block;
+        position: absolute;
+        top: .25rem;
+        left: .25rem;
+        width: 1.75rem;
+        height: 1.75rem;
+        transform: translate3d(0, 0, 0);
+        border-radius: 100px;
+        background: #fff;
+        transition: all 0.25s ease-out;
+        content: "";
+      }
+    }
+    &.is-rtl + label {
+      padding-left: 0;
+      padding-right: 5rem;
+      &::before {
+        left: auto;
+        right: 0;
+      }
+      &::after {
+        left: auto;
+        right: 0.25rem;
+      }
+    }
+    &:focus:not(:active) + label::before {
+      box-shadow: 0 0 0 0.125em rgba(237, 237, 237, 0.25);
+    }
+    &:hover + label::before {
+      background: #e7e7e7;
+    }
+    &:active + label::before {
+      background: #e0e0e0;
+    }
+    &:checked {
+      + label {
+        &::before {
+          background: #878787;
+        }
+        &::after {
+          left: 2.375rem;
+        }
+      }
+      &.is-rtl + label::after {
+        left: auto;
+        right: 2.375rem;
+      }
+      &:focus:not(:active) + label::before {
+        box-shadow: 0 0 0 0.125em rgba(135, 135, 135, 0.25);
+      }
+      &:hover + label::before {
+        background: #818181;
+      }
+      &:active + label::before {
+        background: #7a7a7a;
+      }
+    }
+    &.is-outlined {
+      + label {
+        &::before {
+          background-color: transparent;
+          border-color: #ededed;
+        }
+        &::after {
+          background: #ededed;
+        }
+      }
+      &:hover + label {
+        &::before {
+          border-color: #e7e7e7;
+        }
+        &::after {
+          background: #e7e7e7;
+        }
+      }
+      &:active + label {
+        &::before {
+          border-color: #e7e7e7;
+        }
+        &::after {
+          background: #e0e0e0;
+        }
+      }
+      &:checked {
+        + label {
+          &::before {
+            background-color: transparent;
+            border-color: #878787;
+          }
+          &::after {
+            background: #878787;
+          }
+        }
+        &:hover + label {
+          &::before {
+            border-color: #818181;
+          }
+          &::after {
+            background: #818181;
+          }
+        }
+        &:active + label {
+          &::before {
+            border-color: #818181;
+          }
+          &::after {
+            background: #7a7a7a;
+          }
+        }
+      }
+    }
+    &.is-thin + label {
+      &::before {
+        top: .8181818182rem;
+        height: 0.5625rem;
+      }
+      &::after {
+        box-shadow: 0px 0px 3px #878787;
+      }
+    }
+  }
+  &.is-large {
+    + label {
+      position: relative;
+      display: initial;
+      font-size: 1.8rem;
+      line-height: initial;
+      padding-left: 5.9rem;
+      padding-top: 0.2rem;
+      cursor: pointer;
+      &::before {
+        position: absolute;
+        display: block;
+        top: 0;
+        left: 0;
+        width: 5.4rem;
+        height: 2.7rem;
+        border: 0.1rem solid transparent;
+        border-radius: 100px;
+        background: #ededed;
+        content: "";
+      }
+      &::after {
+        display: block;
+        position: absolute;
+        top: .25rem;
+        left: .25rem;
+        width: 2.2rem;
+        height: 2.2rem;
+        transform: translate3d(0, 0, 0);
+        border-radius: 100px;
+        background: #fff;
+        transition: all 0.25s ease-out;
+        content: "";
+      }
+    }
+    &.is-rtl + label {
+      padding-left: 0;
+      padding-right: 5.9rem;
+      &::before {
+        left: auto;
+        right: 0;
+      }
+      &::after {
+        left: auto;
+        right: 0.25rem;
+      }
+    }
+    &:focus:not(:active) + label::before {
+      box-shadow: 0 0 0 0.125em rgba(237, 237, 237, 0.25);
+    }
+    &:hover + label::before {
+      background: #e7e7e7;
+    }
+    &:active + label::before {
+      background: #e0e0e0;
+    }
+    &:checked {
+      + label {
+        &::before {
+          background: #878787;
+        }
+        &::after {
+          left: 2.825rem;
+        }
+      }
+      &.is-rtl + label::after {
+        left: auto;
+        right: 2.825rem;
+      }
+      &:focus:not(:active) + label::before {
+        box-shadow: 0 0 0 0.125em rgba(135, 135, 135, 0.25);
+      }
+      &:hover + label::before {
+        background: #818181;
+      }
+      &:active + label::before {
+        background: #7a7a7a;
+      }
+    }
+    &.is-outlined {
+      + label {
+        &::before {
+          background-color: transparent;
+          border-color: #ededed;
+        }
+        &::after {
+          background: #ededed;
+        }
+      }
+      &:hover + label {
+        &::before {
+          border-color: #e7e7e7;
+        }
+        &::after {
+          background: #e7e7e7;
+        }
+      }
+      &:active + label {
+        &::before {
+          border-color: #e7e7e7;
+        }
+        &::after {
+          background: #e0e0e0;
+        }
+      }
+      &:checked {
+        + label {
+          &::before {
+            background-color: transparent;
+            border-color: #878787;
+          }
+          &::after {
+            background: #878787;
+          }
+        }
+        &:hover + label {
+          &::before {
+            border-color: #818181;
+          }
+          &::after {
+            background: #818181;
+          }
+        }
+        &:active + label {
+          &::before {
+            border-color: #818181;
+          }
+          &::after {
+            background: #7a7a7a;
+          }
+        }
+      }
+    }
+    &.is-thin + label {
+      &::before {
+        top: .9818181818rem;
+        height: 0.675rem;
+      }
+      &::after {
+        box-shadow: 0px 0px 3px #878787;
+      }
+    }
+  }
+  &.is-primary {
+    &:checked {
+      + label::before {
+        background: #00D1B2;
+      }
+      &:focus:not(:active) + label::before {
+        box-shadow: 0 0 0 0.125em rgba(0, 209, 178, 0.25);
+      }
+      &:hover + label::before {
+        background: #00c4a7;
+      }
+      &:active + label::before {
+        background: #00b89c;
+      }
+    }
+    &.is-outlined:checked {
+      + label {
+        &::before {
+          background-color: transparent;
+          border-color: #00D1B2;
+        }
+        &::after {
+          background: #00D1B2;
+        }
+      }
+      &:hover + label {
+        &::before {
+          border-color: #00c4a7;
+        }
+        &::after {
+          background: #00c4a7;
+        }
+      }
+      &:active + label {
+        &::before {
+          border-color: #00c4a7;
+        }
+        &::after {
+          background: #00b89c;
+        }
+      }
+    }
+    &.is-thin.is-outlined + label::after {
+      box-shadow: none;
+    }
+  }
+  &.is-secondary {
+    &:checked {
+      + label::before {
+        background: #7F00FF;
+      }
+      &:focus:not(:active) + label::before {
+        box-shadow: 0 0 0 0.125em rgba(127, 0, 255, 0.25);
+      }
+      &:hover + label::before {
+        background: #7900f2;
+      }
+      &:active + label::before {
+        background: #7200e6;
+      }
+    }
+    &.is-outlined:checked {
+      + label {
+        &::before {
+          background-color: transparent;
+          border-color: #7F00FF;
+        }
+        &::after {
+          background: #7F00FF;
+        }
+      }
+      &:hover + label {
+        &::before {
+          border-color: #7900f2;
+        }
+        &::after {
+          background: #7900f2;
+        }
+      }
+      &:active + label {
+        &::before {
+          border-color: #7900f2;
+        }
+        &::after {
+          background: #7200e6;
+        }
+      }
+    }
+    &.is-thin.is-outlined + label::after {
+      box-shadow: none;
+    }
+  }
+  &.is-accent {
+    &:checked {
+      + label::before {
+        background: #536dfe;
+      }
+      &:focus:not(:active) + label::before {
+        box-shadow: 0 0 0 0.125em rgba(83, 109, 254, 0.25);
+      }
+      &:hover + label::before {
+        background: #4662fe;
+      }
+      &:active + label::before {
+        background: #3a57fe;
+      }
+    }
+    &.is-outlined:checked {
+      + label {
+        &::before {
+          background-color: transparent;
+          border-color: #536dfe;
+        }
+        &::after {
+          background: #536dfe;
+        }
+      }
+      &:hover + label {
+        &::before {
+          border-color: #4662fe;
+        }
+        &::after {
+          background: #4662fe;
+        }
+      }
+      &:active + label {
+        &::before {
+          border-color: #4662fe;
+        }
+        &::after {
+          background: #3a57fe;
+        }
+      }
+    }
+    &.is-thin.is-outlined + label::after {
+      box-shadow: none;
+    }
+  }
+  &.is-info {
+    &:checked {
+      + label::before {
+        background: #039BE5;
+      }
+      &:focus:not(:active) + label::before {
+        box-shadow: 0 0 0 0.125em rgba(3, 155, 229, 0.25);
+      }
+      &:hover + label::before {
+        background: #0392d8;
+      }
+      &:active + label::before {
+        background: #038acc;
+      }
+    }
+    &.is-outlined:checked {
+      + label {
+        &::before {
+          background-color: transparent;
+          border-color: #039BE5;
+        }
+        &::after {
+          background: #039BE5;
+        }
+      }
+      &:hover + label {
+        &::before {
+          border-color: #0392d8;
+        }
+        &::after {
+          background: #0392d8;
+        }
+      }
+      &:active + label {
+        &::before {
+          border-color: #0392d8;
+        }
+        &::after {
+          background: #038acc;
+        }
+      }
+    }
+    &.is-thin.is-outlined + label::after {
+      box-shadow: none;
+    }
+  }
+  &.is-success {
+    &:checked {
+      + label::before {
+        background: #00b289;
+      }
+      &:focus:not(:active) + label::before {
+        box-shadow: 0 0 0 0.125em rgba(0, 178, 137, 0.25);
+      }
+      &:hover + label::before {
+        background: #00a57f;
+      }
+      &:active + label::before {
+        background: #009975;
+      }
+    }
+    &.is-outlined:checked {
+      + label {
+        &::before {
+          background-color: transparent;
+          border-color: #00b289;
+        }
+        &::after {
+          background: #00b289;
+        }
+      }
+      &:hover + label {
+        &::before {
+          border-color: #00a57f;
+        }
+        &::after {
+          background: #00a57f;
+        }
+      }
+      &:active + label {
+        &::before {
+          border-color: #00a57f;
+        }
+        &::after {
+          background: #009975;
+        }
+      }
+    }
+    &.is-thin.is-outlined + label::after {
+      box-shadow: none;
+    }
+  }
+  &.is-warning {
+    &:checked {
+      + label::before {
+        background: #eda514;
+      }
+      &:focus:not(:active) + label::before {
+        box-shadow: 0 0 0 0.125em rgba(237, 165, 20, 0.25);
+      }
+      &:hover + label::before {
+        background: #e39d11;
+      }
+      &:active + label::before {
+        background: #d79510;
+      }
+    }
+    &.is-outlined:checked {
+      + label {
+        &::before {
+          background-color: transparent;
+          border-color: #eda514;
+        }
+        &::after {
+          background: #eda514;
+        }
+      }
+      &:hover + label {
+        &::before {
+          border-color: #e39d11;
+        }
+        &::after {
+          background: #e39d11;
+        }
+      }
+      &:active + label {
+        &::before {
+          border-color: #e39d11;
+        }
+        &::after {
+          background: #d79510;
+        }
+      }
+    }
+    &.is-thin.is-outlined + label::after {
+      box-shadow: none;
+    }
+  }
+  &.is-danger {
+    &:checked {
+      + label::before {
+        background: #FF7273;
+      }
+      &:focus:not(:active) + label::before {
+        box-shadow: 0 0 0 0.125em rgba(255, 114, 115, 0.25);
+      }
+      &:hover + label::before {
+        background: #ff6566;
+      }
+      &:active + label::before {
+        background: #ff595a;
+      }
+    }
+    &.is-outlined:checked {
+      + label {
+        &::before {
+          background-color: transparent;
+          border-color: #FF7273;
+        }
+        &::after {
+          background: #FF7273;
+        }
+      }
+      &:hover + label {
+        &::before {
+          border-color: #ff6566;
+        }
+        &::after {
+          background: #ff6566;
+        }
+      }
+      &:active + label {
+        &::before {
+          border-color: #ff6566;
+        }
+        &::after {
+          background: #ff595a;
+        }
+      }
+    }
+    &.is-thin.is-outlined + label::after {
+      box-shadow: none;
+    }
+  }
+}

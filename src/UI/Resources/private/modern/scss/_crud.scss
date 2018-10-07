@@ -1,0 +1,116 @@
+.crud {
+  padding: 2rem;
+
+  @include media-breakpoint-down(sm) {
+    padding: 1rem;
+  }
+
+  .x-grid-table-column-actions {
+    .dropdown-item {
+      padding-left: 0;
+      padding-right: 0;
+
+      .btn {
+        border: none;
+        width: 100%;
+        text-align: left;
+        border-radius: 0;
+
+        i {
+          margin-right: .25rem;
+        }
+      }
+    }
+  }
+
+  .crud-header {
+    @extend .d-flex;
+    @extend .align-items-center;
+
+    margin-bottom: 2rem;
+
+    .crud-title {
+      @extend .d-flex;
+      @extend .align-items-center;
+
+      i {
+        font-size: 2rem;
+        margin-right: .5rem;
+        background: $secondary;
+        color: $white;
+        padding: 5px;
+        border-radius: 100%;
+        height: 60px;
+        width: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        @include media-breakpoint-down(sm) {
+          height: 30px;
+          width: 30px;
+          font-size: 1rem;
+        }
+      }
+
+      h5 {
+        @include media-breakpoint-down(sm) {
+          margin: 0;
+        }
+      }
+      h6 {
+        margin: 0;
+        @extend .text-muted;
+        @include media-breakpoint-down(sm) {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &.crud-index {
+    .no-result {
+      @extend .justify-content-center;
+    }
+
+    .crud-body {
+    }
+
+    .card-footer {
+      @extend .d-flex;
+    }
+
+    .table {
+      thead {
+        @extend .thead-light;
+
+        th {
+          border-top: none;
+          border-bottom-width: 1px;
+        }
+      }
+    }
+  }
+
+  .crud-body.has-aside {
+    padding: 0;
+    display: flex;
+
+    @include media-breakpoint-down(sm) {
+      display: block;
+    }
+
+    .crud-content {
+      flex: 1 100%;
+      padding: 2rem;
+    }
+
+    .crud-aside {
+      min-width: 300px;
+      padding: 1rem;
+      background: $gray-100;
+      //box-shadow: inset 5px 0 2px -5px $gray-500;
+      border-left: 1px solid $table-head-bg;
+    }
+  }
+}

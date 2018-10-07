@@ -1,0 +1,12 @@
+{% if item|length %}
+    {% from '@ui/base/macro/attrs.html.twig' import attrs %}
+    <nav class="list-group list-group-flush">
+        {% for child in item %}
+            {% set icon = children.extras.icon|default('sl-ico-folder') %}
+            <a class="list-group-item list-group-item-action"
+               href="{{ child.uri|default('#') }}" {{ attrs(child.linkAttributes) }}>
+                {{ ui_icon(icon) }} {{ child.label|trans }}
+            </a>
+        {% endfor %}
+    </nav>
+{% endif %}

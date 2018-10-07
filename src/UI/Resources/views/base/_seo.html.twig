@@ -1,0 +1,33 @@
+{% set site_name = ctx_page.get('site.name')|default('site.name')|trans %}
+{% set site_author = ctx_page.get('site.author')|default('site.author') %}
+{% set seo_title = ctx_page.get('seo.title')|default('seo.title') %}
+{% set seo_description = ctx_page.get('seo.description')|default('seo.description') %}
+{% set seo_author = ctx_page.get('seo.author')|default(site_author) %}
+{% set seo_locale = ctx_page.get('seo.locale')|default('th') %}
+{% set seo_url = ctx_page.get('seo.url')|default(
+    url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params'))
+    ) %}
+<title>{{ seo_title }} | {{ site_name }}</title>
+<link rel="canonical" href="{{ seo_url }}">
+<meta name="description" content="{{ seo_description }}">
+<meta name="author" content="{{ seo_author }}">
+<meta property="og:title" content="{{ seo_title }}">
+<meta property="og:locale" content="{{ seo_locale }}">
+<meta property="og:description" content="{{ seo_description }}">
+<meta property="og:url" content="{{ seo_url }}">
+<meta property="og:site_name" content="{{ site_name }}">
+<script type="application/ld+json">
+      {
+        "name": "{{ site_name }}",
+        "description": "{{ seo_description }}",
+        "author":
+        {
+          "@type": "Person",
+          "name": "{{ seo_author }}"
+        },
+        "@type": "WebSite",
+        "url": "{{ seo_url }}",
+        "headline": "{{ seo_title }}",
+        "@context": "http://schema.org"
+      }
+</script>

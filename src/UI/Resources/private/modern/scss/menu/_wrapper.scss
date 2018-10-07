@@ -1,0 +1,88 @@
+.menu-wrapper {
+  font-size: 20px;
+  color: #A9ABAC;
+  line-height: 48px;
+  text-align: center;
+  background: transparent;
+  display: block;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  padding: 0;
+  float: left;
+  margin: 0 14px;
+  .icon-box-toggle {
+    height: 100%;
+    width: 100%;
+    background: transparent;
+    position: relative;
+    display: block;
+    &.active {
+      .rotate {
+        transform: translate(0px, 0px) rotate(90deg);
+
+        &:hover {
+          transform: rotate(180deg);
+        }
+      }
+      i {
+        &.icon-line-top {
+          margin: -1.5px 0 0 -10px;
+          left: 50%;
+          top: 50%;
+          transform: translate(0px, 0px) rotate(45deg);
+        }
+        &.icon-line-center {
+          visibility: hidden;
+          width: 1px;
+          height: 2px;
+          left: 70%;
+        }
+        &.icon-line-bottom {
+          margin: -1.5px 0 0 -10px;
+          left: 50%;
+          top: 50%;
+          transform: translate(0px, 0px) rotate(135deg);
+        }
+      }
+    }
+  }
+  .rotate {
+    background: transparent;
+    display: block;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    transition: all 0.5s ease;
+  }
+  .icon-line-top {
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background: #fff;
+    margin: -3px 0 0 -10px;
+    left: 50%;
+    top: 40%;
+    transition: all 0.2s ease;
+  }
+  .icon-line-center {
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background: #fff;
+    margin: -1.5px 0 0 -10px;
+    left: 50%;
+    top: 50%;
+    transition: all 0.2s ease;
+  }
+  .icon-line-bottom {
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background: #fff;
+    margin: 1.4px 0 0 -10px;
+    left: 50%;
+    top: 60%;
+    transition: all 0.2s ease;
+  }
+}

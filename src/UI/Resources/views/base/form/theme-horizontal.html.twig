@@ -1,0 +1,21 @@
+{% extends 'bootstrap_4_horizontal_layout.html.twig' %}
+
+{# https://github.com/symfony/symfony/pull/26408 #}
+{% block form_label_errors %}{% endblock form_label_errors %}
+
+{%- block form_start -%}
+    {% if ajax|default(false) %}
+        {% if ajax is same as(true) %}
+            {% set attr = attr|merge({ 'data-ajax-form': action }) %}
+        {% else %}
+            {% set attr = attr|merge({ 'data-ajax-form': ajax }) %}
+            {% set action = ajax %}
+        {% endif %}
+    {% endif %}
+    {{ parent() }}
+{% endblock %}
+
+{% block form_help -%}
+    {{ form_errors(form) }}
+    {{ parent() }}
+{%- endblock form_help %}
