@@ -21,21 +21,29 @@
     </head>
     <body>
     {% block body %}
-        {% include '@ui/modern/menu/_main.html.twig' %}
-        {% include '@ui/modern/menu/_child.html.twig' %}
+        {% block menu %}
+            {% include '@ui/modern/menu/_main.html.twig' %}
+            {% include '@ui/modern/menu/_child.html.twig' %}
+        {% endblock %}
 
-        <nav class="navbar navbar-expand-lg fixed-top">
-            <div class="collapse navbar-collapse">
-                {% block breadcrumb %}
-                    {% include '@ui/modern/_breadcrumb.html.twig' %}
-                {% endblock %}
-            </div>
-            <ul class="navbar-nav ml-auto">
-                {% include '@ui/modern/_navbar.html.twig' %}
-            </ul>
-        </nav>
+        {% block navication %}
+            <nav class="navbar navbar-expand-lg fixed-top">
+                <div class="collapse navbar-collapse">
+                    {% block breadcrumb %}
+                        {% include '@ui/modern/_breadcrumb.html.twig' %}
+                    {% endblock %}
+                </div>
+                <ul class="navbar-nav ml-auto">
+                    {% block navbar %}
+                        {% include '@ui/modern/_navbar.html.twig' %}
+                    {% endblock %}
+                </ul>
+            </nav>
+        {% endblock %}
 
-        {% include '@ui/modern/aside/_main.html.twig' %}
+        {% block aside %}
+            {% include '@ui/modern/aside/_main.html.twig' %}
+        {% endblock %}
 
         <div class="container-fluid">
             {% block flash %}{% include '@ui/base/_flash.html.twig' %}{% endblock %}

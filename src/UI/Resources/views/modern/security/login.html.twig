@@ -8,7 +8,7 @@
                 <span>{{ 'Login' }}</span>
             </header>
             <div class="card">
-                <form class="card-body" method="post" action="{{ path('cse_admin_login_check') }}">
+                <form class="card-body" method="post" action="{{ path(app.request.attributes.get('_login_check_route', '_login_check')) }}">
                     {% if last_error %}
                         <div class="alert alert-danger">
                             {{ last_error.messageKey|trans(last_error.messageData, 'security') }}
