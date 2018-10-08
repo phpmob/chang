@@ -71,7 +71,10 @@
 html, body {
   > .container,
   > .container-fluid {
-    margin-top: 42px;
+    margin-top: $navbar-height;
+    &.full-screen {
+      margin-top: 0;
+    }
   }
 }
 

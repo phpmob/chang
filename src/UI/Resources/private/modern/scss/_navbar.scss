@@ -1,7 +1,9 @@
+$navbar-height: 42px;
 $navbar-bg: darken($body-bg, 3%);
 $navbar-buttom-border: darken($table-head-bg, 10%);
 
 .navbar {
+  height: $navbar-height;
   margin-left: $nav-top-margin;
   padding: 0 $navbar-padding-x 0 0;
   border-bottom: 1px solid $navbar-buttom-border;
