@@ -68,7 +68,7 @@ class AccessListener implements EventSubscriberInterface
         if (!$token->getUser()->isPhoneNumberVerified()) {
             foreach ($this->ignoredRequest as $pattern) {
                 if ((new RequestMatcher(
-                    $pattern['path'] ?? null,
+                    $pattern['path'] ?? (is_string($pattern) ? $pattern : null),
                     $pattern['host'] ?? null,
                     $pattern['methods'] ?? null,
                     $pattern['ips'] ?? null,

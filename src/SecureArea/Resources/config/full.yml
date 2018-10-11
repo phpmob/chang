@@ -1,0 +1,2 @@
+imports:
+    - { resource: ./password_confirm.yml }
