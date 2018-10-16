@@ -1,0 +1,25 @@
+services:
+    Chang\Security\Form\Type\SecurityLoginType:
+        tags: [ form.type ]
+
+    Chang\Security\Form\Type\SimpleRegistrationType:
+        tags: [ form.type ]
+
+    chang.controller.security:
+        public: true
+        class: Chang\Security\Controller\SecurityController
+        arguments:
+            - '@security.authentication_utils'
+            - '@form.factory'
+            - '@templating'
+            - '@security.authorization_checker'
+            - '@router'
+
+framework:
+    translator:
+        paths:
+            - '%chang.dir%/Security/Resources/translations'
+    validation:
+        mapping:
+            paths:
+                - '%chang.dir%/Security/Resources/config/validation'

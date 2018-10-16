@@ -1,0 +1,25 @@
+parameters:
+    chang.packages.security.reserved_word:
+        enabled: true
+        words: []
+
+services:
+    chang.security.reserved_word_provider:
+        class: Chang\Security\Validator\ReservedWord\WordProvider
+        arguments:
+            - '@=service("chang.option_resolver").get("security.reserved_word.words")'
+
+    Chang\Security\Validator\ReservedWord\ConstraintValidator:
+        tags: [{ name: validator.constraint_validator, alias: reserved_word_validator }]
+        arguments:
+            - '@=service("chang.option_resolver").get("security.reserved_word.enabled")'
+            - '@chang.security.reserved_word_provider'
+
+framework:
+    translator:
+        paths:
+            - '%chang.dir%/Security/Resources/translations'
+    validation:
+        mapping:
+            paths:
+                - '%chang.dir%/Security/Resources/config/validation'
