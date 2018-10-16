@@ -53,12 +53,14 @@ class Kernel extends BaseKernel implements CompilerPassInterface
         $container->setParameter('container.dumper.inline_class_loader', true);
         $confDir = $this->getProjectDir() . '/config';
 
-        ChangExtension::loadPackages($this, $container, $loader);
+        ChangExtension::loadPrependConfigure($this, $container, $loader);
 
         $loader->load($confDir . '/{packages}/*' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{packages}/' . $this->environment . '/**/*' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{services}' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{services}_' . $this->environment . self::CONFIG_EXTS, 'glob');
+
+        ChangExtension::loadPackages($container, $loader);
     }
 
     /**

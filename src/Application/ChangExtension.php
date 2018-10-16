@@ -13,6 +13,9 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 class ChangExtension extends Extension
 {
+    private static $configExts = '.{php,xml,yaml,yml}';
+    private static $config = [];
+
     /**
      * {@inheritdoc}
      */
@@ -25,34 +28,43 @@ class ChangExtension extends Extension
     /**
      * {@inheritdoc}
      */
-    public static function loadPackages(Kernel $kernel, ContainerBuilder $container, LoaderInterface $loader)
+    public static function loadPrependConfigure(Kernel $kernel, ContainerBuilder $container, LoaderInterface $loader)
     {
         $confDir = $kernel->getProjectDir() . '/config';
-        $configExts = '.{php,xml,yaml,yml}';
         $container->setParameter('chang.dir', realpath(__DIR__ . '/..'));
 
-        $loader->load($confDir . '/{chang}/*' . $configExts, 'glob');
-        $loader->load($confDir . '/{chang}/' . $kernel->getEnvironment() . '/**/*' . $configExts, 'glob');
+        $loader->load($confDir . '/{chang}/*' . self::$configExts, 'glob');
+        $loader->load($confDir . '/{chang}/' . $kernel->getEnvironment() . '/**/*' . self::$configExts, 'glob');
 
         $configs = $container->getExtensionConfig(Configuration::NAME);
-        $config = (new Processor())->processConfiguration(new Configuration(), $configs);
+        self::$config = (new Processor())->processConfiguration(new Configuration(), $configs);
 
-        $container->setParameter('chang.driver', $config['driver']);
+        $container->setParameter('chang.driver', self::$config['driver']);
 
         foreach ($kernel->getBundles() as $bundle) {
             if ($bundle instanceof PrependConfigureInterface && $configDir = $bundle->getConfigDir()) {
-                $loader->load(rtrim($configDir, '/') . '/**/*' . $configExts, 'glob');
+                $loader->load(rtrim($configDir, '/') . '/**/*' . self::$configExts, 'glob');
             }
         }
+    }
 
-        foreach ($config['packages'] as $package => $packages) {
+    /**
+     * {@inheritdoc}
+     */
+    public static function loadPackages(ContainerBuilder $container, LoaderInterface $loader)
+    {
+        if (!isset(self::$config['packages'])) {
+            throw new \RuntimeException('"chang.packages" could not be loaded. May be the `loadPrependConfigure` are you forgot to call?');
+        }
+
+        foreach (self::$config['packages'] as $package => $packages) {
             $package = OptionResolver::camelize($package);
             foreach ($packages as $feature => $cfg) {
                 if (false === $cfg['enabled']) {
                     continue;
                 }
 
-                $resource = __DIR__ . sprintf('/../%s/Resources/config/%s' . $configExts, $package, $feature);
+                $resource = __DIR__ . sprintf('/../%s/Resources/config/%s' . self::$configExts, $package, $feature);
                 $loader->load($resource, 'glob');
 
                 // override parameters
