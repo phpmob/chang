@@ -21,6 +21,3 @@ services:
         class: Chang\GeoIp\IpStackAdapter
         arguments:
         - '@=service("chang.option_resolver").get("geo_ip.ipstack_adapter.access_key")'
-
-    Chang\GeoIp\AdapterInterface:
-        alias: '@=service("chang.option_resolver").get("geo_ip.data_source.adapter")'
