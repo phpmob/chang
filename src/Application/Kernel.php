@@ -80,6 +80,9 @@ class Kernel extends BaseKernel implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+        foreach ($container->getParameter('chang.compilers') as $class) {
+            $container->addCompilerPass(new $class);
+        }
     }
 
     /**

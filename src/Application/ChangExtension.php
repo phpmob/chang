@@ -57,6 +57,7 @@ class ChangExtension extends Extension
             throw new \RuntimeException('"chang.packages" could not be loaded. May be the `loadPrependConfigure` are you forgot to call?');
         }
 
+        $compilers = [];
         foreach (self::$config['packages'] as $package => $packages) {
             $package = OptionResolver::camelize($package);
             foreach ($packages as $feature => $cfg) {
@@ -76,7 +77,15 @@ class ChangExtension extends Extension
                     self::overrideOptions($container, $package, $feature, $cfg['options']);
                 }
             }
+
+            // add compilers
+            $packageCompilers = sprintf('chang.packages.%s.compilers', OptionResolver::underscore($package));
+            if ($container->hasParameter($packageCompilers)) {
+                $compilers = array_merge($compilers, (array)$container->getParameter($packageCompilers));
+            }
         }
+
+        $container->setParameter('chang.compilers', $compilers);
     }
 
     /**

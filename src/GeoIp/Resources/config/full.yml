@@ -1,24 +1,26 @@
 parameters:
-    chang.packages.geoip.data_source:
-        adapter: chang.geoip.db_adapter
-    chang.packages.geoip.db_adapter:
+    chang.packages.geo_ip.compilers:
+        - Chang\GeoIp\Compiler\AdapterCompilePass
+    chang.packages.geo_ip.data_source:
+        adapter: chang.geo_ip.db_adapter
+    chang.packages.geo_ip.db_adapter:
         db_file: ~
-    chang.packages.geoip.ipstack_adapter:
+    chang.packages.geo_ip.ipstack_adapter:
         access_key: ~
 
 services:
     Chang\GeoIp\DataSource:
         autowire: true
 
-    chang.geoip.db_adapter:
+    chang.geo_ip.db_adapter:
         class: Chang\GeoIp\GeoIP2DBAdapter
         arguments:
-        - '@=service("chang.option_resolver").get("geoip.db_adapter.db_file")'
+        - '@=service("chang.option_resolver").get("geo_ip.db_adapter.db_file")'
 
-    chang.geoip.ipstack_adapter:
+    chang.geo_ip.ipstack_adapter:
         class: Chang\GeoIp\IpStackAdapter
         arguments:
-        - '@=service("chang.option_resolver").get("geoip.ipstack_adapter.access_key")'
+        - '@=service("chang.option_resolver").get("geo_ip.ipstack_adapter.access_key")'
 
     Chang\GeoIp\AdapterInterface:
-        alias: '@=service("chang.option_resolver").get("geoip.data_source.adapter")'
+        alias: '@=service("chang.option_resolver").get("geo_ip.data_source.adapter")'
