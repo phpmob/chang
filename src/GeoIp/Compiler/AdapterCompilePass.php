@@ -15,16 +15,12 @@ class AdapterCompilePass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if ($container->hasAlias(AdapterInterface::class)) {
+        if (!$container->hasParameter('chang.packages.geo_ip.data_source')) {
             return;
         }
 
-        if (!$container->hasParameter('chang.packages.geoip.data_source')) {
+        if (!$adapter = $container->getParameter('chang.packages.geo_ip.data_source')['adapter'] ?? null) {
             return;
-        }
-
-        if (!$adapter = $container->getParameter('chang.packages.geoip.data_source')['adapter'] ?? null) {
-            throw new \RuntimeException('"chang.packages.geoip.data_source.adapter" cannot be null.');
         }
 
         $container->setAlias(AdapterInterface::class, $adapter);
