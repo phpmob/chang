@@ -17,7 +17,7 @@
   },
   "require": {
     "php": "^7.2",
-
+    "ext-json": "",
     "adbario/php-dot-notation": "^2.0",
     "beberlei/DoctrineExtensions": "^1.1",
     "bjeavons/zxcvbn-php": "^0.3.0",
@@ -40,6 +40,7 @@
     "twig/extensions": "^1.5"
   },
   "require-dev": {
+    "geoip2/geoip2": "^2.9",
     "phpspec/phpspec": "^4.0",
     "phpunit/phpunit": "^5.6",
     "symfony/symfony": "^4.1"
