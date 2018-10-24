@@ -1,0 +1,63 @@
+imports:
+    - { resource: ./grid.yml }
+
+sylius_resource:
+    resources:
+        chang.security_audit_login:
+            classes:
+                model: Chang\Security\Model\Login
+                interface: Chang\Security\Model\LoginInterface
+doctrine:
+    orm:
+        mappings:
+            ChangSecurityAudit:
+                type: xml
+                is_bundle: false
+                prefix: Chang\SecurityAudit\Model
+                dir: '%chang.dir%/SecurityAudit/Resources/config/doctrine/model'
+framework:
+    translator:
+        paths:
+        - '%chang.dir%/SecurityAudit/Resources/translations'
+twig:
+    paths:
+        '%chang.dir%/SecurityAudit/Resources/views': SecurityAudit
+
+#security:
+#    firewalls:
+#        XXX:
+#            logout:
+#                handlers: [chang.security_audit.login_audit_listener]
+
+services:
+    Chang\SecurityAudit\AuditManagerInterface:
+        alias: 'chang.security_audit.audit_manager'
+
+    chang.security_audit.session_storage:
+        alias: '@session.storage.native'
+
+    chang.security_audit.login_audit_listener:
+        class: Chang\SecurityAudit\EventListener\LoginAuditListener
+        tags: [security.interactive_login, sylius.user.security.implicit_login]
+        public: true
+        arguments:
+        - '@chang.security_audit.audit_manager'
+        - '@chang.security_audit.session_storage'
+        - '@event_dispatcher'
+
+    chang.security_audit.audit_manager:
+        class: Chang\SecurityAudit\AuditManager
+        arguments:
+        - '@chang.geo_ip.data_source'
+        - '@security.token_storage'
+        - '@chang.factory.security_audit_login'
+        - '@chang.manager.security_audit_login'
+        - '@chang.repository.security_audit_login'
+        - '@request_stack'
+        - '@security.firewall.map'
+
+    chang.security_audit.kick_controller:
+        class: Chang\SecurityAudit\KickingOutController
+        arguments:
+        - '@chang.security_audit.session_storage'
+        - '@chang.security_audit.audit_manager'

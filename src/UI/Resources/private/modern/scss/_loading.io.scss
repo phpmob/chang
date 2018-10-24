@@ -63,3 +63,20 @@
     transform: rotate(360deg);
   }
 }
+
+.loader {
+  &--basic {
+    border-radius: 100%;
+    border: 2px solid #dfdfdf;
+    border-bottom-color: transparent;
+    display: inline-block;
+    animation: rotate .75s 0s linear infinite;
+
+    height: 21px;
+    width: 21px;
+  }
+
+  &--primary {
+    border-color: $primary $primary transparent;
+  }
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass name="Chang\SecurityAudit\Model\Login" table="chang_security_audit_login">
+        <id name="id" column="id" type="integer">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <indexes>
+            <index columns="username"/>
+            <index columns="firewall"/>
+            <index columns="session_id"/>
+            <index columns="client_ip"/>
+            <index columns="country"/>
+            <index columns="country_code"/>
+            <index columns="city"/>
+            <index columns="zip"/>
+            <index columns="login_at"/>
+            <index columns="logout_at"/>
+            <index columns="kicked"/>
+        </indexes>
+
+        <field name="username" type="string" length="190" nullable="true"/>
+        <field name="firewall" type="string" length="100" nullable="true"/>
+        <field name="sessionId" type="string" length="190" nullable="true"/>
+        <field name="clientIp" type="string" length="15" nullable="true"/>
+        <field name="country" type="string" length="100" nullable="true"/>
+        <field name="countryCode" type="string" length="5" nullable="true"/>
+        <field name="city" type="string" length="100" nullable="true"/>
+        <field name="zip" type="string" length="20" nullable="true"/>
+        <field name="lifetime" type="integer" nullable="true"/>
+        <field name="loginAt" type="datetime" nullable="true"/>
+        <field name="logoutAt" type="datetime" nullable="true"/>
+        <field name="meta" type="array" nullable="true"/>
+        <field name="kicked" type="boolean" nullable="true"/>
+        <field name="userAgent" type="string" nullable="true"/>
+    </mapped-superclass>
+</doctrine-mapping>

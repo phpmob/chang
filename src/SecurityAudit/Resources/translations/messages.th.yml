@@ -1,0 +1,5 @@
+chang.ui.security_audit:
+    session_id: Session ID
+    login_at: Login At
+    logout_at: Logout At
+    location: Location
