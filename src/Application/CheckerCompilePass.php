@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Chang\Application\Compiler;
+namespace Chang\Application;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
