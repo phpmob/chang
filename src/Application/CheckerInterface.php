@@ -4,19 +4,22 @@ declare(strict_types=1);
 
 namespace Chang\Application;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 interface CheckerInterface
 {
     /**
      * @return string
      */
-    public function getName(): string;
+    public static function getName(): string;
 
     /**
-     * @param array $rows
-     * @param Kernel $kernel
-     * @param ContainerInterface $container
+     * @param string $package
+     * @param string $feature
+     * @param array $config
+     * @param ContainerBuilder $container
+     *
+     * @return string
      */
-    public function check(array &$rows, Kernel $kernel, ContainerInterface $container): void;
+    public function check(string $package, string $feature, array $config, ContainerBuilder $container): string;
 }

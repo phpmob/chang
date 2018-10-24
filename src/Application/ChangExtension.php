@@ -40,6 +40,7 @@ class ChangExtension extends Extension
         self::$config = (new Processor())->processConfiguration(new Configuration(), $configs);
 
         $container->setParameter('chang.driver', self::$config['driver']);
+        $container->setParameter('chang.packages', self::$config['packages']);
 
         foreach ($kernel->getBundles() as $bundle) {
             if ($bundle instanceof PrependConfigureInterface && $configDir = $bundle->getConfigDir()) {

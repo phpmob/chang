@@ -1,0 +1,3 @@
+services:
+    Chang\Redis\Checker:
+        tags: [ chang.checker ]

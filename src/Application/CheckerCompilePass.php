@@ -22,7 +22,7 @@ class CheckerCompilePass implements CompilerPassInterface
         $registry = $container->findDefinition('chang.checker');
 
         foreach ($container->findTaggedServiceIds('chang.checker') as $id => $attributes) {
-            $registry->addMethodCall('register', [$attributes[0]['alias'], new Reference($id)]);
+            $registry->addMethodCall('addChecker', [new Reference($id)]);
         }
     }
 }

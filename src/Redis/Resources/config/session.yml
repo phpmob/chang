@@ -20,7 +20,9 @@ services:
 
 # check to make sure
 # ./bin/console debug:config framework | grep session
-# TODO: Checker Command
 framework:
     session:
         handler_id: chang.redis.session_handler
+
+imports:
+    - { resource: ./checker.yml }

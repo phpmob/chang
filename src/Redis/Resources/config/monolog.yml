@@ -28,3 +28,6 @@ monolog:
         main:
             type: service
             id: chang.redis.monolog_handler
+
+imports:
+    - { resource: ./checker.yml }
