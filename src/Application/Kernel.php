@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Chang\Application;
 
+use Chang\SecurityAudit\Compiler\CheckerCompilePass;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
@@ -54,13 +55,12 @@ class Kernel extends BaseKernel implements CompilerPassInterface
         $confDir = $this->getProjectDir() . '/config';
 
         ChangExtension::loadPrependConfigure($this, $container, $loader);
+        ChangExtension::loadPackages($container, $loader);
 
         $loader->load($confDir . '/{packages}/*' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{packages}/' . $this->environment . '/**/*' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{services}' . self::CONFIG_EXTS, 'glob');
         $loader->load($confDir . '/{services}_' . $this->environment . self::CONFIG_EXTS, 'glob');
-
-        ChangExtension::loadPackages($container, $loader);
     }
 
     /**
@@ -80,9 +80,6 @@ class Kernel extends BaseKernel implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        foreach ($container->getParameter('chang.compilers') as $class) {
-            (new $class)->process($container);
-        }
     }
 
     /**
@@ -90,5 +87,10 @@ class Kernel extends BaseKernel implements CompilerPassInterface
      */
     protected function build(ContainerBuilder $container)
     {
+        $container->addCompilerPass(new CheckerCompilePass());
+
+        foreach ($container->getParameter('chang.compilers') as $class) {
+            $container->addCompilerPass(new $class);
+        }
     }
 }

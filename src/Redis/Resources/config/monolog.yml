@@ -22,6 +22,7 @@ services:
 
 # check to make sure
 # ./bin/console debug:config monolog
+# TODO: Checker Command
 monolog:
     handlers:
         main:

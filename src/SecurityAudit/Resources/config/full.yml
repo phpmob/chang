@@ -1,3 +1,7 @@
+parameters:
+    chang.packages.security_audit.compilers:
+        - Chang\SecurityAudit\Compiler\SessionStorageCompilePass
+
 imports:
     - { resource: ./grid.yml }
 
@@ -5,8 +9,8 @@ sylius_resource:
     resources:
         chang.security_audit_login:
             classes:
-                model: Chang\Security\Model\Login
-                interface: Chang\Security\Model\LoginInterface
+                model: Chang\SecurityAudit\Model\Login
+                interface: Chang\SecurityAudit\Model\LoginInterface
 doctrine:
     orm:
         mappings:
