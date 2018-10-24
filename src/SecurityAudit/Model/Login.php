@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Chang\Security\Model;
+namespace Chang\SecurityAudit\Model;
 
 class Login implements LoginInterface
 {
