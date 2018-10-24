@@ -22,3 +22,6 @@ services:
             - '@security.token_storage'
             - '@=service("chang.option_resolver").get("verification.phone_number.target_url")'
             - '@=service("chang.option_resolver").get("verification.phone_number.ignored_request")'
+
+imports:
+    - { resource: ./checker.yml }

@@ -52,6 +52,14 @@ class CheckerCommand extends ContainerAwareCommand
         $headers = ['Package', 'Feature', 'Enabled', 'Configure Status'];
         $rows = [];
 
+        foreach (array_keys($this->checkers) as $package) {
+            if (array_key_exists($package, $packages)) {
+                continue;
+            }
+
+            $packages[$package] = [];
+        }
+
         ksort($packages);
 
         foreach ($packages as $package => $features) {

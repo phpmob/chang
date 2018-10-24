@@ -1,0 +1,3 @@
+services:
+    Chang\Verification\Checker:
+        tags: [ chang.checker ]
