@@ -3,3 +3,6 @@ chang.ui.security_audit:
     login_at: Login At
     logout_at: Logout At
     location: Location
+    session: Session
+    timing: Timing
+    client: Client

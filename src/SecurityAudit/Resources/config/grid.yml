@@ -6,23 +6,26 @@ sylius_grid:
                     class: "%chang.model.security_audit_login.class%"
                     repository:
                         method: createQueryBuilderByUsername
-                        arguments: [ expr:service('security.token_storage').getToken().getUser() ]
+                        arguments: [ expr:service('security.token_storage').getToken().getUser().getUsername() ]
             limits: [10]
             sorting:
                 loginAt: desc
             fields:
-                sessionId:
-                    type: text
-                    label: chang.ui.security_audit.session_id
-                loginAt:
-                    type: localizeddate
-                    label: chang.ui.security_audit.login_at
-                    sortable: ~
-                logoutAt:
-                    type: localizeddate
-                    label: chang.ui.security_audit.logout_at
-                    sortable: ~
+                session:
+                    type: tpl
+                    label: chang.ui.security_audit.session
+                    path: .
+                    options:
+                        template: '@SecurityAudit/grid/field/session.html.twig'
+                timing:
+                    type: tpl
+                    label: chang.ui.security_audit.timing
+                    path: .
+                    options:
+                        template: '@SecurityAudit/grid/field/timing.html.twig'
                 location:
                     type: tpl
                     label: chang.ui.security_audit.location
                     path: .
+                    options:
+                        template: '@SecurityAudit/grid/field/location.html.twig'

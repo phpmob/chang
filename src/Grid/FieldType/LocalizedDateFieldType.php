@@ -34,14 +34,14 @@ class LocalizedDateFieldType extends AbstractLinkableFieldType
 
         $field->setOptions($options);
 
-        return $this->link(twig_localized_date_filter(
+        return $data ? $this->link(twig_localized_date_filter(
             $this->twig,
             $data,
             $options['dateFormat'],
             $options['timeFormat'],
             $options['locale'],
             $options['timezone']
-        ), $options);
+        ), $options) : '';
     }
 
     /**

@@ -1,0 +1,5 @@
+{% if 'NA' == data.country and 'NA' == data.city %}
+    <span class="badge badge-danger">NA</span>
+{% else %}
+    {{ data.countryCode|upper }} - {{ data.country }}, {{ data.city }} {{ data.zip }}
+{% endif %}
