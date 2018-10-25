@@ -4,6 +4,9 @@ sylius_grid:
             driver:
                 options:
                     class: "%chang.model.security_audit_login.class%"
+                    repository:
+                        method: createQueryBuilderByUsername
+                        arguments: [ expr:service('security.token_storage').getToken().getUser() ]
             limits: [10]
             sorting:
                 loginAt: desc

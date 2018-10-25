@@ -11,6 +11,7 @@ sylius_resource:
             classes:
                 model: Chang\SecurityAudit\Model\Login
                 interface: Chang\SecurityAudit\Model\LoginInterface
+                repository: Chang\SecurityAudit\Doctrine\ORM\AuditRepository
 doctrine:
     orm:
         mappings:
