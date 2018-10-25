@@ -1,9 +1,9 @@
 parameters:
     chang.packages.security_audit.compilers:
-        - Chang\SecurityAudit\Compiler\SessionStorageCompilePass
+    - Chang\SecurityAudit\Compiler\SessionStorageCompilePass
 
 imports:
-    - { resource: ./grid.yml }
+- { resource: ./grid.yml }
 
 sylius_resource:
     resources:
@@ -42,8 +42,9 @@ services:
 
     chang.security_audit.login_audit_listener:
         class: Chang\SecurityAudit\EventListener\LoginAuditListener
-        tags: [security.interactive_login, sylius.user.security.implicit_login]
-        public: true
+        tags:
+        - { name: kernel.event_listener, event: security.interactive_login, method: onLoginSuccess }
+        - { name: kernel.event_listener, event: sylius.user.security.implicit_login, method: onLoginSuccess }
         arguments:
         - '@chang.security_audit.audit_manager'
         - '@chang.security_audit.session_storage'

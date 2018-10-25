@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Chang\SecurityAudit;
 
 use Chang\GeoIp\DataSourceInterface;
-use Chang\Security\Model\LoginInterface;
+use Chang\SecurityAudit\Model\LoginInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
