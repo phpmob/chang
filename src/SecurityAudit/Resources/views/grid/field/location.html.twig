@@ -3,3 +3,5 @@
 {% else %}
     {{ data.countryCode|upper }} - {{ data.country }}, {{ data.city }} {{ data.zip }}
 {% endif %}
+<br>
+<strong class="badge badge-info">{{ 'chang.ui.security_audit.client'|trans }}</strong> <small>{{ data.userAgent }}</small>

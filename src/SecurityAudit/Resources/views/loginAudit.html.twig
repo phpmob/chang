@@ -1,0 +1,15 @@
+{% extends ctx_page.get('layout', '@ui/modern/layout.html.twig') %}
+{% import '@ui/base/macro/paginate.html.twig' as paginate %}
+
+{% block content %}
+    <div class="card">
+        <div class="table-responsive">
+            {% include '@ui/modern/grid/render.html.twig' %}
+        </div>
+        <div class="card-footer">
+            <div class="ml-auto">
+                {{ paginate.basic(resources.data) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

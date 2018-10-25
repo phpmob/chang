@@ -11,12 +11,10 @@ sylius_grid:
             sorting:
                 loginAt: desc
             fields:
-                session:
-                    type: tpl
-                    label: chang.ui.security_audit.session
-                    path: .
-                    options:
-                        template: '@SecurityAudit/grid/field/session.html.twig'
+                loginAt:
+                    type: datetime
+                    sortable: ~
+                    enabled: false
                 timing:
                     type: tpl
                     label: chang.ui.security_audit.timing
@@ -29,3 +27,9 @@ sylius_grid:
                     path: .
                     options:
                         template: '@SecurityAudit/grid/field/location.html.twig'
+                action:
+                    type: tpl
+                    label: chang.ui.security_audit.action
+                    path: .
+                    options:
+                        template: '@SecurityAudit/grid/field/action.html.twig'

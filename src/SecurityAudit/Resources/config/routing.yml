@@ -1,0 +1,14 @@
+chang_security_audit_kickout:
+    path: /kickout/{sessionId}
+    methods: [ GET ]
+    defaults:
+        _controller: chang.security_audit.kick_controller::kickAction
+
+chang_security_audit_index:
+    path: /index
+    methods: [ GET ]
+    defaults:
+        _controller: chang.controller.security_audit_login::indexAction
+        _sylius:
+            template: '@SecurityAudit/loginAudit.html.twig'
+            grid: security_audit_grid

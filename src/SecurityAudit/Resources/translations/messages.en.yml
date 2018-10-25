@@ -6,3 +6,4 @@ chang.ui.security_audit:
     session: Session
     timing: Timing
     client: Client
+    action: Action

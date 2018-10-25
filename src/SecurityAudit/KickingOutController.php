@@ -34,6 +34,8 @@ class KickingOutController
      */
     public function kickAction(Request $request, string $sessionId): RedirectResponse
     {
+        // FIXME: can't destroy without delete all current cookie,
+        // TODO: implement session delete
         $this->sessionStorage->getSaveHandler()->destroy($sessionId);
         $this->auditManager->kicking($sessionId);
 

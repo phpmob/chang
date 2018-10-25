@@ -1,0 +1,10 @@
+{% if data.sessionId == app.request.session.id %}
+    CURRENT
+{% else %}
+    {% if data.logoutAt or data.expired %}
+    {% else %}
+        <a class="btn btn-outline-secondary"
+           data-confirm
+           href="{{ path('chang_security_audit_kickout', { sessionId: data.sessionId }) }}">{{ 'chang.ui.logout'|trans }}</a>
+    {% endif %}
+{% endif %}

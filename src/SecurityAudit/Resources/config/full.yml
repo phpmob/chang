@@ -63,6 +63,7 @@ services:
 
     chang.security_audit.kick_controller:
         class: Chang\SecurityAudit\KickingOutController
+        public: true
         arguments:
         - '@chang.security_audit.session_storage'
         - '@chang.security_audit.audit_manager'

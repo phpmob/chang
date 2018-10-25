@@ -1,2 +1,2 @@
 <strong>{{ 'chang.ui.security_audit.login_at'|trans }}</strong> {{ data.loginAt|localizeddate }}<br>
-<strong>{{ 'chang.ui.security_audit.logout_at'|trans }}</strong> {{ data.logoutAt|localizeddate }}
+<strong>{{ 'chang.ui.security_audit.logout_at'|trans }}</strong> {{ data.logoutAt ? data.logoutAt|localizeddate : '~' }}
