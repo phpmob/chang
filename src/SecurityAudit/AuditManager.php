@@ -11,7 +11,6 @@ use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Bundle\SecurityBundle\Security\FirewallMap;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Http\FirewallMapInterface;
 
@@ -43,11 +42,6 @@ class AuditManager implements AuditManagerInterface
     private $loginAuditRepository;
 
     /**
-     * @var RequestStack
-     */
-    private $requestStack;
-
-    /**
      * @var FirewallMapInterface
      */
     private $firewallMap;
@@ -58,7 +52,6 @@ class AuditManager implements AuditManagerInterface
         FactoryInterface $loginAuditFactory,
         ObjectManager $loginAuditManager,
         RepositoryInterface $loginAuditRepository,
-        RequestStack $requestStack,
         FirewallMapInterface $firewallMap
     )
     {
@@ -67,16 +60,11 @@ class AuditManager implements AuditManagerInterface
         $this->loginAuditFactory = $loginAuditFactory;
         $this->loginAuditManager = $loginAuditManager;
         $this->loginAuditRepository = $loginAuditRepository;
-        $this->requestStack = $requestStack;
         $this->firewallMap = $firewallMap;
     }
 
-    private function createLoginAudit(): ?LoginInterface
+    private function createLoginAudit(Request $request): LoginInterface
     {
-        if (!$request = $this->requestStack->getCurrentRequest()) {
-            return null;
-        }
-
         $clientIp = \trim(\explode(',', \strval($request->getClientIp()))[0]);
         $token = $this->tokenStorage->getToken();
         $geoIp = $this->geoIpDataSource->getData($clientIp);
@@ -111,9 +99,9 @@ class AuditManager implements AuditManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function login(string $sessionId): void
+    public function login(Request $request, string $sessionId): void
     {
-        if (!$login = $this->createLoginAudit()) {
+        if (!$login = $this->createLoginAudit($request)) {
             return;
         }
 

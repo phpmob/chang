@@ -8,6 +8,7 @@ use Chang\SecurityAudit\AuditManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
+use Symfony\Component\HttpKernel\Event\PostResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface;
 
@@ -41,8 +42,8 @@ class LoginAuditListener implements LogoutSuccessHandlerInterface
 
     public function onLoginSuccess()
     {
-        $this->dispatcher->addListener(KernelEvents::TERMINATE, function () {
-            $this->auditManager->login($this->sessionStorage->getId());
+        $this->dispatcher->addListener(KernelEvents::TERMINATE, function (PostResponseEvent $event) {
+            $this->auditManager->login($event->getRequest(), $this->sessionStorage->getId());
         });
     }
 

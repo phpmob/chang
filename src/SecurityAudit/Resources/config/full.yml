@@ -58,7 +58,6 @@ services:
         - '@chang.factory.security_audit_login'
         - '@chang.manager.security_audit_login'
         - '@chang.repository.security_audit_login'
-        - '@request_stack'
         - '@security.firewall.map'
 
     chang.security_audit.kick_controller:
