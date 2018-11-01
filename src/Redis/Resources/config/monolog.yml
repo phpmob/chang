@@ -25,9 +25,11 @@ services:
 # TODO: Checker Command
 monolog:
     handlers:
-        main:
+        chang_redis:
             type: service
             id: chang.redis.monolog_handler
+#        main:
+#            handler: chang_redis
 
 imports:
     - { resource: ./checker.yml }
