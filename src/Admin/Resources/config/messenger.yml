@@ -55,7 +55,7 @@ services:
         class: Chang\Messenger\Worker\WorkerController
         arguments:
             - '@chang.messenger.worker_hash_handler'
-            - '@messenger.transport.decoder'
+            - '@messenger.transport.symfony_serializer'
             - '@messenger.bus.admin'
 
     chang.messenger.admin_inbox_manager:

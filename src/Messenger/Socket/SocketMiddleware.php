@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Chang\Messenger\Socket;
 
 use Chang\Messenger\Message\AbstractPushMessage;
-use Symfony\Component\Messenger\Asynchronous\Transport\ReceivedMessage;
 use Symfony\Component\Messenger\Envelope;
-use Symfony\Component\Messenger\EnvelopeAwareInterface;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
+use Symfony\Component\Messenger\Middleware\StackInterface;
+use Symfony\Component\Messenger\Stamp\ReceivedStamp;
 
-class SocketMiddleware implements MiddlewareInterface, EnvelopeAwareInterface
+class SocketMiddleware implements MiddlewareInterface
 {
     /**
      * @var string
@@ -29,28 +29,26 @@ class SocketMiddleware implements MiddlewareInterface, EnvelopeAwareInterface
     }
 
     /**
-     * @param object|Envelope $message
-     * @param callable $next
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
-    public function handle($message, callable $next)
+    public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
+        $message = $envelope->getMessage();
         $msg = $message->getMessage();
 
         if (!$msg instanceof AbstractPushMessage) {
-            return $next($message);
+            return $stack->next()->handle($envelope, $stack);
         }
 
         // ignore add `{$this->key}` extra when bus receive
-        if (Envelope::wrap($message)->get(ReceivedMessage::class)) {
-            return $next($message);
+        if (0 === \count($envelope->all(ReceivedStamp::class))) {
+            return $stack->next()->handle($envelope, $stack);
         }
 
         $msg->addExtra($this->key, [
             'prefix' => $this->prefix,
         ]);
 
-        return $next($message);
+        return $stack->next()->handle($envelope, $stack);
     }
 }

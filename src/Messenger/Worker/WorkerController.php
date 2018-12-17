@@ -8,9 +8,9 @@ use Chang\Messenger\Message\AbstractMessage;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\Asynchronous\Transport\ReceivedMessage;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Messenger\Transport\Serialization\DecoderInterface;
+use Symfony\Component\Messenger\Stamp\ReceivedStamp;
+use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 
 class WorkerController
 {
@@ -25,11 +25,11 @@ class WorkerController
     private $bus;
 
     /**
-     * @var DecoderInterface
+     * @var SerializerInterface
      */
     private $decoder;
 
-    public function __construct(HashHandlerInterface $hashHandler, DecoderInterface $decoder, MessageBusInterface $bus)
+    public function __construct(HashHandlerInterface $hashHandler, SerializerInterface $decoder, MessageBusInterface $bus)
     {
         $this->hashHandler = $hashHandler;
         $this->decoder = $decoder;
@@ -53,7 +53,7 @@ class WorkerController
             $result = $this->bus->dispatch($this->decoder->decode([
                 'body' => $request->getContent(),
                 'headers' => ['type' => $request->headers->get('x-chang-msg-type')],
-            ])->with(new ReceivedMessage()));
+            ])->with(new ReceivedStamp()));
         } catch (\Exception $e) {
             return JsonResponse::create(['message' => $e->getMessage()], 500);
         }

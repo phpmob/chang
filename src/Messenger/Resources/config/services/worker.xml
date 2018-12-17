@@ -7,7 +7,7 @@
     <services>
         <service id="chang.messenger.worker_controller" class="Chang\Messenger\Worker\WorkerController" public="true">
             <argument type="service" id="chang.messenger.worker_hash_handler"/>
-            <argument type="service" id="messenger.transport.decoder"/>
+            <argument type="service" id="messenger.transport.symfony_serializer"/>
         </service>
         <service id="chang.messenger.worker_hash_handler" class="Chang\Messenger\Worker\HashHandler">
             <argument type="service" id="chang.manager.hash_storage"/>

@@ -53,7 +53,7 @@ services:
         class: Chang\Messenger\Worker\WorkerController
         arguments:
             - '@chang.messenger.worker_hash_handler'
-            - '@messenger.transport.decoder'
+            - '@messenger.transport.symfony_serializer'
             - '@messenger.bus.web'
 
     chang.messenger.web_inbox_manager:
