@@ -32,7 +32,6 @@
     "richardfullmer/rabbitmq-management-api": "^2.0",
     "sly/notification-pusher": "^2.3",
     "sylius/fixtures-bundle": "^1.2",
-    "sylius/locale-bundle": "^1.2",
     "sylius/mailer-bundle": "^1.2",
     "sylius/grid-bundle": "^1.2",
     "sylius/resource-bundle": "^1.2",
