@@ -36,7 +36,9 @@
     "sylius/grid-bundle": "^1.2",
     "sylius/resource-bundle": "^1.2",
     "sylius/user-bundle": "^1.2",
-    "twig/extensions": "^1.5"
+    "twig/extensions": "^1.5",
+    "symfony/security-bundle": "4.2.*",
+    "symfony/swiftmailer-bundle": "^3.2"
   },
   "require-dev": {
     "geoip2/geoip2": "^2.9",
