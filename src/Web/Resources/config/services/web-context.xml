@@ -6,7 +6,7 @@
     <services>
         <service id="chang.context.web_context" class="Chang\Web\Context\WebPageContext">
             <argument type="service" id="chang.context.page"/>
-            <argument type="service" id="chang.repository.web_inbox"/>
+            <argument type="service" id="chang.repository.web_inbox" on-invalid="null"/>
         </service>
     </services>
 </container>

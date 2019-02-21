@@ -24,7 +24,7 @@ class AdminPageContext implements PageContextInterface
      */
     private $inboxRepository;
 
-    public function __construct(PageContextInterface $pageContext, RepositoryInterface $inboxRepository)
+    public function __construct(PageContextInterface $pageContext, RepositoryInterface $inboxRepository = null)
     {
         $this->decoratedContext = $pageContext;
         $this->inboxRepository = $inboxRepository;
@@ -107,10 +107,12 @@ class AdminPageContext implements PageContextInterface
      */
     public function getInbox(): ?InboxInterface
     {
-        if ($user = $this->getUser()) {
-            return $this->inboxRepository->findOneBy(['user' => $user]);
+        $user = $this->getUser();
+
+        if (null === $this->inboxRepository || null === $user) {
+            return null;
         }
 
-        return null;
+        return $this->inboxRepository->findOneBy(['user' => $user]);
     }
 }
