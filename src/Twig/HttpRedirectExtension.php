@@ -12,7 +12,8 @@ class HttpRedirectExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('chang_http_redirect', function (string $url, int $status = 302) {
+            new \Twig_SimpleFunction('chang_http_redirect', function (string $url, int $status = null) {
+                $status = $status ?: 302;
                 ob_get_clean();
                 header("HTTP/1.1 $status Moved Permanently");
                 header("Location: $url");
