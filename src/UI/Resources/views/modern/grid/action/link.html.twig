@@ -2,6 +2,7 @@
 {% set path = options.url is defined ? options.url : path(options.route, options.parameters|default([])) %}
 {% set attr = attrs({
     href: path,
+    target: options.target|default('_self'),
     class: options.class|default('btn btn-outline-secondary'),
 }|merge(options.attr|default({}))) %}
 <a {{ attr|raw }}>
