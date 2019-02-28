@@ -12,7 +12,7 @@
     const handler = ($el) => {
         let btnClass = 'btn-green';
         let icon = 'far fa-question-circle';
-        let $target = hasAttr($el, 'data-confirm') ? $el : $el.closest('data-confirm');
+        let $target = hasAttr($el, 'data-confirm') ? $el : $el.closest('[data-confirm]');
         let $form = $el.closest('form').length ? $el.closest('form') : null;
         const isAjaxForm = $form && hasAttr($form, 'data-ajax-form');
 
