@@ -1,8 +1,7 @@
 <nav class="menu-main is-dark">
     <ul class="menu-main-inner">
-        <li class="main-logo" title="{{ 'Home' }}">
-            <a href="/">
-                {#<img src="..." alt="">#}
+        <li class="main-logo" title="{{ ctx_page.get('site.name', 'Home') }}">
+            <a href="{{ ctx_page.get('site.url', '/') }}">
                 {{ ui_mt_icon('flight_takeoff') }}
             </a>
         </li>
