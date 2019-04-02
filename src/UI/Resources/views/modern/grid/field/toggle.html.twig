@@ -1,4 +1,4 @@
-{% set value = attribute(data, options.property) %}
+{% set value = attribute(data, options.property)|default %}
 {% set off_label = options.off_label|trans %}
 {% set on_label = options.on_label|trans %}
 {% set label = value ? on_label : off_label %}
