@@ -223,3 +223,23 @@
     {%- set attr = attr|merge({class: (attr.class|default('') ~ ' custom-select')|trim}) -%}
     {{- parent() -}}
 {%- endblock choice_widget_collapsed %}
+
+{% block sylius_resource_autocomplete_choice_row %}
+    {% set chooser = {
+        maxItems: multiple ? null : 1,
+        remote: {
+            grid: true,
+            query_search_key: 'search',
+        }
+    }|merge_deep(chooser|default([])) %}
+    <div class="form-group">
+        {{- form_label(form) -}}
+        {{- form_widget(form, {
+            'attr': {
+                'placeholder': placeholder is defined ? placeholder|trans : '',
+                'data-chooser' : chooser|json_encode,
+            }
+        }) -}}
+        {{- form_errors(form) -}}
+    </div>
+{% endblock %}
