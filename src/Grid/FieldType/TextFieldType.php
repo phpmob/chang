@@ -6,6 +6,7 @@ namespace Chang\Grid\FieldType;
 
 use Sylius\Component\Grid\Definition\Field;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\PropertyAccess\Exception\UnexpectedTypeException;
 
 class TextFieldType extends AbstractLinkableFieldType
 {
@@ -14,7 +15,12 @@ class TextFieldType extends AbstractLinkableFieldType
      */
     public function render(Field $field, $data, array $options)
     {
-        $value = $this->dataExtractor->get($field, $data);
+        try {
+            $value = $this->dataExtractor->get($field, $data);
+        } catch (UnexpectedTypeException $e) {
+            $value = null;
+        }
+
         $field->setOptions($options);
 
         return $this->link(is_string($value) ? $value : (is_array($value) ? implode(',', $value) : $value), $options);
