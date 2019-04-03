@@ -1,4 +1,8 @@
 services:
+    Chang\Form\Type\AutocompleteChoiceType:
+        tags: [form.type]
+        parent: sylius.form.type.resource_autocomplete_choice
+
     Chang\Form\Type\ResourceType:
         tags: [form.type]
 
