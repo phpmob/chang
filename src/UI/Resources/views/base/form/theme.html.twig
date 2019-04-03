@@ -230,6 +230,8 @@
         remote: {
             grid: true,
             query_search_key: 'search',
+            value: choice_value|default('id'),
+            text: choice_name|default('text'),
         }
     }|merge_deep(chooser|default([])) %}
     <div class="form-group">

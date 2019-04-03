@@ -59,7 +59,7 @@ window.ChangChooser = function (selector, scope) {
         }
 
         if ($target.data('tags')) {
-            options.create = function(input) {
+            options.create = function (input) {
                 if (input.length < 3) {
                     return false;
                 }
@@ -83,7 +83,11 @@ window.ChangChooser = function (selector, scope) {
 
         // disable typing for filter
         if (options.filter_disabled) {
-            options.score = function() { return function() { return 1; }; }; //https://stackoverflow.com/a/35920145
+            options.score = function () {
+                return function () {
+                    return 1;
+                };
+            }; //https://stackoverflow.com/a/35920145
             delete options.filter_disabled;
         }
 
@@ -182,8 +186,12 @@ window.ChangChooser = function (selector, scope) {
                     type: 'GET',
                     url: url,
                     data: opt.data,
-                    complete: function () {me.enable()},
-                    error: function () {callback()},
+                    complete: function () {
+                        me.enable()
+                    },
+                    error: function () {
+                        callback()
+                    },
                     success: function (res) {
                         var data, items;
 
@@ -202,9 +210,12 @@ window.ChangChooser = function (selector, scope) {
                                 item: it
                             });
                         });
-                        
+
                         // fix it's not open after loaded
-                        setTimeout(function () { me.blur(); me.focus(); }, 1);
+                        setTimeout(function () {
+                            me.blur();
+                            me.focus();
+                        }, 1);
 
                         return callback(items);
                     }
@@ -268,6 +279,7 @@ window.ChangChooser = function (selector, scope) {
 
             s.load(function (callback) {
                 var criteria = {};
+                // Need to config grid.filters.[remote.value]
                 criteria[remote.value] = {
                     type: 'in',
                     value: vals
@@ -278,15 +290,16 @@ window.ChangChooser = function (selector, scope) {
                     criteria: criteria
                 };
 
-                var m = this;
-                m.clearOptions();
-
                 return loader.call(this, function (items) {
-                    callback(items);
+                    setTimeout(function () {
+                        s.clear(true);
+                        s.clearOptions();
+                        callback(items);
 
-                    for (var i in items) {
-                        m.addItem(items[i].value);
-                    }
+                        for (var i in items) {
+                            s.addItem(items[i].value);
+                        }
+                    }, 1);
                 });
             });
         };
