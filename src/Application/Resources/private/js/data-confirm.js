@@ -91,13 +91,14 @@
     };
 
     $(document).on('click', selectors.join(','), function (e) {
-        e.preventDefault();
         const $el = $(this);
 
         // click on form
         if ($el.is('form')) {
             return;
         }
+
+        e.preventDefault();
 
         return handler($el);
     });
